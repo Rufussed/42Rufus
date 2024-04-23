@@ -1,5 +1,5 @@
 # ignore .git files in subdirectories
-**/.git/
+libft/.git/
 
 # Prerequisites
 *.d
