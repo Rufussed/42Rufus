@@ -1,3 +1,6 @@
+# ignore .git files in subdirectories
+**/.git/
+
 # Prerequisites
 *.d
 
