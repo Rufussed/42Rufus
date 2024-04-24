@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 16:48:09 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/23 17:22:48 by rlane            ###   ########.fr       */
+/*   Updated: 2024/04/24 12:16:37 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 //  nmemb is number of members, size is number of bytes per member
 
-void	*calloc(size_t nmemb, size_t size)
+void	*ft_calloc(size_t nmemb, size_t size)
 {
 	unsigned char	*buffer;
 	size_t			i;

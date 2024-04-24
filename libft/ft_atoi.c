@@ -6,20 +6,13 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:01:24 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/23 18:35:25 by rlane            ###   ########.fr       */
+/*   Updated: 2024/04/24 11:33:00 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isdigit(char c)
-{
-	if (c >= '0' && c <= '9')
-		return (1);
-	return (0);
-}
-
-int	ft_isspace(char c)
+static int	ft_isspace(char c)
 {
 	if ((c >= 9 && c <= 13) || (c == 32))
 		return (1);

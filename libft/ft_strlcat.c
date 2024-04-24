@@ -6,21 +6,11 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/18 09:49:59 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/23 17:40:10 by rlane            ###   ########.fr       */
+/*   Updated: 2024/04/24 11:42:51 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-size_t	ft_strlen(char *str)
-{
-	size_t	i;
-
-	i = 0;
-	while (str[i])
-		i++;
-	return (i);
-}
 
 // append at most (size - strlen(dst) - 1)
 // return initial length of dst plus the length of src
