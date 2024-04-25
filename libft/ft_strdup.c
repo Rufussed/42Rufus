@@ -6,29 +6,29 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:24:47 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/24 12:16:04 by rlane            ###   ########.fr       */
+/*   Updated: 2024/04/25 16:51:04 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+//#include "ft_strlcpy.c"
+//#include "ft_strlen.c"
+
+// returns a pointer to a new string which is
+// a duplicate of the string s.  Memory for the new string is
+// obtained with malloc(3), and can be freed with free(3).
+
 char	*ft_strdup(const char *s)
 {
-	size_t	s_len;
-	size_t	i;
 	char	*dest;
+	size_t	s_len;
 
 	s_len = ft_strlen((char *)s);
 	dest = malloc(s_len + 1);
 	if (dest == NULL)
 		return (NULL);
-	i = 0;
-	while (i < s_len)
-	{
-		dest[i] = s[i];
-		i++;
-	}
-	dest[i] = '\0';
+	ft_strlcpy(dest, s, s_len + 1);
 	return (dest);
 }
 /*

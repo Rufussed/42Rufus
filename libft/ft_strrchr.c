@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 08:56:20 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/24 12:14:06 by rlane            ###   ########.fr       */
+/*   Updated: 2024/04/24 17:38:02 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,14 @@
 
 char	*ft_strrchr(const char *s, int c)
 {
-	int	i;
-	int	s_len;
+	size_t	i;
 
-	c = (unsigned char)c;
-	s_len = ft_strlen((char *)s);
-	i = s_len;
-	while (i >= 0)
+	i = ft_strlen((const char *)s) + 1;
+	while (i > 0)
 	{
-		if (s[i] == c)
-			return ((char *)&s[i]);
 		i--;
+		if (s[i] == (char)c)
+			return ((char *)&s[i]);
 	}
 	return (NULL);
 }

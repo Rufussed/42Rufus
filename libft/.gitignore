@@ -1,0 +1,18 @@
+libft-tester/
+# Object files
+*.o
+
+# Executable and test files
+a.out
+test
+*.out
+
+# Editor and IDE files
+*.swp
+*~
+.vscode/
+.DS_Store
+
+# Directory-specific artifacts
+bin/
+obj/

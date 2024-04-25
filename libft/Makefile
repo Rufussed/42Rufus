@@ -6,7 +6,7 @@
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 11:13:02 by rlane             #+#    #+#              #
-#    Updated: 2024/04/24 12:35:15 by rlane            ###   ########.fr        #
+#    Updated: 2024/04/25 19:24:31 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,13 @@ SRC = $(addsuffix .c, \
 	ft_strnstr \
 	ft_atoi \
 	ft_calloc \
-	ft_strdup)
+	ft_strdup \
+	ft_substr \
+	ft_strjoin \
+	ft_strtrim \
+	ft_split \
+	ft_itoa \
+	)
 
 
 # OBJS is a variable containing all .o filenames.
@@ -167,14 +173,14 @@ $(NAME): $(OBJS)
 # $@: This corresponds to the name of the target : what is on the left
 #     side of the colon.
 %.o: %.c
-    $(CC) $(CPPFLAGS) $(CCFLAGS) -o $@ -c $<
+	$(CC) $(CPPFLAGS) $(CCFLAGS) -o $@ -c $<
 
 # CLEAN rule has no prerequisites
 # What it does is use the $(RM) alias variable followed by the content of
 # the OBJS_ALL variable, that is, every .o filenames.
 # This results in all the .o files being deleted.
 clean:
-    $(RM) $(OBJS_ALL)
+	$(RM) $(OBJS_ALL)
 
 # FCLEAN rule has as prerequisite the CLEAN rule, which means that the 
 # CLEAN rule will be run first. 
@@ -182,7 +188,7 @@ clean:
 # This results in all the .io files being deleted, as well as the created
 # library because it has the name $(NAME)
 fclean: clean
-    $(RM) $(NAME)
+	$(RM) $(NAME)
 
 # RE rule has as prerequisites the FCLEAN and ALL rules.
 # As the prerequisite are read from left to right, the first rule to be
@@ -201,8 +207,8 @@ re: fclean all
 # ARNAME : ar rcs $(NAME)
 # RANNAME : ranlib $(NAME)
 bonus: $(OBJS_BASBO)
-    $(ARNAME) $(OBJS_BASBO)
-    $(RANNAME)
+	$(ARNAME) $(OBJS_BASBO)
+	$(RANNAME)
 
 # The bonus rule works the same way as the $(NAME) rule but instead of
 # having the OBJS variable as dependency, it has the OBJS_ALL variable.
@@ -214,5 +220,5 @@ bonus: $(OBJS_BASBO)
 # ARNAME : ar rcs $(NAME)
 # RANNAME : ranlib $(NAME)
 everything: $(OBJS_ALL)
-    $(ARNAME) $(OBJS_ALL)
-    $(RANNAME)
+	$(ARNAME) $(OBJS_ALL)
+	$(RANNAME)
