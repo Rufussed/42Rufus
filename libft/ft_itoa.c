@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42berlin.de>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 16:58:16 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/26 11:35:51 by marvin           ###   ########.fr       */
+/*   Updated: 2024/04/26 11:35:51 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,49 +16,95 @@
 // representing the integer received as an argument.
 // Negative numbers must be handled.
 
-static int	ft_isspace(char c)
+size_t	ft_count_elements(int n)
 {
-	if ((c >= 9 && c <= 13) || (c == 32))
-		return (1);
-	else
-		return (0);
+	size_t	i;
+
+	i = 1;
+	if (n < 0)
+	{
+		n = -n;
+		i++;
+	}
+	while(n >= 10)
+	{
+		n = n / 10;
+		i++;
+	}
+	return (i);
+}
+
+void	ft_num_to_str(int nb, size_t i, char *s) 
+{
+	if (nb < 0) 
+	{
+		s[0] = '-';
+		nb = -nb;
+	}
+	while (i > 0)
+	{
+		i--;
+		s[i] = (nb % 10) + '0';
+		nb /= 10;	
+	}
 }
 
 char	*ft_itoa(int n)
 {
-	int	num;
-	int	sign;
-
-	num = 0;
-	sign = 1;
-	while (ft_isspace(*nptr)) 
-		nptr++;
-	if (*nptr == '-' || *nptr == '+')
+	char	*str;
+	size_t	str_len;
+	int	min_int;
+	
+	min_int = 0;
+	if (n == -2147483648)
 	{
-		if (*nptr == '-')
-			sign = -1;
-		nptr++;
+		n++;
+		min_int = 1;
 	}
-	while (ft_isdigit(*nptr))
-	{
-		num = num * 10 + (*nptr - '0');
-		nptr++;
-	}
-	return (num * sign);
+	str_len = ft_count_elements(n);
+	str = malloc(sizeof(char) * (str_len + 1));
+	if (!str)
+		return (NULL);
+	ft_num_to_str(n, str_len, str);
+	if (n < 0)
+		str[0] = '-';
+	str[str_len + 1] = '\0';
+	if (min_int)
+		str[str_len - 1] = '8';
+	return (str);
 }
-
 /*
-#include <stdio.h>
-int	main(int argc, char **argv)
+int	main(void)
 {
-	if (argc != 2)
-	{
-	printf("Arguments: a_number_string\n");
-	return (-1);
-	}
+	int	nb;
+	
+	nb = 2147483647;
+	printf("interger  : %d\n", nb);
+	printf("return str: %s\n\n", ft_itoa(nb));
 
-	printf("ft return integer: %d\n", ft_atoi(argv[1]));
-	printf("sy return integer: %d\n", atoi(argv[1]));
-}*/
+	nb = -2147483648;
+	printf("interger  : %d\n", nb);
+	printf("return str: %s\n\n", ft_itoa(nb));
 
-}
+	nb = -1;
+	printf("interger  : %d\n", nb);
+	printf("return str: %s\n\n", ft_itoa(nb));
+
+	nb = 1;
+	printf("interger  : %d\n", nb);
+	printf("return str: %s\n\n", ft_itoa(nb));
+
+
+	nb = -1234567890;
+	printf("interger  : %d\n", nb);
+	printf("return str: %s\n\n", ft_itoa(nb));
+
+	nb = 1234567890;
+	printf("interger  : %d\n", nb);
+	printf("return str: %s\n\n", ft_itoa(nb));
+
+	nb = 0;
+	printf("interger  : %d\n", nb);
+	printf("return str: %s\n\n", ft_itoa(nb));
+
+	*/
