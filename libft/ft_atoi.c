@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:01:24 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/24 18:10:30 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/01 13:22:24 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	ft_atoi(const char *nptr)
 
 	num = 0;
 	sign = 1;
-	while (ft_isspace(*nptr)) 
+	while (ft_isspace(*nptr))
 		nptr++;
 	if (*nptr == '-' || *nptr == '+')
 	{

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:01:35 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/23 17:40:10 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/01 13:12:33 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	unsigned char		*p_dest;
 	size_t				i;
 
+	if (!dest && !src)
+		return (dest);
 	p_src = (const unsigned char *)src;
 	p_dest = (unsigned char *)dest;
 	i = 0;

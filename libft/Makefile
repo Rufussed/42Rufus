@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: marvin <marvin@student.42.fr>              +#+  +:+       +#+         #
+#    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 11:13:02 by rlane             #+#    #+#              #
-#    Updated: 2024/04/26 08:58:08 by marvin           ###   ########.fr        #
+#    Updated: 2024/05/01 13:47:42 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,6 +47,13 @@ SRC = $(addsuffix .c, \
 	ft_strtrim \
 	ft_split \
 	ft_itoa \
+	ft_strmapi \
+	ft_striteri \
+	ft_putchar_fd \
+	ft_putstr_fd \
+	ft_putendl_fd \
+	ft_putnbr_fd \
+	ft_lstnew \
 	)
 
 

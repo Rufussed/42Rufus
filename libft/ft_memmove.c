@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:26:28 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/23 17:40:10 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/01 13:02:12 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	size_t	i;
 
-	if (!dest || !src)
+	if (!dest && !src)
 		return (NULL);
 	if (src < dest)
 	{

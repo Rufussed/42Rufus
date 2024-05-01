@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_itoa.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 16:58:16 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/26 11:35:51 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/01 13:22:46 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // representing the integer received as an argument.
 // Negative numbers must be handled.
 
-size_t	ft_count_elements(int n)
+static size_t	ft_count_elements(int n)
 {
 	size_t	i;
 
@@ -26,7 +26,7 @@ size_t	ft_count_elements(int n)
 		n = -n;
 		i++;
 	}
-	while(n >= 10)
+	while (n >= 10)
 	{
 		n = n / 10;
 		i++;
@@ -34,9 +34,9 @@ size_t	ft_count_elements(int n)
 	return (i);
 }
 
-void	ft_num_to_str(int nb, size_t i, char *s) 
+static void	ft_num_to_str(int nb, size_t i, char *s)
 {
-	if (nb < 0) 
+	if (nb < 0)
 	{
 		s[0] = '-';
 		nb = -nb;
@@ -45,16 +45,17 @@ void	ft_num_to_str(int nb, size_t i, char *s)
 	{
 		i--;
 		s[i] = (nb % 10) + '0';
-		nb /= 10;	
+		nb /= 10;
 	}
 }
 
+// min_int is a bloolean to know whether we have recieved minimum int
 char	*ft_itoa(int n)
 {
 	char	*str;
 	size_t	str_len;
-	int	min_int;
-	
+	int		min_int;
+
 	min_int = 0;
 	if (n == -2147483648)
 	{
@@ -68,7 +69,7 @@ char	*ft_itoa(int n)
 	ft_num_to_str(n, str_len, str);
 	if (n < 0)
 		str[0] = '-';
-	str[str_len + 1] = '\0';
+	str[str_len] = '\0';
 	if (min_int)
 		str[str_len - 1] = '8';
 	return (str);
