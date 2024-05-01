@@ -6,7 +6,7 @@
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/24 11:13:02 by rlane             #+#    #+#              #
-#    Updated: 2024/05/01 13:47:42 by rlane            ###   ########.fr        #
+#    Updated: 2024/05/01 18:14:36 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,8 +54,17 @@ SRC = $(addsuffix .c, \
 	ft_putendl_fd \
 	ft_putnbr_fd \
 	ft_lstnew \
-	)
+	ft_lstadd_front \
+	ft_lstsize \
+	ft_lstlast \
+	ft_lstadd_back \
+	ft_lstdelone \
+	ft_lstclear \
+	ft_lstiter \
+	ft_lstmap \
 
+
+	)
 
 # OBJS is a variable containing all .o filenames.
 # As you can see I wrote OBJS := and not OBJS =
