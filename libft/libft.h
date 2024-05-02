@@ -6,16 +6,18 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:19:08 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/02 11:05:43 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/02 16:09:52 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
+
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
-# include <fcntl.h>
+// # include <stdio.h>
+// # include <fcntl.h>
+//# include <stddef.h>
 
 int		ft_isalpha(int c);
 int		ft_isdigit(int c);
