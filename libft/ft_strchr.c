@@ -3,14 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strchr.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42berlin.de>          +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/22 08:56:20 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/24 17:47:36 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/02 16:50:59 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+// The  strchr() function returns a pointer to the first occurrence of the
+// character c in the string s.
+
 
 char	*ft_strchr(const char *s, int c)
 {
@@ -23,7 +27,7 @@ char	*ft_strchr(const char *s, int c)
 			return ((char *)&s[i]);
 		i++;
 	}
-	if (c == '\0')
+	if ((char)c == '\0')
 		return ((char *)&s[i]);
 	return (NULL);
 }
