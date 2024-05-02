@@ -1,27 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstlast.c                                       :+:      :+:    :+:   */
+/*   ft_lstclear.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/01 17:48:25 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/02 08:29:45 by rlane            ###   ########.fr       */
+/*   Created: 2024/05/02 10:01:58 by rlane             #+#    #+#             */
+/*   Updated: 2024/05/02 15:16:52 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Returns the last node of the list.
+// Deletes and frees the given node and every successor of that node, using the
+// function ’del’ and free(3).
+// Finally, the pointer to the list must be set to NULL.
 
-t_list	*ft_lstlast(t_list *lst)
+void	ft_lstclear(t_list **lst, void (*del)(void*))
 {
-	t_list	*temp;
+	t_list	*temp;	
 
-	if (!lst)
-		return (NULL);
-	temp = lst;
-	while (temp -> next != NULL)
-		temp = temp -> next;
-	return (temp);
+	while (*lst)
+	{
+		temp = (*lst)-> next ;
+		ft_lstdelone(*lst, del);
+		*lst = temp;
+	}
+	free(*lst);
+	*lst = NULL;
 }

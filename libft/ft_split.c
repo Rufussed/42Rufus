@@ -3,22 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   ft_split.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: marvin <marvin@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:57:00 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/26 08:59:37 by marvin           ###   ########.fr       */
+/*   Updated: 2024/05/02 14:52:23 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-//#include "ft_strlcpy.c"
-//#include "ft_strlen.c"
-
 // Allocates (with malloc(3)) and returns an array of strings obtained by 
 // splitting ’s’ using the character ’c’ as a delimiter. The array must end
 // with a NULL pointer.
 
+//only counts on the first char that is not a delimiter of each substring
 static size_t	ft_count_strings(char const *s, char c)
 {
 	size_t	count;
@@ -38,19 +36,6 @@ static size_t	ft_count_strings(char const *s, char c)
 	return (count);
 }
 
-// custom ft_strdup, includes length, used to extract malloc & checks
-
-static char	*ft_strldup(const char *s, size_t len)
-{
-	char	*dest;
-
-	dest = malloc(len + 1);
-	if (dest == NULL)
-		return (NULL);
-	ft_strlcpy(dest, s, len + 1);
-	return (dest);
-}
-
 static char	**ft_free(char **array, size_t string_count)
 {
 	size_t	i;
@@ -65,7 +50,7 @@ static char	**ft_free(char **array, size_t string_count)
 	return (NULL);
 }
 
-static size_t	ft_count_strlen(const char *s, char c, size_t i)
+static size_t	ft_substr_len(const char *s, char c, size_t i)
 {
 	size_t	j;
 
@@ -93,8 +78,8 @@ char	**ft_split(char const *s, char c)
 			i++;
 		if (!s[i])
 			break ;
-		j = ft_count_strlen(s, c, i);
-		array[string] = ft_strldup((s + i), j);
+		j = ft_substr_len(s, c, i);
+		array[string] = ft_substr(s, i, j);
 		if (array[string] == NULL)
 			return (ft_free(array, string));
 		string++;

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/01 13:48:25 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/01 17:55:20 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/02 09:13:54 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,10 @@
 // ’next’ is initialized to NULL.
 // 1. set new element next adress to point to the start of the existing list
 // set the existing list pointer to point to the new element
+
+// t_list **lst is a pointer to a pointer to a t_list node, which allows us
+// to change the head tlist object, & dereferencing with *lst is a pointer 
+// to a t_list node
 
 void	ft_lstadd_front(t_list **lst, t_list *new)
 {

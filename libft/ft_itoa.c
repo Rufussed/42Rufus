@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 16:58:16 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/01 13:22:46 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/02 08:23:51 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,4 +108,4 @@ int	main(void)
 	printf("interger  : %d\n", nb);
 	printf("return str: %s\n\n", ft_itoa(nb));
 
-	*/
+}*/
