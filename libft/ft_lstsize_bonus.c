@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
+/*   ft_lstsize_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/02 09:18:43 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/03 09:29:03 by rlane            ###   ########.fr       */
+/*   Created: 2024/05/01 17:53:15 by rlane             #+#    #+#             */
+/*   Updated: 2024/05/03 15:20:14 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-// Takes as a parameter a node and frees the memory ofthe node’s content using 
-// the function ’del’ given as a parameter and free the node. 
-// The memory of ’next’ must not be freed.
-
-// void del(void *content) {
-//     free(content);
-// }
-
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+// Counts the number of nodes in a list.
+int	ft_lstsize(t_list *lst)
 {
-	del(lst -> content);
-	free(lst);
+	int	i;
+
+	i = 0;
+	while (lst != NULL)
+	{
+		i++;
+		lst = lst -> next;
+	}
+	return (i);
 }

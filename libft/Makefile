@@ -1,3 +1,15 @@
+# **************************************************************************** #
+#                                                                              #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: asomanah <asomanah@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2024/04/17 10:00:06 by asomanah          #+#    #+#              #
+#    Updated: 2024/05/03 14:57:57 by asomanah         ###   ########.fr        #
+#                                                                              #
+# **************************************************************************** #
+
 NAME = libft.a
 
 SRC = $(addsuffix .c, $(addprefix ft_, \
@@ -6,38 +18,45 @@ SRC = $(addsuffix .c, $(addprefix ft_, \
 	memcmp strnstr atoi calloc strdup substr strjoin strtrim split itoa \
 	strmapi striteri putchar_fd putstr_fd putendl_fd putnbr_fd))
 
-BONUS_SRC = $(addsuffix .c, $(addprefix ft_, \
+BONUS_SRC = $(addsuffix _bonus.c, $(addprefix ft_, \
 	lstnew lstadd_front lstsize lstlast lstadd_back lstdelone lstclear \
 	lstiter lstmap))
 
-OBJS := $(SRC:.c=.o)
-BONUS_OBJS := $(BONUS_SRC:.c=.o)
+INC_DIR = .
+
+OBJS_ALL = $(OBJ) $(BONUS_OBJ)
+
+OBJ = $(SRC:%.c=%.o)
+
+BONUS_OBJ = $(BONUS_SRC:%.c=%.o)
 
 CC = cc
+
 CFLAGS = -Wall -Wextra -Werror
 
-# archive
-AR = ar
-ARFLAGS = -rcs
+CPPFLAGS = -I$(INC_DIR)
+
+RANNAME = ranlib $(NAME)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(AR) $(ARFLAGS) $@ $^
-
-bonus: $(OBJS) $(BONUS_OBJS)
-	$(AR) $(ARFLAGS) $(NAME) $^
-
+$(NAME): $(OBJ)
+	ar rcs $(NAME) $(OBJ)
+	$(RANNAME)
+	
 %.o: %.c
-	$(CC) -c $(CFLAGS) -MMD $< -o $@
-	-include $(OBJS:.o=.d)
+	$(CC) $(CPPFLAGS) $(CCFLAGS) -o $@ -c $<
+
+bonus: $(OBJS_ALL)
+	ar rcs $(NAME) $(OBJS_ALL)
+	$(RANNAME)
 
 clean:
-	rm -f $(OBJS) $(BONUS_OBJS) $(OBJS:.o=.d) $(BONUS_OBJS:.o=.d)
+	rm -f $(OBJ)
 
 fclean: clean
 	rm -f $(NAME)
-
+	
 re: fclean all
 
-.PHONY: all bonus clean fclean re
+.PHONY: all clean fclean remake
