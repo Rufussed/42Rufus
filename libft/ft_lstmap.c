@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:50:20 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/03 10:22:04 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/03 12:19:42 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	t_list	*new_list;
 	t_list	*new_node;
 	t_list	*temp;
+	void	*mapped_content;
 
 	if (!lst || !f || !del)
 		return (NULL);
@@ -38,9 +39,11 @@ t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
 	temp = lst;
 	while (temp)
 	{
-		new_node = ft_lstnew(f(temp -> content));
+		mapped_content = f(temp -> content);
+		new_node = ft_lstnew(mapped_content);
 		if (!new_node)
 		{
+			free(mapped_content);
 			ft_lstclear(&new_list, del);
 			return (NULL);
 		}
