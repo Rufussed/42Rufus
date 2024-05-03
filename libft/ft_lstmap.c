@@ -6,22 +6,20 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 12:50:20 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/02 15:18:22 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/03 10:22:04 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-#include "ft_lstnew.c"
-#include "ft_lstadd_front.c"
-#include "ft_lstsize.c"
-#include "ft_lstlast.c"
-#include "ft_lstadd_back.c"
-#include "ft_lstdelone.c"
-#include "ft_lstclear.c"
-#include "ft_lstiter.c"
-*/
+// #include "ft_lstnew.c"
+// #include "ft_lstadd_front.c"
+// #include "ft_lstsize.c"
+// #include "ft_lstlast.c"
+// #include "ft_lstadd_back.c"
+// #include "ft_lstdelone.c"
+// #include "ft_lstclear.c"
+// #include "ft_lstiter.c"
 
 // Iterates the list ’lst’ and applies the function ’f’ on the content of each
 // node. Creates a newlist resulting of the successive applications of the 
@@ -64,14 +62,34 @@ void *f(void *content) {
     return result;  // Return the pointer to the new data
 }
 
-#include <string.h>
+void	ft_print_list(t_list *temp_list)
+{
+	int	node_count = 0;
+	if (temp_list == NULL)
+	{
+		printf("There is no such list\n\n");
+		return ;
+	}
+	while (temp_list)
+	{
+		printf("node %d - adr %p - content %d - next adr %p\n\n",
+			node_count, temp_list, *(int *)(temp_list->content),
+			temp_list -> next);
+		temp_list = temp_list -> next;
+		node_count++;
+	}
+}
 int	main(void)
 {
-	int	content1 = 1;
-	int	content2 = 2;
-	int	content3 = 3;
-	int	content4 = 0;
-	int	node_count = 0;
+	int *content1 = malloc(sizeof(int));
+	int *content2 = malloc(sizeof(int));
+	int *content3 = malloc(sizeof(int));
+	int *content4 = malloc(sizeof(int));
+	*content1 = 1;
+	*content2 = 2;
+	*content3 = 3;
+	*content4 = 0;
+	
 
 	t_list	*test_list;
 	t_list	*mapped_list;
@@ -79,35 +97,25 @@ int	main(void)
 
 	test_list = NULL;
 
-	test_list = ft_lstnew(&content1);
-	ft_lstadd_back(&test_list, ft_lstnew(&content2));
-	ft_lstadd_back(&test_list, ft_lstnew(&content3));
-	ft_lstadd_front(&test_list, ft_lstnew(&content4));
+	test_list = ft_lstnew(content1);
+	ft_lstadd_back(&test_list, ft_lstnew(content2));
+	ft_lstadd_back(&test_list, ft_lstnew(content3));
+	ft_lstadd_front(&test_list, ft_lstnew(content4));
 
 	temp_list = test_list;
 
+	printf("\n\nTest List:\n\n");
 
-	printf("\n\nTest List\n\n");
-	while (temp_list)
-	{
-		printf("content of node %d: %d\n", node_count, 
-			*(int *)(temp_list->content));
-		temp_list = temp_list->next;
-		node_count++;
-	}
+	ft_print_list(temp_list);
 
+	temp_list = test_list;
+	
 	mapped_list = ft_lstmap(test_list, &f, &del);
 
-	temp_list = mapped_list;
-	node_count = 0;
-	printf("\n\nMapped List (* 2)\n\n");
-	while (temp_list)
-	{
-		printf("content of node %d: %d\n", node_count, 
-			*(int *)(temp_list->content));
-		temp_list = temp_list->next;
-		node_count++;
-	}
+	
+	printf("\n\nMapped List (function (content * 2)):\n\n");
 
+	ft_print_list(mapped_list);
+	
 	return (0);
 }*/
