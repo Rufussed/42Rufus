@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: asomanah <asomanah@student.42.fr>          +#+  +:+       +#+         #
+#    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 10:00:06 by asomanah          #+#    #+#              #
-#    Updated: 2024/05/03 14:57:57 by asomanah         ###   ########.fr        #
+#    Updated: 2024/05/03 15:34:07 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,41 +22,45 @@ BONUS_SRC = $(addsuffix _bonus.c, $(addprefix ft_, \
 	lstnew lstadd_front lstsize lstlast lstadd_back lstdelone lstclear \
 	lstiter lstmap))
 
+# Including directory
 INC_DIR = .
 
-OBJS_ALL = $(OBJ) $(BONUS_OBJ)
+# Object files for main and bonus
+OBJ = $(SRC:.c=.o)
+BONUS_OBJ = $(BONUS_SRC:.c=.o)
 
-OBJ = $(SRC:%.c=%.o)
-
-BONUS_OBJ = $(BONUS_SRC:%.c=%.o)
-
+# Compiler and flags
 CC = cc
-
 CFLAGS = -Wall -Wextra -Werror
-
 CPPFLAGS = -I$(INC_DIR)
 
-RANNAME = ranlib $(NAME)
-
+# Default target
 all: $(NAME)
 
+# Main library compilation
 $(NAME): $(OBJ)
-	ar rcs $(NAME) $(OBJ)
-	$(RANNAME)
-	
+	ar rcs $@ $^
+	ranlib $@
+
+# Object file compilation
 %.o: %.c
-	$(CC) $(CPPFLAGS) $(CCFLAGS) -o $@ -c $<
+	$(CC) $(CPPFLAGS) $(CFLAGS) -c $< -o $@
 
-bonus: $(OBJS_ALL)
-	ar rcs $(NAME) $(OBJS_ALL)
-	$(RANNAME)
+# Bonus files compilation
+bonus: $(OBJ) $(BONUS_OBJ)
+	ar rcs $(NAME) $^
+	ranlib $(NAME)
 
+# Clean object files
 clean:
-	rm -f $(OBJ)
+	rm -f $(OBJ) $(BONUS_OBJ)
 
+# Fully clean the project
 fclean: clean
 	rm -f $(NAME)
-	
+
+# Rebuild the project
 re: fclean all
 
-.PHONY: all clean fclean remake
+# Phony targets
+.PHONY: all bonus clean fclean re
