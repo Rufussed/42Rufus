@@ -6,14 +6,14 @@
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 10:00:06 by rlane             #+#    #+#              #
-#    Updated: 2024/05/09 10:45:46 by rlane            ###   ########.fr        #
+#    Updated: 2024/05/09 12:02:50 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = libftprintf.a
 
-SRC = $(addsuffix .c, $(addprefix ft_, printf \
-	format_handlers_1 format_handlers_2  char_functions putnbr_functions))
+SRC = $(addsuffix .c, $(addprefix ft_, \
+	printf format_handlers char_functions putnbr_functions))
 
 # Including directory
 INC_DIR = .

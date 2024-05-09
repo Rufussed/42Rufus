@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:58:41 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/09 11:13:28 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/09 12:17:35 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,21 @@ size_t	ft_format_handler(char format, va_list args)
 	if (format == 's')
 		return (ft_print_string(va_arg (args, char *)));
 	if (format == 'd')
-		return (ft_print_int(va_arg(args, int)));
+		return (ft_putnbr_count(va_arg(args, int)));
 	if (format == 'i')
-		return (ft_print_int(va_arg(args, int)));
+		return (ft_putnbr_count(va_arg(args, int)));
 	if (format == 'u')
-		return (ft_print_unsigned_int(va_arg(args, unsigned int)));
+		return (ft_putnbr_unsigned_count(va_arg(args, unsigned int)));
 	if (format == 'x')
-		return (ft_print_hex_lower(va_arg(args, uintptr_t)));
+		return (ft_putnbr_hex_count(va_arg(args, uintptr_t), 
+				"0123456789abcdef"));
 	if (format == 'X')
-		return (ft_print_hex_upper(va_arg(args, uintptr_t)));
+		return (ft_putnbr_hex_count(va_arg(args, uintptr_t), 
+				"0123456789ABCDEF"));
 	if (format == 'p')
 		return (ft_print_address(va_arg(args, void *)));
 	if (format == '%')
-		return (ft_print_percent());
+		return (ft_print_char('%'));
 	return (0);
 }
 

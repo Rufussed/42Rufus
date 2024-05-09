@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_format_handlers_1.c                             :+:      :+:    :+:   */
+/*   ft_format_handlers.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/08 08:56:23 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/09 11:19:31 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/09 12:09:18 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,13 @@ size_t	ft_print_int(int n)
 	return (ft_putnbr_count(n));
 }
 
-size_t	ft_print_unsigned_int(unsigned int n)
+size_t	ft_print_address(void *address)
 {
-	return (ft_putnbr_unsigned_count(n));
-}
+	uintptr_t	n;
 
-size_t	ft_print_hex_lower(uintptr_t n)
-{
-	return (ft_putnbr_hex_count(n, "0123456789abcdef"));
+	if (address == NULL)
+		return (ft_print_string("(nil)"));
+	n = (uintptr_t)address;
+	ft_putstr("0x");
+	return (2 + ft_putnbr_pointer_count(n, "0123456789abcdef"));
 }
