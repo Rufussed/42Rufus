@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:58:41 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/08 19:35:47 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/09 11:13:28 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ size_t	ft_format_handler(char format, va_list args)
 	if (format == 'c')
 		return (ft_print_char((char)va_arg(args, int)));
 	if (format == 's')
-		return (ft_print_string(va_arg(args, char*)));
+		return (ft_print_string(va_arg(args, char *)));
 	if (format == 's')
-		return (ft_print_string(va_arg(args, char*)));
+		return (ft_print_string(va_arg (args, char *)));
 	if (format == 'd')
 		return (ft_print_int(va_arg(args, int)));
 	if (format == 'i')
@@ -36,34 +36,33 @@ size_t	ft_format_handler(char format, va_list args)
 		return (ft_print_address(va_arg(args, void *)));
 	if (format == '%')
 		return (ft_print_percent());
-		
 	return (0);
 }
 
-int	ft_printf(const char *str, ...)
+int	ft_printf(const char *string, ...)
 {
-	size_t	str_count;
+	size_t	string_index;
 	size_t	print_count;
-
 	va_list	args;
-	if (!str)
+
+	if (!string)
 		return (0);
-	va_start(args, str);
-	str_count = 0;
+	va_start(args, string);
+	string_index = 0;
 	print_count = 0;
-	while(str[str_count])
+	while (string[string_index])
 	{
-		if(str[str_count] == '%' && str[str_count + 1])
+		if (string[string_index] == '%' && string[string_index + 1])
 		{
-			str_count++;
-			print_count += ft_format_handler(str[str_count], args);
-			str_count++;			
+			string_index++;
+			print_count += ft_format_handler(string[string_index], args);
+			string_index++;
 		}
 		else
 		{
-			ft_putchar_fd(str[str_count], 1);
+			ft_putchar(string[string_index]);
 			print_count++;
-			str_count++;			
+			string_index++;
 		}
 	}
 	return ((print_count));

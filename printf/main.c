@@ -1,5 +1,10 @@
+/*
 #include <stdio.h>
 #include "ft_printf.h"
+
+// first make then
+// cc main.c libftprintf.a -o a.out
+// then run with ./a.out
 
 int	main(void)
 {
@@ -75,4 +80,4 @@ int	main(void)
 	printf("\n\nprintf address of LONG_MAX:\n");	
 	print_count = printf("%p", (void *)LONG_MAX);
 	printf("\ncharacter count: %ld\n\n", print_count);
-}
+}*/
