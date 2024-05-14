@@ -15,6 +15,15 @@ int	main(void)
 	char	s1[] = "abc";
 	size_t	print_count;
 
+
+	printf("\n\nft_printf(0)\n");	
+	print_count = ft_printf(0);
+	printf("\ncharacter count: %ld\n\n", print_count);
+
+	printf("\n\nprintf(0)\n");	
+	print_count = printf(0);
+	printf("\ncharacter count: %ld\n\n", print_count);
+
 	printf("\n\nft_printf u of '-1':\n");	
 	print_count = ft_printf("%u", -1);
 	printf("\ncharacter count: %ld\n\n", print_count);

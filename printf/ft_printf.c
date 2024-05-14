@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:58:41 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/09 12:17:35 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/11 10:24:34 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	ft_printf(const char *string, ...)
 	va_list	args;
 
 	if (!string)
-		return (0);
+		return (-1);
 	va_start(args, string);
 	string_index = 0;
 	print_count = 0;

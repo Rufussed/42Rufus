@@ -1,0 +1,4 @@
+0123456789
+Here is a testing file.
+It is for the get next line project.
+Goodbye World.
