@@ -1,0 +1,15 @@
+{
+    // Name this configuration
+    "name": "Codespace for 42Rufus-Git!",
+    // Use the base codespace image
+    "image": "mcr.microsoft.com/vscode/devcontainers/universal:latest",
+  
+    // Add the IDs of extensions you want installed when the container is created.
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "GitHub.copilot", "github.copilot-chat"
+            ]
+        }
+    }
+  }
