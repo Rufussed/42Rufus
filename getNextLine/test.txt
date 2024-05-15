@@ -1,4 +1,15 @@
-0123456789
-Here is a testing file.
-It is for the get next line project.
-Goodbye World.
+Hello, world! This is a test of the get_next_line function.
+Each new line reads until the newline character is found.
+Testing how it handles empty lines in between.
+
+The quick brown fox jumps over the lazy dog.
+
+After this line, there should be two newline characters.
+
+
+This line checks if it can read lines with multiple newlines following it.
+
+
+
+End of file should be handled gracefully without any issues.
+What happens when the text abruptly ends without a newline?
