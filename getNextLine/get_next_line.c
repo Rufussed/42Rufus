@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: codespace <codespace@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:49:23 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/14 14:32:59 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/15 07:03:29 by codespace        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // Return: A pointer to the leftover characters after the newline character, 
 // or NULL if there are none.
 
-static char	*get_leftover_chars_after_newline(char *line)
+static char	*get_chars_after_newline(char *line)
 {
 	char	*leftover_chars;
 	size_t	i;
@@ -37,8 +37,8 @@ static char	*get_leftover_chars_after_newline(char *line)
 	return (leftover_chars);
 }
 
-// Fills the line buffer with data read from the fd.
-// Return: The updated line buffer, or NULL if an error occurred.
+// Fills the line buffer with data read from the fd, until a newline char
+// Return: The updated line buffer, or NULL if error occurred
 
 static char	*fill_line_buffer(int fd, char *line_buffer, char *buffer)
 {
@@ -101,6 +101,6 @@ char	*get_next_line(int fd)
 	buffer = NULL;
 	if (!line)
 		return (NULL);
-	line_buffer = get_leftover_chars_after_newline(line);
+	line_buffer = get_chars_after_newline(line);
 	return (line);
 }

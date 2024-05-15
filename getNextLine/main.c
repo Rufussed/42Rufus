@@ -18,21 +18,21 @@
 //     return (line);
 // }
 
-
 #include "get_next_line.h"
 
-int main(void) 
+int	main(void)
 {
-    int fd;
-    int line_count = 0;
-    char *next_line;
+	int	fd;
+	int	line_count = 0;
+	char	*next_line;
 
-    // Open the file in read-only mode
-    fd = open("test.txt", O_RDONLY);
-    if (fd == -1) {
-        perror("Error opening file");
-        return 1;
-    }
+	// Open the file in read-only mode
+	fd = open("test.txt", O_RDONLY);
+	if (fd == -1) 
+	{
+		perror("Error opening file");
+		return 1;
+	}
     // call function;
     next_line = get_next_line(fd);
 
