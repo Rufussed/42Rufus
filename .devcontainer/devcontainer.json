@@ -8,7 +8,7 @@
     "customizations": {
         "vscode": {
             "extensions": [
-                "GitHub.copilot", "github.copilot-chat", "sleistner.vscode-fileutils"
+                "GitHub.copilot", "github.copilot-chat", "sleistner.vscode-fileutils", "mariusvanwijk-joppekoers.codam-norminette-3", "kube.42header", "keyhr.42-c-format"
             ]
         }
     }
