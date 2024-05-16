@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:58:41 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/11 10:24:34 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/16 12:41:06 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // take format character and choose output function
 // return character count increase
-size_t	ft_format_handler(char format, va_list args)
+static size_t	ft_format_handler(char format, va_list args)
 {
 	if (format == 'c')
 		return (ft_print_char((char)va_arg(args, int)));
@@ -29,10 +29,10 @@ size_t	ft_format_handler(char format, va_list args)
 	if (format == 'u')
 		return (ft_putnbr_unsigned_count(va_arg(args, unsigned int)));
 	if (format == 'x')
-		return (ft_putnbr_hex_count(va_arg(args, uintptr_t), 
+		return (ft_putnbr_hex_count(va_arg(args, uintptr_t),
 				"0123456789abcdef"));
 	if (format == 'X')
-		return (ft_putnbr_hex_count(va_arg(args, uintptr_t), 
+		return (ft_putnbr_hex_count(va_arg(args, uintptr_t),
 				"0123456789ABCDEF"));
 	if (format == 'p')
 		return (ft_print_address(va_arg(args, void *)));

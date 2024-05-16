@@ -6,6 +6,8 @@ int	main(void)
 	int	line_count = 0;
 	char	*next_line;
 
+	printf("\n Compile SUCCESS!! \n");
+
 	fd = open("test.txt", O_RDONLY);
 	printf("\nfd: %i, test.txt contains some sentences\n", fd);
 	next_line = get_next_line(fd);

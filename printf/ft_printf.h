@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:19:08 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/11 08:24:44 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/16 12:43:34 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ size_t	ft_putnbr_unsigned_count(unsigned int n);
 size_t	ft_print_char(int c);
 size_t	ft_print_string(char *str);
 size_t	ft_print_address(void *address);
-size_t	ft_format_handler(char format, va_list args);
 int		ft_printf(const char *str, ...);
 
 #endif
