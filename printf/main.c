@@ -1,4 +1,4 @@
-/*
+
 #include <stdio.h>
 #include "ft_printf.h"
 
@@ -14,11 +14,6 @@ int	main(void)
 	unsigned int	x1 = INT_MAX;
 	char	s1[] = "abc";
 	size_t	print_count;
-
-
-	printf("\n\nft_printf(0)\n");	
-	print_count = ft_printf(0);
-	printf("\ncharacter count: %ld\n\n", print_count);
 
 	printf("\n\nprintf(0)\n");	
 	print_count = printf(0);
@@ -57,7 +52,7 @@ int	main(void)
 	printf("\n\nprintf int conversion of: %i\n", i1);	
 	print_count = printf("%i", i1);
 	printf("\ncharacter count: %ld\n\n", print_count);
-	
+
 	printf("\n\nft_printf hex conversion of:%d\n", x1);	
 	print_count = ft_printf("%x", x1);
 	printf("\ncharacter count: %ld\n\n", print_count);
@@ -89,4 +84,4 @@ int	main(void)
 	printf("\n\nprintf address of LONG_MAX:\n");	
 	print_count = printf("%p", (void *)LONG_MAX);
 	printf("\ncharacter count: %ld\n\n", print_count);
-}*/
+}

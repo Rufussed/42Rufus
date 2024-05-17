@@ -6,7 +6,7 @@
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/04/17 10:00:06 by rlane             #+#    #+#              #
-#    Updated: 2024/05/16 12:10:47 by rlane            ###   ########.fr        #
+#    Updated: 2024/05/16 16:01:49 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = getnextline.a
 
 SRC = get_next_line.c get_next_line_utils.c
 
-BONUS_SRC = get_next_line_bonus.c get_next_line_utils_bonus.c get_next_line_utils.c
+BONUS_SRC = get_next_line_bonus.c get_next_line_utils_bonus.c
 
 # Including directory
 INC_DIR = .

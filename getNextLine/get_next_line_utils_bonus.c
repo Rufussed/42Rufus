@@ -6,63 +6,121 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:41:04 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/16 12:18:50 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/16 16:01:31 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-// if fd is present in struct array get corresponding line_buffer
-// or return NULL
+// Returns the length of the string 'str'
 
-char	*get_fd_line_buffer(int fd, t_int_str **fd_line_buffer)
+size_t	ft_strlen(char *str)
 {
-	size_t		i;
+	size_t	i;
 
 	i = 0;
-	while (fd_line_buffer[i])
+	while (str[i])
+		i++;
+	return (i);
+}
+
+// Concatenates two strings 's1' and 's2' and returns the result
+
+char	*ft_strjoin(char *s1, char *s2)
+{
+	size_t	len1;
+	size_t	len2;
+	size_t	i;
+	char	*str;
+
+	len1 = ft_strlen(s1);
+	len2 = ft_strlen(s2);
+	str = malloc(len1 + len2 + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < len1)
 	{
-		if (fd_line_buffer[i]->fd == fd)
-			return (fd_line_buffer[i]->line_buffer);
+		str[i] = s1[i];
 		i++;
 	}
+	i = 0;
+	while (i <= len2)
+	{
+		str[len1 + i] = s2[i];
+		i++;
+	}
+	return (str);
+}
+
+// Returns a duplicate of the string 's'
+
+char	*ft_strdup(char *s)
+{
+	char	*str;
+	size_t	len;
+	size_t	i;
+
+	len = ft_strlen(s);
+	str = malloc(len + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+// Return a substring of string 's' starting at index 'start' & length 'len'
+
+char	*ft_substr(char *s, unsigned int start, size_t len)
+{
+	char	*str;
+	size_t	s_len;
+	size_t	i;
+
+	if (!s)
+		return (NULL);
+	s_len = ft_strlen(s);
+	if (start >= s_len)
+		return (ft_strdup(""));
+	if (start + len > s_len)
+		len = s_len - start;
+	str = malloc(len + 1);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (i < len)
+	{
+		str[i] = s[start + i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+// Searches for the first occurrence of a character in a string.
+// Return: A pointer to the first occurrence of the character in the string, 
+// or NULL if the character is not found.
+
+char	*ft_strchr(char *s, int c)
+{
+	unsigned int	i;
+	char			cc;
+
+	cc = (char) c;
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == cc)
+			return ((char *) &s[i]);
+		i++;
+	}
+	if (s[i] == cc)
+		return ((char *) &s[i]);
 	return (NULL);
-}
-
-// free new file descriptor line buffer
-// fdlb = file descriptor line buffer
-
-static int	free_new_fdlb(t_int_str *new_fdlb, char *new_lb)
-{
-	free(new_fdlb);
-	free(new_lb);
-	return (0);
-}
-// if fd not present in struct array, add it, and its line buffer
-
-int	put_fd_line_buffer(int fd, char *line_buffer, t_int_str **fd_line_buffer)
-{
-	size_t		i;
-	t_int_str	*new_fdlb;
-	char		*new_lb;
-
-	i = 0;
-	while (fd_line_buffer[i])
-	{
-		if (fd_line_buffer[i]->fd == fd)
-		{
-			free(fd_line_buffer[i]->line_buffer);
-			fd_line_buffer[i]->line_buffer = line_buffer;
-			return (1);
-		}
-		i++;
-	}
-	new_fdlb = (t_int_str *)malloc(sizeof(t_int_str));
-	new_lb = (char *)malloc(ft_strlen(line_buffer) + 1);
-	if (!free_new_fdlb(new_fdlb, new_lb))
-		return (0);
-	fd_line_buffer[i]->fd = fd;
-	fd_line_buffer[i]->line_buffer = line_buffer;
-	fd_line_buffer[i + 1] = NULL;
-	return (1);
 }

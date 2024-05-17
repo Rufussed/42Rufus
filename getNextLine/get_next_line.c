@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:49:23 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/15 14:22:48 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/17 13:01:19 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,20 +85,17 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*read_buffer;
 
-	read_buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
-	if (!read_buffer)
-		return (NULL);
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
 		free(line_buffer);
-		free(read_buffer);
 		line_buffer = NULL;
-		read_buffer = (NULL);
 		return (NULL);
 	}
+	read_buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
+	if (!read_buffer)
+		return (NULL);
 	line = fill_line_buffer(fd, line_buffer, read_buffer);
 	free(read_buffer);
-	read_buffer = NULL;
 	if (!line)
 		return (NULL);
 	line_buffer = extract_chars_after_newline(line);

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:49:23 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/17 13:47:58 by rlane            ###   ########.fr       */
+/*   Updated: 2024/05/16 12:17:30 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 // Return: A pointer to the extra characters after the \n, 
 // or NULL if there are none. 
 
-char	*extract_chars_after_newline(char *line)
+static char	*extract_chars_after_newline(char *line)
 {
 	char	*extra_chars;
 	char	*newline_pos;
@@ -40,7 +40,7 @@ char	*extract_chars_after_newline(char *line)
 // Return: The updated line buffer, or NULL if error occurred
 // bytes_read is ssize_t (signed int) as read returns it (-1 for error)
 
-char	*fill_line_buffer(int fd, char *line_buffer, char *read_buffer)
+static char	*fill_line_buffer(int fd, char *line_buffer, char *read_buffer)
 {
 	ssize_t		bytes_read;
 	char		*temp;
@@ -68,23 +68,30 @@ char	*fill_line_buffer(int fd, char *line_buffer, char *read_buffer)
 
 char	*get_next_line(int fd)
 {
-	static char	*line_buffer[MAX_FD];
+	static t_int_str	**fd_line_buffer;
+	char		*line_buffer;
 	char		*line;
 	char		*read_buffer;
 
-	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-	{
-		free(line_buffer[fd]);
-		line_buffer[fd] = NULL;
-		return (NULL);
-	}
+	line_buffer = get_fd_line_buffer(fd, fd_line_buffer);
 	read_buffer = (char *)malloc((BUFFER_SIZE + 1) * sizeof(char));
 	if (!read_buffer)
 		return (NULL);
-	line = fill_line_buffer(fd, line_buffer[fd], read_buffer);
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
+	{
+		free(line_buffer);
+		free(read_buffer);
+		line_buffer = NULL;
+		read_buffer = (NULL);
+		return (NULL);
+	}
+	line = fill_line_buffer(fd, line_buffer, read_buffer);
 	free(read_buffer);
+	read_buffer = NULL;
 	if (!line)
 		return (NULL);
-	line_buffer[fd] = extract_chars_after_newline(line);
+	line_buffer = extract_chars_after_newline(line);
+	if (!put_fd_line_buffer(fd, line_buffer, fd_line_buffer))
+		return (NULL);
 	return (line);
 }
