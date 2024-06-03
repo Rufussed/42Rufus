@@ -9,10 +9,10 @@
 int	main(void)
 {
 	int	c1 = 'a';
-	int	c2 = 'b';
+	int	c2 = 'Z';
 	int	i1 = INT_MIN;
 	unsigned int	x1 = INT_MAX;
-	char	s1[] = "abc";
+	char	s1[] = "abcdefghij";
 	size_t	print_count;
 
 	printf("\n\nprintf(0)\n");	

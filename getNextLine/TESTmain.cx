@@ -51,7 +51,10 @@ int	main(void)
 	// close(fd);
 	// line_count = 0;
 
-		// test 3 INTERLEAVING 2 FDs
+
+	// test 3 INTERLEAVING 2 FDs
+	// make fclean && make bonus && cc TESTmain.c getnextline.a && ./a.out
+
 	fd = open("test4.txt", O_RDONLY);
 	fd2 = open("test3.txt", O_RDONLY);
 	printf("\nFD: %i & FD %i interleaved:\n\n", fd, fd2);
@@ -62,10 +65,18 @@ int	main(void)
 		line_count++;
 
 		next_line = get_next_line(fd);
-		printf("Line %i: %s\n", line_count, next_line);
+		printf("FD: %i Line %i: %s",fd, line_count, next_line);
+		if (!next_line)
+			printf("\n");
+		else
+			free(next_line);
 
 		next_line2 = get_next_line(fd2);
-		printf("Line %i: %s\n", line_count, next_line2);
+		printf("FD: %i Line %i: %s",fd2, line_count, next_line2);
+		if (!next_line2)
+			printf("\n");
+		else
+			free(next_line2);
 	}
 	printf("\n\n");
 	close(fd);

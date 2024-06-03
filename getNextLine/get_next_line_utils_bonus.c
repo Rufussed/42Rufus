@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/13 12:41:04 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/16 16:01:31 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/03 12:19:57 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,34 +69,6 @@ char	*ft_strdup(char *s)
 	while (i < len)
 	{
 		str[i] = s[i];
-		i++;
-	}
-	str[i] = '\0';
-	return (str);
-}
-
-// Return a substring of string 's' starting at index 'start' & length 'len'
-
-char	*ft_substr(char *s, unsigned int start, size_t len)
-{
-	char	*str;
-	size_t	s_len;
-	size_t	i;
-
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	if (start + len > s_len)
-		len = s_len - start;
-	str = malloc(len + 1);
-	if (!str)
-		return (NULL);
-	i = 0;
-	while (i < len)
-	{
-		str[i] = s[start + i];
 		i++;
 	}
 	str[i] = '\0';
