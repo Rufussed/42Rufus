@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 11:50:07 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/04 10:15:27 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/05 18:48:26 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 42
+# endif
+# ifndef MAX_FD
+#  define MAX_FD 1024
 # endif
 
 # include <fcntl.h>
