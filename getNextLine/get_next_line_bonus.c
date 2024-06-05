@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/14 13:49:23 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/03 12:19:57 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/03 11:52:39 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*read_buffer;
 
-	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= MAX_FD || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 	{
 		free(line_buffer[fd]);
 		line_buffer[fd] = NULL;
