@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/09 11:27:22 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/09 12:01:31 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,9 @@
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
 # include <X11/X.h>
+
+// X11 event for window close (also known as "DestroyNotify")
+# define EVENT_CLOSE 17
 
 # define BUFF_SIZE 10000
 
@@ -53,6 +56,7 @@ typedef struct s_data
 	int		player_y;
 	int		move_x;
 	int		move_y;
+	int		moves;
 	int		key_count;
 }	t_data;
 
@@ -60,9 +64,9 @@ void	move_player(t_data *data);
 void	draw_map(t_data *data);
 void	draw_game_objects(t_data *data);
 void	check_win(t_data *data);
-int     check_chars_size(t_data *data);
-int     check_walls(t_data *data);
-int     check_player(t_data *data);
-int     check_game_objects(t_data *data);
+int		check_chars_size(t_data *data);
+int		check_walls(t_data *data);
+int		check_player(t_data *data);
+int		check_game_objects(t_data *data);
 
 #endif // SO_LONG_H

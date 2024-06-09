@@ -6,11 +6,17 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:56 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/09 11:22:17 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/09 11:59:52 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int	handle_close(void *param)
+{
+	(void)param;
+	exit(0); // Exit the program
+}
 
 int	handle_keypress(int keysym, t_data *data)
 {
@@ -173,6 +179,8 @@ void	move_player(t_data *data)
 	{
 		data->player_x = data->move_x;
 		data->player_y = data->move_y;
+		data->moves++;
+		ft_printf("Total Moves: %d\n", data->moves);
 	}
 }
 
@@ -196,6 +204,7 @@ int	open_window(t_data *data)
 		return (MLX_ERROR);
 	}
 	mlx_loop_hook(data->mlx_ptr, &handle_no_event, data);
+	mlx_hook(data->win_ptr, EVENT_CLOSE, 0, handle_close, NULL);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, data);
 	load_tiles(data);
