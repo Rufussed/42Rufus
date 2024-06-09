@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/09 10:50:03 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/09 11:27:22 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,5 +60,9 @@ void	move_player(t_data *data);
 void	draw_map(t_data *data);
 void	draw_game_objects(t_data *data);
 void	check_win(t_data *data);
+int     check_chars_size(t_data *data);
+int     check_walls(t_data *data);
+int     check_player(t_data *data);
+int     check_game_objects(t_data *data);
 
 #endif // SO_LONG_H

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:56 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/09 10:45:02 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/09 11:22:17 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -238,7 +238,6 @@ int	read_map(t_data *data)
 	return (1);
 }
 
-
 void	free_map_content(char **map)
 {
 	size_t	i;
@@ -271,15 +270,12 @@ int	main(void)
 		ft_printf("Error checking game objects\n");
 		return (1);
 	}
-	ft_printf("Player x = %d\n", data.player_x);
-	ft_printf("Player y = %d\n", data.player_y);
 	ft_printf("Map width = %d\n", data.map_width);
 	ft_printf("Map height = %d\n\n", data.map_height);
 	data.move_x = data.player_x;
 	data.move_y = data.player_y;
 	open_window(&data);
 	free_map_content(data.map);
-	free(data.map);
 	return (0);
 }
 

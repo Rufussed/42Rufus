@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:32:44 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/09 10:52:55 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/09 11:23:15 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,5 +116,8 @@ int	check_game_objects(t_data *data)
 	}
 	if (exit_count != 1 || data->key_count == 0)
 		return (0);
+	ft_printf("Player x = %d\n", data->player_x);
+	ft_printf("Player y = %d\n", data->player_y);
 	return (1);
 }
+
