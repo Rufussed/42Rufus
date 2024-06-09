@@ -6,59 +6,11 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:56 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/08 10:09:20 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/09 10:45:02 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-#include "libft/src/libft.h"
-#include "mlx/mlx.h"
-#include <X11/keysym.h>
-#include <X11/keysymdef.h>
-#include <X11/X.h>
-
-// #define WINDOW_WIDTH 800
-// #define WINDOW_HEIGHT 600
-
-#define BUFF_SIZE 10000
-
-#define MLX_ERROR 1
-
-#define SPRITE_SIZE 48
-
-#define UP 1
-#define RIGHT 2
-#define DOWN 3
-#define LEFT 4
-
-typedef struct s_data
-{
-	void	*mlx_ptr;
-	void	*win_ptr;
-	void	*floor;
-	void	*wall;
-	void	*exit;
-	void	*elf_up;
-	void	*elf_down;
-	void	*elf_left;
-	void	*elf_right;
-	void	*player;
-	void	*key;
-	char	**map;
-	int		map_width;
-	int		map_height;
-	int		player_x;
-	int		player_y;
-	int		move_x;
-	int		move_y;
-	int		key_count;
-}	t_data;
-
-
-void	move_player(t_data *data);
-void	draw_map(t_data *data);
-void	draw_game_objects(t_data *data);
-void	check_win(t_data *data);
 
 int	handle_keypress(int keysym, t_data *data)
 {
@@ -96,9 +48,9 @@ int	handle_keyrelease(int keysym, t_data *data)
 	return (0);
 }
 
+/* This function needs to exist, but it is useless for the moment */
 int	handle_no_event(void *data)
 {
-	/* This function needs to exist, but it is useless for the moment */
 	return (0);
 }
 
@@ -108,23 +60,22 @@ void	load_tiles(t_data *data)
 	int	img_height;
 
 	data->floor = mlx_xpm_file_to_image(data->mlx_ptr, 
-		"assets/floor.xpm", &img_width, &img_height);
+			"assets/floor.xpm", &img_width, &img_height);
 	data->wall = mlx_xpm_file_to_image(data->mlx_ptr,
-		"assets/wall.xpm", &img_width, &img_height);
+			"assets/wall.xpm", &img_width, &img_height);
 	data->exit = mlx_xpm_file_to_image(data->mlx_ptr,
-		"assets/exit.xpm", &img_width, &img_height);
+			"assets/exit.xpm", &img_width, &img_height);
 	data->key = mlx_xpm_file_to_image(data->mlx_ptr,
-		"assets/key.xpm", &img_width, &img_height);
+			"assets/key.xpm", &img_width, &img_height);
 	data->elf_up = mlx_xpm_file_to_image(data->mlx_ptr,
-		"assets/elf_up.xpm", &img_width, &img_height);
+			"assets/elf_up.xpm", &img_width, &img_height);
 	data->elf_down = mlx_xpm_file_to_image(data->mlx_ptr,
-		"assets/elf_down.xpm", &img_width, &img_height);
+			"assets/elf_down.xpm", &img_width, &img_height);
 	data->player = data->elf_down;
 	data->elf_left = mlx_xpm_file_to_image(data->mlx_ptr,
-		"assets/elf_left.xpm", &img_width, &img_height);
+			"assets/elf_left.xpm", &img_width, &img_height);
 	data->elf_right = mlx_xpm_file_to_image(data->mlx_ptr,
-		"assets/elf_right.xpm", &img_width, &img_height);
-	
+			"assets/elf_right.xpm", &img_width, &img_height);
 	if (data->floor == NULL || data->elf_left == NULL || data->exit == NULL
 		|| data->elf_up == NULL || data->elf_down == NULL
 		|| data->elf_right == NULL || data->key == NULL)
@@ -143,47 +94,60 @@ void	draw_map(t_data *data)
 		while (j < data->map_width)
 		{
 			if (data->map[i][j] == '1')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->wall, j * SPRITE_SIZE, i * SPRITE_SIZE);
-			if (data->map[i][j] == '0' || data->map[i][j] == 'P' || data->map[i][j] == 'C')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->floor, j * SPRITE_SIZE, i * SPRITE_SIZE);
+				mlx_put_image_to_window(data->mlx_ptr, 
+					data->win_ptr, data->wall,
+					j * SPRITE_SIZE, i * SPRITE_SIZE);
+			if (data->map[i][j] == '0' || data->map[i][j] == 'P'
+					|| data->map[i][j] == 'C')
+				mlx_put_image_to_window(data->mlx_ptr, 
+					data->win_ptr, data->floor, 
+					j * SPRITE_SIZE, i * SPRITE_SIZE);
 			if (data->map[i][j] == 'E')
-				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->exit, j * SPRITE_SIZE, i * SPRITE_SIZE);
-				j++;
+				mlx_put_image_to_window(data->mlx_ptr, 
+					data->win_ptr, data->exit, 
+					j * SPRITE_SIZE, i * SPRITE_SIZE);
+			j++;
 		}
 		i++;
 	}	
 }
 
-void draw_game_objects(t_data *data)
+void	draw_game_objects(t_data *data)
 {
-    int i;
-    int j;
+	int	i;
+	int	j;
 
-    data->key_count = 0;
-    for (i = 0; i < data->map_height; i++)
-    {
-        for (j = 0; j < data->map_width; j++)
-        {
-            if (data->map[i][j] == 'C')
-            {
-                data->key_count++;
-                mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->key, j * SPRITE_SIZE, i * SPRITE_SIZE);
-            }
-            if (data->player_x == j && data->player_y == i)
-                mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, data->player, 
-		j * SPRITE_SIZE, i * SPRITE_SIZE);
-        }
-    }
-    if (data->map[data->player_y][data->player_x] == 'C')
-    {
-        data->map[data->player_y][data->player_x] = '0'; 
-        data->key_count--; 
-    }
+	data->key_count = 0;
+	i = 0;
+	while (i < data->map_height)
+	{
+		j = 0;
+		while (j < data->map_width)
+		{
+			if (data->map[i][j] == 'C')
+			{
+				data->key_count++;
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, 
+					data->key, j * SPRITE_SIZE, i * SPRITE_SIZE);
+			}
+			if (data->player_x == j && data->player_y == i)
+				mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, 
+					data->player, j * SPRITE_SIZE, i * SPRITE_SIZE);
+			j++;
+		}
+		i++;
+	}
+	if (data->map[data->player_y][data->player_x] == 'C')
+	{
+		data->map[data->player_y][data->player_x] = '0';
+		data->key_count--;
+	}
 }
 
 void	check_win(t_data *data)
 {
-	if (data->key_count == 0 && data->map[data->player_y][data->player_x] == 'E')
+	if (data->key_count == 0 
+		&& data->map[data->player_y][data->player_x] == 'E')
 	{
 		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 		ft_printf("You win!\n");
@@ -193,16 +157,15 @@ void	check_win(t_data *data)
 int	check_move(t_data *data)
 {
 	if (data->map[data->move_y][data->move_x] == '1' 
-		|| (data->map[data->move_y][data->move_x] == 'E' && data->key_count > 0))
-
+		|| (data->map[data->move_y][data->move_x] 
+			== 'E' && data->key_count > 0))
 	{
 		data->move_x = data->player_x;
 		data->move_y = data->player_y;
 		return (0);
 	}
-	return (1);		
+	return (1);
 }
-
 
 void	move_player(t_data *data)
 {
@@ -213,8 +176,7 @@ void	move_player(t_data *data)
 	}
 }
 
-
-int	open_window(t_data *data) // Changed data to pointer
+int	open_window(t_data *data)
 {
 	void	*img;
 	int	img_width;
@@ -227,39 +189,24 @@ int	open_window(t_data *data) // Changed data to pointer
 		return (MLX_ERROR);
 	win_w = data->map_width * SPRITE_SIZE;
 	win_h = data->map_height * SPRITE_SIZE;
-	ft_printf("Player x = %d\n", data->player_x);
-	ft_printf("Player y = %d\n", data->player_y);
-	ft_printf("Map width = %d\n", data->map_width);
-	ft_printf("Map height = %d\n\n", data->map_height);
-	ft_printf("Window width = %d\n", win_w);
-	ft_printf("Window height = %d\n\n", win_h);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, win_w, win_h, "So_Long");
-
 	if (data->win_ptr == NULL)
 	{
 		free(data->win_ptr);
 		return (MLX_ERROR);
 	}
-
-	/* Setup hooks */
 	mlx_loop_hook(data->mlx_ptr, &handle_no_event, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, data);
 	load_tiles(data);
 	draw_map(data);
-	//draw_game_objects(data);
-	
-
-
-
+	draw_game_objects(data);
 	mlx_loop(data->mlx_ptr);
-
-	/* we will exit the loop if there's no window left, and execute this code */
 	mlx_destroy_display(data->mlx_ptr);
 	free(data->mlx_ptr);
 }
 
-char	**read_map(t_data *data) // Changed data to pointer
+int	read_map(t_data *data)
 {
 	char	*read_buf;
 	ssize_t	bytes_read;
@@ -269,70 +216,70 @@ char	**read_map(t_data *data) // Changed data to pointer
 
 	read_buf = malloc(BUFF_SIZE * sizeof(char));
 	if (!read_buf)
-		return (NULL);
+		return (0);
 	fd = open("map.ber", O_RDONLY);
 	bytes_read = read(fd, read_buf, BUFF_SIZE);
 	if (bytes_read == -1)
-		return (NULL);
+		return (0);
 	data->map = ft_split(read_buf, '\n');
+	free(read_buf);
+	if (!data->map)
+		return (0);
 	data->map_width = ft_strlen(data->map[0]);
 	i = 0;
 	while (data->map[i])
 	{
 		if (ft_strlen(data->map[i]) != data->map_width)
-			return (NULL);
+			return (0);
 		ft_printf("%s\n", data->map[i]);
 		i++;
 	}
 	data->map_height = i;
+	return (1);
+}
+
+
+void	free_map_content(char **map)
+{
+	size_t	i;
+
 	i = 0;
-	while (data->map[i])
+	while (map[i])
 	{
-		j = 0;
-		while (data->map[i][j] && data->map[i][j] != 'P')
-			j++;
-		if (data->map[i][j] == 'P')
-		{
-			data->player_x = j;
-			data->player_y = i;
-			break;
-		}
+		free(map[i]);
 		i++;
 	}
-	ft_printf("Player x = %d\n", data->player_x);
-	ft_printf("Player y = %d\n", data->player_y);
-	ft_printf("Map width = %d\n", data->map_width);
-	ft_printf("Map height = %d\n\n", data->map_height);
-	return (data->map);
+	free(map);
 }
 
 int	main(void)
 {
 	t_data	data;
 
-	
-	if (!read_map(&data)) // Pass data by reference
+	if (!read_map(&data)  || !check_walls(&data) || !check_chars_size(&data))
 	{
 		ft_printf("Error reading map\n");
 		return (1);
 	}
-
+	if (!check_player(&data))
+	{
+		ft_printf("Error checking player\n");
+		return (1);
+	}
+	if (!check_game_objects(&data))
+	{
+		ft_printf("Error checking game objects\n");
+		return (1);
+	}
 	ft_printf("Player x = %d\n", data.player_x);
 	ft_printf("Player y = %d\n", data.player_y);
 	ft_printf("Map width = %d\n", data.map_width);
 	ft_printf("Map height = %d\n\n", data.map_height);
-
 	data.move_x = data.player_x;
 	data.move_y = data.player_y;
-
-	// Now open the window and draw the map
 	open_window(&data);
-
-	// Free the map after usage
-	for (size_t i = 0; data.map[i] != NULL; i++)
-		free(data.map[i]);
+	free_map_content(data.map);
 	free(data.map);
-
 	return (0);
 }
 

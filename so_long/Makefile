@@ -1,6 +1,6 @@
 # Variables
 NAME = so_long
-SRC = main.c
+SRC = main.c check_map_functions.c
 OBJS = $(SRC:.c=.o)
 MLX_LIB = mlx/
 MLX_LIB_PATH = mlx/libmlx_Linux.a
