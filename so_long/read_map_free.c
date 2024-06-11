@@ -6,27 +6,11 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 11:50:09 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/10 14:52:57 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/11 10:54:27 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-int	check_rectangular(t_data *data)
-{
-	size_t	i;
-
-	data->map_width = ft_strlen(data->map[0]);
-	i = 0;
-	while (data->map[i])
-	{
-		if (ft_strlen(data->map[i]) != data->map_width)
-			return (error_set(data, NOT_RECTANGLE_ERROR));
-		i++;
-	}
-	data->map_height = i;
-	return (1);
-}
 
 int	read_map(t_data *data)
 {
@@ -54,7 +38,7 @@ int	read_map(t_data *data)
 	data->map = ft_split(read_buf, '\n');
 	free(read_buf);
 	close(fd);
-	return (check_rectangular(data));
+	return (1);
 }
 
 void	free_map_content(char **map)
@@ -78,8 +62,6 @@ void	free_data(t_data *data)
 	{
 		if (data->map)
 			free_map_content(data->map);
-		if (data->error)
-			free(data->error);
 		free(data);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 12:10:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/10 15:24:07 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/11 11:25:39 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,17 @@ int	object_to_map_count(t_data *data, char object_type, void *object)
 	return (count);
 }
 
+void	sprite_to_coords(t_data *data, int x, int y, void *object)
+{
+	mlx_put_image_to_window(data->mlx_ptr, data->win_ptr, object,
+		x * SPRITE_SIZE, y * SPRITE_SIZE);
+
+}
+
 void	draw_game_objects(t_data *data)
 {
 	data->key_count = object_to_map_count(data, 'C', data->key);
-	object_to_map_count(data, 'P', data->player);
+	sprite_to_coords(data, data->player_x, data->player_y, data->player);
 	if (data->map[data->player_y][data->player_x] == 'C')
 		data->map[data->player_y][data->player_x] = '0';
 }
@@ -81,8 +88,6 @@ void	move_player(t_data *data)
 		data->map[data->player_y][data->player_x] = '0';
 		data->player_x = data->move_x;
 		data->player_y = data->move_y;
-		if (!(data->map[data->player_y][data->player_x] == 'E'))
-			data->map[data->player_y][data->player_x] = 'P';
 		data->moves++;
 		ft_printf("Total Moves: %d\n", data->moves);
 	}

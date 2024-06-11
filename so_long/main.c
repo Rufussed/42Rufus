@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:56 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/10 15:20:35 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/11 12:42:54 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ int	open_window(t_data *data)
 		return (MLX_ERROR);
 	}
 	mlx_loop_hook(data->mlx_ptr, &handle_no_event, data);
-	mlx_hook(data->win_ptr, EVENT_CLOSE, 0, handle_close, NULL);
+	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask,
+		handle_close, data);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease, 
 		data);
 	load_tiles(data);
 	draw_map_check_win(data);
 	mlx_loop(data->mlx_ptr);
-	close_win_free_mlx(data);
 	return (0);
 }
 
@@ -77,12 +77,11 @@ int	main(void)
 	if (!data)
 		return (1);
 	initialise_data(data);
-	if (!read_map(data) || !check_walls(data) || !check_chars_size(data) || 
-		!check_player(data) || !check_game_objects(data))
+	if (!(read_map(data) && check_rectangular(data) && check_walls(data)
+			&& check_chars_size(data) && check_player(data)
+			&& check_game_objects(data)))
 	{
-		ft_printf("Error reading map\n");
-		if (data->error)
-			ft_printf("%s\n", data->error);
+		ft_printf("Invalid map\n");
 		free_data(data);
 		return (1);
 	}
@@ -93,6 +92,7 @@ int	main(void)
 		close_win_free_mlx(data);
 		return (1);
 	}
+	close_win_free_mlx(data);
 	free_data(data);
 	return (0);
 }

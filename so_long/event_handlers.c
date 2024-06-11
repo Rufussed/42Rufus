@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 12:23:00 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/10 12:23:28 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/11 12:29:30 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,5 +61,6 @@ int	handle_keypress(int keysym, t_data *data)
 /* This function needs to exist, but it is useless for the moment */
 int	handle_no_event(void *data)
 {
+	(void)data;
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/10 15:35:07 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/11 12:36:16 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,10 @@
 # include <X11/keysymdef.h>
 # include <X11/X.h>
 
+# define false 0
+# define true 1
+typedef int bool;
+
 // X11 event for window close (also known as "DestroyNotify")
 # define EVENT_CLOSE 17
 
@@ -30,7 +34,7 @@
 # define MAX_MAP_WIDTH 40
 # define MAX_MAP_HEIGHT 21
 // 40 * 21 + 1 = 841
-# define BUFF_SIZE 841
+# define BUFF_SIZE 1000
 
 # define MLX_ERROR 1
 # define NOT_RECTANGLE_ERROR 2
@@ -61,7 +65,6 @@ typedef struct s_data
 	void	*player;
 	void	*key;
 	char	**map;
-	char	*error;
 	int		map_width;
 	int		map_height;
 	int		player_x;
@@ -87,9 +90,10 @@ int		handle_no_event(void *data);
 int		handle_keypress(int keysym, t_data *data);
 int		handle_keyrelease(int keysym, t_data *data);
 int		handle_close(void *param);
-int		error_set(t_data *data, int error);
+int		error_set(int error);
 void	print_report(t_data *data);
 void	initialise_data(t_data *data);
 void	initialise_move_target(t_data *data);
+int		check_rectangular(t_data *data);
 
 #endif // SO_LONG_H
