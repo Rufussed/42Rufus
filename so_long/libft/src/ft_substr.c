@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/24 18:54:58 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/25 09:46:31 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/10 12:42:01 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	}
 	if ((s_len - start) < len)
 		len = s_len - start;
-	substr = malloc((len + 1) * sizeof(char));
+	substr = calloc(1, (len + 1) * sizeof(char));
 	if (!substr)
 		return (NULL);
 	i = 0;

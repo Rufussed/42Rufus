@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/25 11:57:00 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/02 14:52:23 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/10 12:40:36 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ char	**ft_split(char const *s, char c)
 	size_t	j;
 	size_t	string;
 
-	array = malloc(sizeof(char *) * (ft_count_strings(s, c) + 1));
+	array = calloc(1, sizeof(char *) * (ft_count_strings(s, c) + 1));
 	if (!array)
 		return (NULL);
 	string = 0;

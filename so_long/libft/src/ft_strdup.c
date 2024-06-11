@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 17:24:47 by rlane             #+#    #+#             */
-/*   Updated: 2024/04/25 16:51:04 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/10 14:47:58 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char	*ft_strdup(const char *s)
 	size_t	s_len;
 
 	s_len = ft_strlen((char *)s);
-	dest = malloc(s_len + 1);
+	dest = calloc(1, s_len + 1);
 	if (dest == NULL)
 		return (NULL);
 	ft_strlcpy(dest, s, s_len + 1);

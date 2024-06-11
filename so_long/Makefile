@@ -1,42 +1,43 @@
 # Variables
 NAME = so_long
-SRC = main.c check_map_functions.c
+SRC = main.c check_map.c move_draw_map.c read_map_free.c event_handlers.c initialise_report.c
 OBJS = $(SRC:.c=.o)
-MLX_LIB = mlx/
-MLX_LIB_PATH = mlx/libmlx_Linux.a
-MLX_FLAGS = -Lmlx -lmlx_Linux -L/usr/lib/X11 -lXext -lX11 -lm -lz
-LIBFT = libft/libft.a
-INCLUDES = -Imlx -Ilibft
+MLX_DIR = mlx
+MLX_REPO = https://github.com/42Paris/minilibx-linux.git
+MLX_LIB = $(MLX_DIR)/libmlx.a
+MLX_FLAGS = -L$(MLX_DIR) -lmlx -L/usr/lib/X11 -lXext -lX11 -lm -lz
+LIBFT_DIR = libft
+LIBFT = $(LIBFT_DIR)/libft.a
+INCLUDES = -I$(MLX_DIR) -I$(LIBFT_DIR)
 CC = cc
-#CFLAGS = -Wall -Wextra -Werror -fPIC -fPIE $(INCLUDES)
-CFLAGS =  -fPIC -fPIE $(INCLUDES)
+CFLAGS = -Wall -Wextra -Werror -fPIC -fPIE $(INCLUDES)
 
 # Targets
 all: $(NAME)
 
-$(NAME): $(OBJS) $(LIBFT) $(MLX_LIB_PATH)
+$(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
 	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
 
-$(MLX_LIB_PATH):
-	@if [ ! -d "mlx" ]; then \
-		git clone https://github.com/42Paris/minilibx-linux.git mlx; \
+$(MLX_LIB):
+	@if [ ! -d "$(MLX_DIR)" ]; then \
+		git clone $(MLX_REPO) $(MLX_DIR); \
 	fi
-	@make -C $(MLX_LIB)
+	@make -C $(MLX_DIR)
 
 $(LIBFT):
-	@make -C libft
+	@make -C $(LIBFT_DIR)
 
 run: $(NAME)
 	./$(NAME)
 
 clean:
 	@rm -f $(OBJS)
-	@make clean -C $(MLX_LIB)
-	@make clean -C libft
+	@make clean -C $(MLX_DIR)
+	@make clean -C $(LIBFT_DIR)
 
 fclean: clean
 	@rm -f $(NAME)
-	@make fclean -C libft
+	@make fclean -C $(LIBFT_DIR)
 
 re: fclean all
 

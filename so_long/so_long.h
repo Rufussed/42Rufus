@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/09 12:01:31 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/10 15:35:07 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,22 @@
 // X11 event for window close (also known as "DestroyNotify")
 # define EVENT_CLOSE 17
 
-# define BUFF_SIZE 10000
+# define SPRITE_SIZE 48
+
+# define MAX_MAP_WIDTH 40
+# define MAX_MAP_HEIGHT 21
+// 40 * 21 + 1 = 841
+# define BUFF_SIZE 841
 
 # define MLX_ERROR 1
-
-# define SPRITE_SIZE 48
+# define NOT_RECTANGLE_ERROR 2
+# define BAD_WALLS_ERROR 3
+# define COLLECTIBLES_ERROR 4
+# define EXITS_ERROR 5
+# define PLAYER_ERROR 6
+# define INVALID_CHAR_ERROR 7
+# define MAP_OVERSIZE_ERROR 8
+# define MAP_UNDERSIZE_ERROR 9
 
 # define UP 1
 # define RIGHT 2
@@ -50,6 +61,7 @@ typedef struct s_data
 	void	*player;
 	void	*key;
 	char	**map;
+	char	*error;
 	int		map_width;
 	int		map_height;
 	int		player_x;
@@ -61,12 +73,23 @@ typedef struct s_data
 }	t_data;
 
 void	move_player(t_data *data);
-void	draw_map(t_data *data);
+void	draw_map_check_win(t_data *data);
 void	draw_game_objects(t_data *data);
-void	check_win(t_data *data);
 int		check_chars_size(t_data *data);
 int		check_walls(t_data *data);
 int		check_player(t_data *data);
 int		check_game_objects(t_data *data);
+void	free_data(t_data *data);
+void	close_win_free_mlx(t_data *data);
+void	move_player(t_data *data);
+int		read_map(t_data *data);
+int		handle_no_event(void *data);
+int		handle_keypress(int keysym, t_data *data);
+int		handle_keyrelease(int keysym, t_data *data);
+int		handle_close(void *param);
+int		error_set(t_data *data, int error);
+void	print_report(t_data *data);
+void	initialise_data(t_data *data);
+void	initialise_move_target(t_data *data);
 
 #endif // SO_LONG_H
