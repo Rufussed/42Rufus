@@ -6,19 +6,13 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 11:57:29 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/11 14:27:36 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/12 15:28:15 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-typedef struct s_node
-{
-	int	x;
-	int	y;
-}	t_node;
-
-void	*lst_remove_front(t_list **lst)
+void	lst_remove_front(t_list **lst)
 {
 	t_list	*temp;
 
@@ -30,37 +24,110 @@ void	*lst_remove_front(t_list **lst)
 	}
 }
 
-int	check_all_player_accessible_nodes(t_data *data)
+int	ft_lstfind(t_list *lst, t_node *node)
 {
-	t_list	*queued_nodes;
-	t_list	*visited_nodes;
-	t_node	*current_node;
-	int		i;
-	int		keys_found;
+	t_list	*temp;
 
-	current_node = malloc(sizeof(t_node));
-	if (!current_node)
-		return (0);
-	keys_found = 0;
-	current_node->x = data->player_x;
-	current_node->y = data->player_y;
-	queued_nodes = ft_lstnew(current_node);
-	while (queued_nodes)
+	temp = lst;
+	while (temp)
 	{
-		current_node = queued_nodes->content;
-		if (data->map[current_node->y][current_node->x] == 'C')
-			keys_found++;
-		visited_nodes = ft_lstnew(current_node);
-		queued_nodes = lst_remove_front(queued_nodes);
-		find_adjacent_nodes(data, current_node, queued_nodes, visited_nodes);
-		//need code to check if exit is reachable and collectables are matching
+		if (((t_node *)temp->content)->x == node->x
+			&& ((t_node *)temp->content)->y == node->y)
+			return (1);
+		temp = temp->next;
 	}
+	return (0);
 }
 
-void	find_adjacent_nodes(t_data *data, t_node *current_node, 
-	t_list **queued_nodes, t_list **visited_nodes)
+void	free_path_data(t_path_data *path_data)
 {
-	t_node	*adjacent_node;
+	if (path_data->queued_nodes)
+		ft_lstclear(&path_data->queued_nodes, free);
+	if (path_data->visited_nodes)
+		ft_lstclear(&path_data->visited_nodes, free);
+	if (path_data->current_node)
+		free(path_data->current_node);
+	if (path_data)
+		free(path_data);
+}
+
+int	check_all_player_accessible_nodes(t_data *data)
+{
+	t_path_data	*path_data;
+	t_node		*node_visited;
+	int			result;
+
+	path_data = malloc(sizeof(t_path_data));
+	if (!path_data)
+		return (0);
+	path_data->current_node = malloc(sizeof(t_node));
+	node_visited = malloc(sizeof(t_node));
+	if (!path_data->current_node || !node_visited)
+	{
+		free(path_data);
+		return (0);
+	}
+	path_data->visited_nodes = NULL;
+	ft_printf("created path_data & current_node\n\n");//debug
+	path_data->current_node->x = data->player_x;
+	path_data->current_node->y = data->player_y;
+	node_visited->x = data->player_x;
+	node_visited->y = data->player_y;
+	ft_printf("Player x = %d\n", data->player_x);//debug
+	ft_printf("Player y = %d\n", data->player_y);//debug
+	path_data->visited_nodes = ft_lstnew(node_visited);
+	path_data->queued_nodes = ft_lstnew(path_data->current_node);
+	ft_printf("initiallised queue_node\n\n");//debug
+	while (path_data->queued_nodes)
+	{
+		path_data->current_node = (t_node *)path_data->queued_nodes->content;
+		lst_remove_front(&path_data->queued_nodes);
+		ft_printf("current_node x = %d\n", path_data->current_node->x);//debug
+		ft_printf("current_node y = %d\n\n", path_data->current_node->y);//debug
+		find_adjacent_nodes(data, path_data);
+		ft_lstadd_back(&path_data->visited_nodes, 
+			ft_lstnew(path_data->current_node));
+	}
+	ft_printf("finished finding adjacent nodes\n\n");//debug
+	result = check_visited_for_keys_exit(data, path_data);
+	free(node_visited);
+	free_path_data(path_data);
+	return (result);
+}
+
+int	check_visited_for_keys_exit(t_data *data, t_path_data *path_data)
+{
+	t_list	*this_node;
+	int		keys_found;
+	int		exit_found;
+
+	keys_found = 0;
+	exit_found = 0;
+
+	ft_printf("key_count = %d\n", data->key_count);//debug
+	this_node = path_data->visited_nodes;
+	while (this_node)
+	{
+		if (data->map[((t_node *)this_node->content)->y]
+			[((t_node *)this_node->content)->x] == 'E')
+			exit_found = 1;
+		if (data->map[((t_node *)this_node->content)->y]
+			[((t_node *)this_node->content)->x] == 'C')
+			keys_found++;
+		this_node = this_node->next;
+	}
+	ft_printf("keys accessible = %d\n", keys_found);//debug
+	if (exit_found)
+		ft_printf("exit accessible\n");//debug
+	if (data->key_count == keys_found && exit_found)
+		return (1);
+	error_set(NO_VALID_PATH_ERROR);
+	return (0);
+}
+
+
+void	find_adjacent_nodes(t_data *data, t_path_data *path_data)
+{
 	int		i;
 	int		x;
 	int		y;
@@ -68,6 +135,8 @@ void	find_adjacent_nodes(t_data *data, t_node *current_node,
 	i = 1;
 	while (i <= 4)
 	{
+		x = path_data->current_node->x;
+		y = path_data->current_node->y;
 		if (i == UP)
 			y--;
 		if (i == RIGHT)
@@ -76,20 +145,31 @@ void	find_adjacent_nodes(t_data *data, t_node *current_node,
 			y++;
 		if (i == LEFT)
 			x--;
-		if (data->map[y][x] != 1)
-		{
-			adjacent_node = malloc(sizeof(t_node));
-			if (!adjacent_node)
-				return (0);
-			adjacent_node->x = x;
-			adjacent_node->y = y;
-			if (!ft_lstfind(visited_nodes, adjacent_node))
-				queued_nodes = ft_lstnew(adjacent_node);
-		}
-		lst_remove_front(queued_nodes);
-		x = current_node->x;
-		y = current_node->y;
+		check_and_queue_node(x, y, data, path_data);
 		i++;
 	}
 }
+
+void	check_and_queue_node(int x, int y, t_data *data, t_path_data *path_data)
+{
+	t_node	*adjacent_node;
+
+	if (data->map[y][x] != '1')
+	{
+		adjacent_node = malloc(sizeof(t_node));
+		if (!adjacent_node)
+			return ;
+		adjacent_node->x = x;
+		adjacent_node->y = y;
+		if (!(ft_lstfind(path_data->visited_nodes, adjacent_node) ||
+				ft_lstfind(path_data->queued_nodes, adjacent_node)))
+		{
+			ft_lstadd_back(&path_data->queued_nodes, ft_lstnew(adjacent_node));
+		}
+		else
+			free(adjacent_node);
+	}
+}
+
+
 

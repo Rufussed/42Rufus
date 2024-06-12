@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:18:53 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/11 10:40:35 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/12 11:15:14 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ int	error_set(int error)
 		ft_printf("%s\n", "Map is too big");
 	if (error == MAP_UNDERSIZE_ERROR)
 		ft_printf("%s\n", "Map is too small");
+	if (error == NO_VALID_PATH_ERROR)
+		ft_printf("%s\n", "No valid path to exit");
 	return (0);
 }
 
