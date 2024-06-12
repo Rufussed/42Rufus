@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/12 15:16:25 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/12 20:18:58 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,7 @@ typedef struct s_node
 typedef struct path_data
 {
 	t_node	*current_node;
-	t_node	*cnv;
-	t_node	*cnq;
+	t_node	*temp_node;
 	t_list	*queued_nodes;
 	t_list	*visited_nodes;
 }	t_path_data;
@@ -118,5 +117,9 @@ int	check_visited_for_keys_exit(t_data *data, t_path_data *path_data);
 void	find_adjacent_nodes(t_data *data, t_path_data *path_data);
 void	check_and_queue_node(int x, int y, t_data *data,
 			t_path_data *path_data);
+void	lst_remove_front(t_list **lst);
+int		ft_lstfind(t_list *lst, t_node *node);
+t_path_data	*initialise_path_data(t_path_data *path_data);
+void	free_path_data(t_path_data *path_data);
 
 #endif // SO_LONG_H

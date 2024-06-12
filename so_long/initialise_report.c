@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:18:53 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/12 11:15:14 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/12 20:08:43 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void	print_report(t_data *data)
 		i++;
 	}
 	ft_printf("\nMap width = %d\n", data->map_width);
-	ft_printf("Map height = %d\n", data->map_height);
+	ft_printf("Map height = %d\n\n", data->map_height);
 	ft_printf("Player x = %d\n", data->player_x);
-	ft_printf("Player y = %d\n", data->player_y);
+	ft_printf("Player y = %d\n\n", data->player_y);
 }

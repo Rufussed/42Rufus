@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstdelone_bonus.c                               :+:      :+:    :+:   */
+/*   ft_lstdelone.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/02 09:18:43 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/03 15:20:18 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/12 18:19:16 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,16 @@
 //     free(content);
 // }
 
-void	ft_lstdelone(t_list *lst, void (*del)(void*))
+void	ft_lstdelone(t_list *lst, void (*del)(void *))
 {
-	del(lst -> content);
-	free(lst);
+	if (lst != NULL) {
+		if (lst->content != NULL) 
+		{
+			del(lst->content);
+			lst->content = NULL;
+		}
+		free(lst);
+		lst = NULL;
+	}
 }
+

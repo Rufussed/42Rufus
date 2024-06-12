@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:56 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/12 13:14:13 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/12 20:21:38 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,9 +77,10 @@ int	main(void)
 	if (!data)
 		return (1);
 	initialise_data(data);
-	if (!(read_map(data) && check_rectangular(data) && check_walls(data)
-			&& check_chars_size(data) && check_player(data)
-			&& check_game_objects(data) && check_all_player_accessible_nodes(data)))
+	if (!(read_map(data) && check_rectangular(data) && check_walls(data) 
+			&& check_chars_size(data) && check_player(data) 
+			&& check_game_objects(data) 
+			&& check_all_player_accessible_nodes(data)))
 	{
 		ft_printf("Invalid map\n");
 		free_data(data);

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 12:10:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/11 11:25:39 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/12 20:09:41 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,9 @@ void	draw_map_check_win(t_data *data)
 	if (data->key_count == 0 
 		&& data->map[data->player_y][data->player_x] == 'E')
 	{
-		ft_printf("You win!\n");
 		mlx_loop_end(data->mlx_ptr);
+		ft_printf("You win!\n");
+		ft_printf("\nTotal Moves: %d\n\n", data->moves);		
 	}
 }
 
@@ -89,6 +90,5 @@ void	move_player(t_data *data)
 		data->player_x = data->move_x;
 		data->player_y = data->move_y;
 		data->moves++;
-		ft_printf("Total Moves: %d\n", data->moves);
 	}
 }
