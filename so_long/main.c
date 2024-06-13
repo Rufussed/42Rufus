@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:56 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/12 20:21:38 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/13 11:54:15 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,25 @@ int	open_window(t_data *data)
 	return (0);
 }
 
+int	init_data_check_map(t_data *data)
+{
+	initialise_data(data);
+	ft_printf("\n\nWelcome to \"So Long\"\n\nFind all keys & exit\n\nGames Status:\n\n");
+	if (!(read_map(data) && check_rectangular(data) && check_walls(data) 
+			&& check_chars_size(data) && check_player(data) 
+			&& check_game_objects(data) 
+			&& check_all_player_accessible_nodes(data)))
+	{
+		ft_printf("\nInvalid map !\n\n");
+		free_data(data);
+		return (0);
+	}
+	initialise_move_target(data);
+	estimate_moves(data);
+	print_report(data);
+	return (1);
+}
+
 int	main(void)
 {
 	t_data	*data;
@@ -76,17 +95,8 @@ int	main(void)
 	data = calloc(1, sizeof(t_data));
 	if (!data)
 		return (1);
-	initialise_data(data);
-	if (!(read_map(data) && check_rectangular(data) && check_walls(data) 
-			&& check_chars_size(data) && check_player(data) 
-			&& check_game_objects(data) 
-			&& check_all_player_accessible_nodes(data)))
-	{
-		ft_printf("Invalid map\n");
-		free_data(data);
+	if (!init_data_check_map(data))
 		return (1);
-	}
-	print_report(data);
 	if (open_window(data) == MLX_ERROR)
 	{
 		ft_printf("Error opening window\n");

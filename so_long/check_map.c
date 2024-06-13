@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 10:32:44 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/11 11:24:23 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/13 11:52:21 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,6 @@ int	check_player(t_data *data)
 	}
 	if (player_count != 1)
 		return (error_set(PLAYER_ERROR));
-	initialise_move_target(data);
 	return (1);
 }
 
@@ -116,11 +115,8 @@ int	check_game_objects(t_data *data)
 {
 	int	i;
 	int	j;
-	int	exit_count;
 
-	exit_count = 0;
 	i = 0;
-	data->key_count = 0;
 	while (data->map[i])
 	{
 		j = 0;
@@ -129,12 +125,15 @@ int	check_game_objects(t_data *data)
 			if (data->map[i][j] == 'C')
 				data->key_count++;
 			if (data->map[i][j] == 'E')
-				exit_count++; 
+				data->exit_count++;
+			if (data->map[i][j] == 'E' || data->map[i][j] == 'C' 
+				|| data->map[i][j] == '0')
+				data->floor_count++;
 			j++;
 		}
 		i++;
 	}
-	if (exit_count != 1)
+	if (data->exit_count != 1)
 		return (error_set(EXITS_ERROR));
 	if (data->key_count == 0)
 		return (error_set(COLLECTIBLES_ERROR));

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 11:57:29 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/12 20:15:00 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/13 12:01:39 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,22 @@ int	check_all_player_accessible_nodes(t_data *data)
 	return (result);
 }
 
+void	pathfinder_report(t_data *data, int keys_found, int exit_found)
+{
+	ft_printf("\npathfinder visited %d nodes\n", data->accessible_nodes);
+	ft_printf("from a possible of %d nodes\n", data->floor_count);
+	ft_printf("\ntotal keys on map = %d\nkeys accessible = %d\n\n", 
+		data->key_count, keys_found);
+	if (keys_found < data->key_count)
+		ft_printf("not all keys are accessible\n\n");
+	else
+		ft_printf("all keys are accessible\n\n");
+	if (exit_found)
+		ft_printf("exit accessible\n\n");
+	else
+		ft_printf("exit not accessible\n\n");
+}
+
 int	check_visited_for_keys_exit(t_data *data, t_path_data *path_data)
 {
 	t_list	*this_node;
@@ -50,6 +66,7 @@ int	check_visited_for_keys_exit(t_data *data, t_path_data *path_data)
 	this_node = path_data->visited_nodes;
 	while (this_node)
 	{
+		data->accessible_nodes++;
 		if (data->map[((t_node *)this_node->content)->y]
 			[((t_node *)this_node->content)->x] == 'E')
 			exit_found = 1;
@@ -58,16 +75,12 @@ int	check_visited_for_keys_exit(t_data *data, t_path_data *path_data)
 			keys_found++;
 		this_node = this_node->next;
 	}
-	ft_printf("\ntotal keys on map = %d\nkeys accessible = %d\n", 
-		data->key_count, keys_found);
-	if (exit_found)
-		ft_printf("\nexit accessible\n\n");
+	pathfinder_report(data, keys_found, exit_found);
 	if (data->key_count == keys_found && exit_found)
 		return (1);
 	error_set(NO_VALID_PATH_ERROR);
 	return (0);
 }
-
 
 void	find_adjacent_nodes(t_data *data, t_path_data *path_data)
 {
@@ -102,8 +115,8 @@ void	check_and_queue_node(int x, int y, t_data *data, t_path_data *path_data)
 		adjacent_node = malloc(sizeof(t_node));
 		adjacent_node->x = x;
 		adjacent_node->y = y;
-		if (!(ft_lstfind(path_data->visited_nodes, adjacent_node) ||
-				ft_lstfind(path_data->queued_nodes, adjacent_node)))
+		if (!(ft_lstfind(path_data->visited_nodes, adjacent_node)
+				|| ft_lstfind(path_data->queued_nodes, adjacent_node)))
 		{
 			ft_lstadd_back(&path_data->queued_nodes, ft_lstnew(adjacent_node));
 		}

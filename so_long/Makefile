@@ -1,6 +1,6 @@
 # Variables
 NAME = so_long
-SRC = main.c check_map.c path_finding.c move_draw_map.c read_map_free.c event_handlers.c  initialise_report.c pathfinder_list_init_free.c 
+SRC = main.c check_map.c path_finding.c move.c draw_map_win.c read_map_free.c event_handlers.c  initialise_report.c pathfinder_list_init_free.c 
 OBJS = $(SRC:.c=.o)
 MLX_DIR = mlx
 MLX_REPO = https://github.com/42Paris/minilibx-linux.git

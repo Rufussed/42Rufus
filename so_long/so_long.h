@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/12 20:18:58 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/13 12:50:04 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,6 @@
 # include <X11/keysym.h>
 # include <X11/keysymdef.h>
 # include <X11/X.h>
-
-# define false 0
-# define true 1
-typedef int bool;
 
 // X11 event for window close (also known as "DestroyNotify")
 # define EVENT_CLOSE 17
@@ -73,7 +69,11 @@ typedef struct s_data
 	int		move_x;
 	int		move_y;
 	int		moves;
+	int		est_moves;
 	int		key_count;
+	int		floor_count;
+	int		exit_count;
+	int		accessible_nodes;
 }	t_data;
 
 typedef struct s_node
@@ -111,9 +111,9 @@ void	print_report(t_data *data);
 void	initialise_data(t_data *data);
 void	initialise_move_target(t_data *data);
 int		check_rectangular(t_data *data);
-int	check_all_player_accessible_nodes(t_data *data);
+int		check_all_player_accessible_nodes(t_data *data);
 void	lst_remove_front(t_list **lst);
-int	check_visited_for_keys_exit(t_data *data, t_path_data *path_data);
+int		check_visited_for_keys_exit(t_data *data, t_path_data *path_data);
 void	find_adjacent_nodes(t_data *data, t_path_data *path_data);
 void	check_and_queue_node(int x, int y, t_data *data,
 			t_path_data *path_data);
@@ -121,5 +121,6 @@ void	lst_remove_front(t_list **lst);
 int		ft_lstfind(t_list *lst, t_node *node);
 t_path_data	*initialise_path_data(t_path_data *path_data);
 void	free_path_data(t_path_data *path_data);
+void	estimate_moves(t_data *data);
 
 #endif // SO_LONG_H
