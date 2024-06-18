@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   so_long_bonus.h                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/17 14:33:14 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/18 17:20:11 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,14 @@
 
 # define MAX_ENEMIES 10
 
-# define ANIM_STEPS 6
+# define ANIM_STEPS 8
 # define ANIM_DELAY 10000
+
+# define MAP1 "maps_bonus/map1.ber"
+# define MAP2 "maps_bonus/map2.ber"
+# define MAP3 "maps_bonus/map3.ber"
+# define MAP4 "maps_bonus/map4.ber"
+# define MAP5 "maps_bonus/map5.ber"
 
 typedef struct s_enemy
 {
@@ -92,6 +98,7 @@ typedef struct s_data
 	void	*win;
 	void	*lose;	
 	char	**map;
+	char	*map_path;
 	int		map_width;
 	int		map_height;
 	int		game_status;
@@ -107,7 +114,8 @@ typedef struct s_data
 	int		exit_count;
 	int		accessible_nodes;
 	int		enemy_count;
-	int		animating;
+	int		x[MAX_ENEMIES];
+	int		y[MAX_ENEMIES];
 	void	*enemy_up;
 	void	*enemy_down;
 	void	*enemy_left;
@@ -190,5 +198,11 @@ int		restart_game(t_data *data);
 void	set_player_sprite(t_data *data);
 void	set_enemy_sprite(t_data *data, int i, int direction);
 void	move_object_coords(int *x, int *y, int direction);
+int		check_enemy_enemy_collision(t_data *data, int i);
+int		check_move_enemy(t_data *data, int i);
+int		set_move_enemy_horizontal(t_data *data, int i);
+int		set_move_enemy(t_data *data, int i);
+int		read_next_map(t_data *data);
+int		next_level(t_data *data);
 
 #endif // SO_LONG_H

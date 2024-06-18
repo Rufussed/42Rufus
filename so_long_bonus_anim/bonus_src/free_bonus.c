@@ -1,45 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   read_map_free_bonus.c                              :+:      :+:    :+:   */
+/*   free_bonus copy.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 11:50:09 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/17 09:42:48 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/18 13:20:41 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long_bonus.h"
-
-int	read_map(t_data *data)
-{
-	char	*read_buf;
-	ssize_t	bytes_read;
-	int		fd;
-
-	read_buf = malloc(BUFF_SIZE * sizeof(char));
-	if (!read_buf)
-		return (0);
-	fd = open("map_bonus.ber", O_RDONLY);
-	if (fd == -1)
-	{
-		free(read_buf);
-		return (0);
-	}
-	bytes_read = read(fd, read_buf, BUFF_SIZE);
-	if (bytes_read < 15)
-	{
-		free(read_buf);
-		close(fd);
-		return (0);
-	}
-	read_buf[bytes_read] = '\0';
-	data->map = ft_split(read_buf, '\n');
-	free(read_buf);
-	close(fd);
-	return (1);
-}
 
 void	free_map_content(char **map)
 {
@@ -113,7 +84,7 @@ void	free_enemy_ui_images(t_data *data)
 		mlx_destroy_image(data->mlx_ptr, data->green_steps);
 	if (data->red_steps)
 		mlx_destroy_image(data->mlx_ptr, data->red_steps);
-	if(data->black)
+	if (data->black)
 		mlx_destroy_image(data->mlx_ptr, data->black);
 }
 

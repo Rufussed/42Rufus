@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialise_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:18:53 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/17 18:13:07 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/18 15:49:43 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,11 @@ void	initialise_data(t_data *data)
 	data->player = NULL;
 	data->key = NULL;
 	data->map = NULL;
+	data->black = NULL;
+	data->map_path = MAP1;
 	data->map_width = 0;
 	data->map_height = 0;
 	data->game_status = PLAYING;
-	data->animating = FALSE;
 	data->direction = NONE;
 	data->moves = 0;
 	data->est_moves = 0;
@@ -50,7 +51,6 @@ void	init_enemy_data(t_data *data)
 	data->enemy_down = NULL;
 	data->enemy_left = NULL;
 	data->enemy_right = NULL;
-	data->black = NULL;
 	data->win = NULL;
 	data->lose = NULL;
 	data->green_steps = NULL;
@@ -63,6 +63,8 @@ void	init_enemy_data(t_data *data)
 		data->enemies[i].y = 0;
 		data->enemies[i].emov_x = 0;
 		data->enemies[i].emov_y = 0;
+		data->x[i] = 0;
+		data->y[i] = 0;
 		data->enemies[i].enemy = NULL;
 		data->enemies[i].direction = NONE;
 		i++;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   win_lose_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 12:03:49 by rufus             #+#    #+#             */
-/*   Updated: 2024/06/17 14:11:34 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/18 13:24:59 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	check_win(t_data *data)
 	{
 		sprite_to_coords(data, data->player_x, data->player_y, data->exit);
 		sprite_to_coords(data, data->map_width / 2 - 4,
-				data->map_height / 2 - 3, data->win);
+			data->map_height / 2 - 3, data->win);
 		data->game_status = WIN;
 		ft_printf("\n\n\033[32m!! YOU ESCAPED THE DUNGEON !!\n");
 		ft_printf("\n\033[0mTotal Moves: %d\n\n", data->moves);
@@ -52,9 +52,9 @@ void	check_lose(t_data *data)
 				data->map_height / 2 - 3, data->lose);
 			data->game_status = LOSE;
 			ft_printf("\n\n\033[31m!! YOU WERE GHOSTED !!\n");
-			ft_printf("\n\033[0m GAME OVER\n\n");
+			ft_printf("\n\033[0mGAME OVER\n\n");
 			ft_printf("Try again!\n\n");
-			break;
+			break ;
 		}
 		i++;
 	}

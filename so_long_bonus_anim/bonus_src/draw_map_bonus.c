@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw_map_bonus.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 12:10:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/17 14:11:08 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/18 14:52:07 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,6 @@ void	sprite_to_coords(t_data *data, int x, int y, void *object)
 		x * SPRITE_SIZE, y * SPRITE_SIZE);
 }
 
-
-
 void	draw_enemies(t_data *data)
 {
 	int	i;
@@ -59,6 +57,7 @@ void	draw_enemies(t_data *data)
 		i++;
 	}
 }
+
 void	draw_game_objects(t_data *data)
 {
 	if (data->map[data->player_y][data->player_x] == 'C')
@@ -66,7 +65,6 @@ void	draw_game_objects(t_data *data)
 	data->key_count = object_to_map_count(data, 'C', data->key);
 	draw_enemies(data);
 	sprite_to_coords(data, data->player_x, data->player_y, data->player);
-	
 }
 
 void	draw_map_check_win(t_data *data)

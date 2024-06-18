@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   move_player_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 11:57:29 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/17 14:30:40 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/18 13:16:34 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,6 @@ int	check_move(t_data *data)
 	}
 	return (1);
 }
-
-
 
 void	set_player_sprite(t_data *data)
 {
@@ -57,7 +55,6 @@ void	anim_player(t_data *data, int direction)
 	int	x;
 	int	y;
 
-	data->animating = TRUE;
 	i = 0;
 	x = data->player_x * SPRITE_SIZE;
 	y = data->player_y * SPRITE_SIZE;
@@ -73,15 +70,12 @@ void	anim_player(t_data *data, int direction)
 			x -= ANIM_STEPS;
 		else if (direction == RIGHT)
 			x += ANIM_STEPS;
-		ft_printf("x = %d, y = %d\n", x, y);
-		ft_printf("play coords: %d, %d\n", data->player_x, data->player_y);
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-			data->player, x , y);
+			data->player, x, y);
 		mlx_do_sync(data->mlx_ptr);
 		usleep(ANIM_DELAY);
 		i += ANIM_STEPS;
 	}
-	data->animating = FALSE;
 }
 
 void	move_player(t_data *data)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   event_handlers_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 12:23:00 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/17 13:34:34 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/18 15:55:42 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,13 @@ int	handle_close(void *param)
 {
 	t_data	*data;
 
+	
 	data = (t_data *)param;
 	if (data && data->mlx_ptr)
+	{
+		mlx_do_key_autorepeaton(data->mlx_ptr);
 		mlx_loop_end(data->mlx_ptr);
+	}
 	return (0);
 }
 
@@ -28,6 +32,8 @@ int	handle_keyrelease(int keysym, t_data *data)
 {
 	if (keysym == XK_r)
 		return (restart_game(data));
+	if (keysym == XK_n)
+		return (next_level(data));
 	if (keysym == XK_Escape)
 		mlx_loop_end(data->mlx_ptr);
 	return (0);
@@ -35,7 +41,7 @@ int	handle_keyrelease(int keysym, t_data *data)
 
 int	handle_keypress(int keysym, t_data *data)
 {
-	if (data->game_status != PLAYING || data->animating == TRUE)
+	if (data->game_status != PLAYING)
 		return (0);
 	if (keysym == XK_Up)
 		data->direction = UP;
@@ -57,6 +63,27 @@ int	restart_game(t_data *data)
 	free_map_content(data->map);
 	read_map(data);
 	data->moves = 0;
+	data->key_count = 0;
+	data->enemy_count = 0;
+	data->exit_count = 0;
+	data->direction = NONE;
+	data->player = data->elf_down;
+	check_player(data);
+	check_game_objects(data);
+	check_enemies(data);
+	initialise_move_target(data);
+	data->game_status = PLAYING;
+	draw_map_check_win(data);
+	return (1);
+}
+
+int	next_level(t_data *data)
+{
+	free_map_content(data->map);
+	read_next_map(data);
+	data->moves = 0;
+	data->est_moves	= 0;
+	estimate_moves(data);
 	data->key_count = 0;
 	data->enemy_count = 0;
 	data->exit_count = 0;

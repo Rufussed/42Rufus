@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:56 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/17 13:21:06 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/18 15:46:11 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	open_window(t_data *data)
 	}
 	mlx_hook(data->win_ptr, DestroyNotify, StructureNotifyMask,
 		handle_close, data);
+	mlx_do_key_autorepeatoff(data->mlx_ptr);
 	mlx_hook(data->win_ptr, KeyPress, KeyPressMask, &handle_keypress, data);
 	mlx_hook(data->win_ptr, KeyRelease, KeyReleaseMask, &handle_keyrelease,
 		data);
@@ -102,7 +103,7 @@ int	init_data_check_map(t_data *data)
 	initialise_data(data);
 	ft_printf("\n\nWelcome to \"So Long\"\n\n");
 	ft_printf("Find all keys & exit\n\nGames Status:\n\n");
-	if (!(read_map(data) && check_rectangular(data) && check_walls(data)
+	if (!(read_next_map(data) && check_rectangular(data) && check_walls(data)
 			&& check_chars_size(data) && check_player(data)
 			&& check_game_objects(data)
 			&& check_all_player_accessible_nodes(data)

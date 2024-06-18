@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ui_bonus.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/15 12:06:12 by rufus             #+#    #+#             */
-/*   Updated: 2024/06/16 18:39:38 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/18 13:24:10 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ void	load_more_ui_tiles(t_data *data)
 	int	img_width;
 	int	img_height;
 
-	ft_printf("Loading more UI tiles\n");
-
+	ft_printf("Loading UI tiles...\n");
 	data->red_steps = mlx_xpm_file_to_image(data->mlx_ptr,
 			"assets/red_steps.xpm", &img_width, &img_height);
 	data->green_steps = mlx_xpm_file_to_image(data->mlx_ptr,
