@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/13 12:50:04 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/19 13:56:33 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,9 @@
 # define DOWN 3
 # define LEFT 4
 
-typedef struct s_data
+# define MAP1 "map.ber"
+
+typedef struct s_datareplace
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -62,6 +64,7 @@ typedef struct s_data
 	void	*player;
 	void	*key;
 	char	**map;
+	char	*map_path;
 	int		map_width;
 	int		map_height;
 	int		player_x;
@@ -91,37 +94,36 @@ typedef struct s_path_data
 	t_list	*visited_nodes;
 }	t_path_data;
 
-void	move_player(t_data *data);
-void	draw_map_check_win(t_data *data);
-void	draw_game_objects(t_data *data);
-int		check_chars_size(t_data *data);
-int		check_walls(t_data *data);
-int		check_player(t_data *data);
-int		check_game_objects(t_data *data);
-void	free_data(t_data *data);
-void	close_win_free_mlx(t_data *data);
-void	move_player(t_data *data);
-int		read_map(t_data *data);
-int		handle_no_event(void *data);
-int		handle_keypress(int keysym, t_data *data);
-int		handle_keyrelease(int keysym, t_data *data);
-int		handle_close(void *param);
-int		error_set(int error);
-void	print_report(t_data *data);
-void	initialise_data(t_data *data);
-void	initialise_move_target(t_data *data);
-int		check_rectangular(t_data *data);
-int		check_all_player_accessible_nodes(t_data *data);
-void	lst_remove_front(t_list **lst);
-int		check_visited_for_keys_exit(t_data *data, t_path_data *path_data);
-void	find_adjacent_nodes(t_data *data, t_path_data *path_data);
-void	check_and_queue_node(int x, int y, t_data *data,
-			t_path_data *path_data);
-void	lst_remove_front(t_list **lst);
-int		ft_lstfind(t_list *lst, t_node *node);
-
-void	free_path_data(t_path_data *path_data);
-void	estimate_moves(t_data *data);
+void		move_player(t_data *data);
+void		draw_map_check_win(t_data *data);
+void		draw_game_objects(t_data *data);
+int			check_chars_size(t_data *data);
+int			check_walls(t_data *data);
+int			check_player(t_data *data);
+int			check_game_objects(t_data *data);
+void		free_data(t_data *data);
+void		close_win_free_mlx(t_data *data);
+void		move_player(t_data *data);
+int			read_map(t_data *data);
+int			handle_no_event(void *data);
+int			handle_keypress(int keysym, t_data *data);
+int			handle_keyrelease(int keysym, t_data *data);
+int			handle_close(void *param);
+int			error_set(int error);
+void		print_report(t_data *data);
+void		initialise_data(t_data *data);
+void		initialise_move_target(t_data *data);
+int			check_rectangular(t_data *data);
+int			check_all_player_accessible_nodes(t_data *data);
+void		lst_remove_front(t_list **lst);
+int			check_visited_for_keys_exit(t_data *data, t_path_data *path_data);
+void		find_adjacent_nodes(t_data *data, t_path_data *path_data);
+void		check_and_queue_node(int x, int y, t_data *data,
+				t_path_data *path_data);
+void		lst_remove_front(t_list **lst);
+int			ft_lstfind(t_list *lst, t_node *node);
+void		free_path_data(t_path_data *path_data);
+void		estimate_moves(t_data *data);
 
 t_path_data	*initialise_path_data(t_path_data *path_data);
 

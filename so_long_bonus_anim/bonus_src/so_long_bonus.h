@@ -1,13 +1,13 @@
 /* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   so_long_bonus.h                                    :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/06 19:28:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/18 17:20:11 by rlane            ###   ########.fr       */
-/*                                                                            */
+/*																			*/
+/*														:::	  ::::::::   */
+/*   so_long_bonus.h									:+:	  :+:	:+:   */
+/*													+:+ +:+		 +:+	 */
+/*   By: rlane <rlane@student.42.fr>				+#+  +:+	   +#+		*/
+/*												+#+#+#+#+#+   +#+		   */
+/*   Created: 2024/06/06 19:28:50 by rlane			 #+#	#+#			 */
+/*   Updated: 2024/06/19 13:01:43 by rlane			###   ########.fr	   */
+/*																			*/
 /* ************************************************************************** */
 
 #ifndef SO_LONG_BONUS_H
@@ -62,8 +62,8 @@
 
 # define MAX_ENEMIES 10
 
-# define ANIM_STEPS 8
-# define ANIM_DELAY 10000
+# define ANIM_STEPS 12
+# define ANIM_DELAY 30000
 
 # define MAP1 "maps_bonus/map1.ber"
 # define MAP2 "maps_bonus/map2.ber"
@@ -89,9 +89,13 @@ typedef struct s_data
 	void	*wall;
 	void	*exit;
 	void	*elf_up;
+	void	*elf_up2;
 	void	*elf_down;
+	void	*elf_down2;
 	void	*elf_left;
+	void	*elf_left2;
 	void	*elf_right;
+	void	*elf_right2;
 	void	*elf_dead;
 	void	*player;
 	void	*key;
@@ -152,57 +156,58 @@ typedef struct s_path_data
 	t_list	*visited_nodes;
 }	t_path_data;
 
-void	move_player(t_data *data);
-void	draw_map_check_win(t_data *data);
-void	sprite_to_coords(t_data *data, int x, int y, void *object);
-void	draw_game_objects(t_data *data);
-int		check_chars_size(t_data *data);
-int		check_walls(t_data *data);
-int		check_player(t_data *data);
-int		check_game_objects(t_data *data);
-void	free_data(t_data *data);
-void	free_map_content(char **map);
-void	close_win_free_mlx(t_data *data);
-void	move_player(t_data *data);
-int		read_map(t_data *data);
-int		handle_no_event(void *data);
-int		handle_keypress(int keysym, t_data *data);
-int		handle_keyrelease(int keysym, t_data *data);
-int		handle_close(void *param);
-int		error_set(int error);
-void	print_report(t_data *data);
-void	initialise_data(t_data *data);
-int		init_data_check_map(t_data *data);
-void	initialise_move_target(t_data *data);
-int		check_rectangular(t_data *data);
-int		check_all_player_accessible_nodes(t_data *data);
-void	lst_remove_front(t_list **lst);
-int		check_visited_for_keys_exit(t_data *data, t_path_data *path_data);
-void	find_adjacent_nodes(t_data *data, t_path_data *path_data);
-void	check_and_queue_node(int x, int y, t_data *data,
-			t_path_data *path_data);
-void	lst_remove_front(t_list **lst);
-int		ft_lstfind(t_list *lst, t_node *node);
+void		move_player(t_data *data);
+void		draw_map_check_win(t_data *data);
+void		sprite_to_coords(t_data *data, int x, int y, void *object);
+void		draw_game_objects(t_data *data);
+int			check_chars_size(t_data *data);
+int			check_walls(t_data *data);
+int			check_player(t_data *data);
+int			check_game_objects(t_data *data);
+void		free_data(t_data *data);
+void		free_map_content(char **map);
+void		close_win_free_mlx(t_data *data);
+void		move_player(t_data *data);
+int			read_map(t_data *data);
+int			handle_no_event(void *data);
+int			handle_keypress(int keysym, t_data *data);
+int			handle_keyrelease(int keysym, t_data *data);
+int			handle_close(void *param);
+int			error_set(int error);
+void		print_report(t_data *data);
+void		initialise_data(t_data *data);
+int			init_data_check_map(t_data *data);
+void		initialise_move_target(t_data *data);
+int			check_rectangular(t_data *data);
+int			check_all_player_accessible_nodes(t_data *data);
+void		lst_remove_front(t_list **lst);
+int			check_visited_for_keys_exit(t_data *data, t_path_data *path_data);
+void		find_adjacent_nodes(t_data *data, t_path_data *path_data);
+void		check_and_queue_node(int x, int y, t_data *data,
+				t_path_data *path_data);
+void		lst_remove_front(t_list **lst);
+int			ft_lstfind(t_list *lst, t_node *node);
 t_path_data	*initialise_path_data(t_path_data *path_data);
-void	free_path_data(t_path_data *path_data);
-void	estimate_moves(t_data *data);
-void	init_enemy_data(t_data *data);
-int		check_enemies(t_data *data);
-void	move_enemy(t_data *data);
-void	check_win(t_data *data);
-void	check_lose(t_data *data);
-void	draw_text(t_data *data);
-void	load_ui_tiles(t_data *data);
-void	load_tiles(t_data *data);
-int		restart_game(t_data *data);
-void	set_player_sprite(t_data *data);
-void	set_enemy_sprite(t_data *data, int i, int direction);
-void	move_object_coords(int *x, int *y, int direction);
-int		check_enemy_enemy_collision(t_data *data, int i);
-int		check_move_enemy(t_data *data, int i);
-int		set_move_enemy_horizontal(t_data *data, int i);
-int		set_move_enemy(t_data *data, int i);
-int		read_next_map(t_data *data);
-int		next_level(t_data *data);
+void		free_path_data(t_path_data *path_data);
+void		estimate_moves(t_data *data);
+void		init_enemy_data(t_data *data);
+int			check_enemies(t_data *data);
+void		move_enemy(t_data *data);
+void		check_win(t_data *data);
+void		check_lose(t_data *data);
+void		draw_text(t_data *data);
+void		load_ui_tiles(t_data *data);
+void		load_tiles(t_data *data);
+int			restart_game(t_data *data);
+void		set_player_sprite(t_data *data);
+void		set_enemy_sprite(t_data *data, int i, int direction);
+void		move_object_coords(int *x, int *y, int direction);
+int			check_enemy_enemy_collision(t_data *data, int i);
+int			check_move_enemy(t_data *data, int i);
+int			set_move_enemy_horizontal(t_data *data, int i);
+int			set_move_enemy(t_data *data, int i);
+int			read_next_map(t_data *data);
+int			next_level(t_data *data);
+void		load_tiles(t_data *data);
 
 #endif // SO_LONG_H

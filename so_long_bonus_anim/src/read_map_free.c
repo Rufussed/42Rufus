@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 11:50:09 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/13 08:38:54 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/19 14:03:56 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,19 +21,13 @@ int	read_map(t_data *data)
 	read_buf = malloc(BUFF_SIZE * sizeof(char));
 	if (!read_buf)
 		return (0);
-	fd = open("map.ber", O_RDONLY);
+	fd = open(data->map_path, O_RDONLY);
 	if (fd == -1)
 	{
 		free(read_buf);
 		return (0);
 	}
 	bytes_read = read(fd, read_buf, BUFF_SIZE);
-	if (bytes_read < 15)
-	{
-		free(read_buf);
-		close(fd);
-		return (0);
-	}
 	read_buf[bytes_read] = '\0';
 	data->map = ft_split(read_buf, '\n');
 	free(read_buf);

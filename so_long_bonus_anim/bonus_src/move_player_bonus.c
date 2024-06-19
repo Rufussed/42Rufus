@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/11 11:57:29 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/18 13:16:34 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/19 12:57:47 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,33 @@ void	set_player_sprite(t_data *data)
 	}
 }
 
+void	*elf_sprite_swap(t_data *data, int direction, int i)
+{
+	if (i % 2 != 0)
+	{
+		if (direction == UP)
+			return (data->elf_up2);
+		else if (direction == DOWN)
+			return (data->elf_down2);
+		else if (direction == LEFT)
+			return (data->elf_left2);
+		else if (direction == RIGHT)
+			return (data->elf_right2);
+	}
+	else
+	{
+		if (direction == UP)
+			return (data->elf_up);
+		else if (direction == DOWN)
+			return (data->elf_down);
+		else if (direction == LEFT)
+			return (data->elf_left);
+		else if (direction == RIGHT)
+			return (data->elf_right);
+	}
+	return (data->elf_down);
+}
+
 void	anim_player(t_data *data, int direction)
 {
 	int	i;
@@ -58,7 +85,7 @@ void	anim_player(t_data *data, int direction)
 	i = 0;
 	x = data->player_x * SPRITE_SIZE;
 	y = data->player_y * SPRITE_SIZE;
-	while (i < SPRITE_SIZE)
+	while (i < SPRITE_SIZE / ANIM_STEPS)
 	{
 		sprite_to_coords(data, data->player_x, data->player_y, data->floor);
 		sprite_to_coords(data, data->move_x, data->move_y, data->floor);
@@ -71,10 +98,10 @@ void	anim_player(t_data *data, int direction)
 		else if (direction == RIGHT)
 			x += ANIM_STEPS;
 		mlx_put_image_to_window(data->mlx_ptr, data->win_ptr,
-			data->player, x, y);
+			elf_sprite_swap(data, direction, i), x, y);
 		mlx_do_sync(data->mlx_ptr);
 		usleep(ANIM_DELAY);
-		i += ANIM_STEPS;
+		i++;
 	}
 }
 

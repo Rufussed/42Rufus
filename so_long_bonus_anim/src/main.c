@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/06 19:28:56 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/13 11:54:15 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/19 14:06:16 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,13 +89,30 @@ int	init_data_check_map(t_data *data)
 	return (1);
 }
 
-int	main(void)
+int	has_ber_extension(const char *filename)
+{
+	const char	*dot;
+
+	dot = ft_strrchr(filename, '.');
+	if (ft_strncmp(dot, ".ber\0", 5) == 0)
+		return (1);
+	return (0);
+}
+
+int	main(int argc, char **argv)
 {
 	t_data	*data;
 
 	data = calloc(1, sizeof(t_data));
 	if (!data)
 		return (1);
+	if (argc != 2 || !has_ber_extension(argv[1]))
+	{
+		ft_printf("Error\nInvalid arguments\nUsage: ./so_long mapname.ber\n");
+		free(data);
+		return (1);
+	}
+	data->map_path = argv[1];
 	if (!init_data_check_map(data))
 		return (1);
 	if (open_window(data) == MLX_ERROR)

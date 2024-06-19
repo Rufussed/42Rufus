@@ -6,7 +6,7 @@
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/14 13:30:01 by rlane             #+#    #+#              #
-#    Updated: 2024/06/18 13:27:02 by rlane            ###   ########.fr        #
+#    Updated: 2024/06/19 13:20:45 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,11 +25,11 @@ SRC_FILES = main.c check_map.c path_finding.c move.c draw_map_win.c \
 		pathfinder_list_init_free.c
 
 # List all bonus source files explicitly
-BONUS_SRC_FILES = main_bonus.c check_map_bonus.c path_finding_bonus.c ui_bonus.c \
+BONUS_SRC_FILES = main_bonus.c load_assets_bonus.c check_map_bonus.c path_finding_bonus.c \
 		move_player_bonus.c move_enemy_bonus.c move_enemy2_bonus.c \
 		draw_map_bonus.c read_map_bonus.c event_handlers_bonus.c \
 		initialise_bonus.c pathfinder_list_init_free_bonus.c enemies_bonus.c \
-		report_errors_bonus.c win_lose_bonus.c free_bonus.c
+		report_errors_bonus.c win_lose_bonus.c free_bonus.c free_assets_bonus.c ui_bonus.c
 
 # Convert to object files
 OBJS = $(addprefix $(OBJ_DIR)/,$(SRC_FILES:.c=.o))
@@ -50,10 +50,14 @@ all: $(NAME)
 bonus: $(BONUS_NAME)
 
 $(NAME): $(OBJS) $(LIBFT) $(MLX_LIB)
-	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)  && valgrind ./$(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(MLX_FLAGS) -o $(NAME)
+
+# add to line above for testing: && valgrind ./$(NAME)
 
 $(BONUS_NAME): $(BONUS_OBJS) $(LIBFT) $(MLX_LIB)
-	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) $(MLX_FLAGS) -o $(BONUS_NAME)  && valgrind ./$(BONUS_NAME)
+	$(CC) $(CFLAGS) $(BONUS_OBJS) $(LIBFT) $(MLX_FLAGS) -o $(BONUS_NAME)  
+	
+# add to line above for testing: && valgrind ./$(BONUS_NAME)
 
 # Compilation rules
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
