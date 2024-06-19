@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 12:23:00 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/18 15:55:42 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/19 09:28:06 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int	handle_close(void *param)
 {
 	t_data	*data;
 
-	
 	data = (t_data *)param;
 	if (data && data->mlx_ptr)
 	{
@@ -82,8 +81,7 @@ int	next_level(t_data *data)
 	free_map_content(data->map);
 	read_next_map(data);
 	data->moves = 0;
-	data->est_moves	= 0;
-	estimate_moves(data);
+	data->est_moves = 0;
 	data->key_count = 0;
 	data->enemy_count = 0;
 	data->exit_count = 0;
@@ -94,6 +92,7 @@ int	next_level(t_data *data)
 	check_enemies(data);
 	initialise_move_target(data);
 	data->game_status = PLAYING;
+	estimate_moves(data);
 	draw_map_check_win(data);
 	return (1);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   report_errors_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:18:53 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/17 09:17:20 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/19 09:37:15 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,16 +37,8 @@ int	error_set(int error)
 
 void	estimate_moves(t_data *data)
 {
-	int		i;
-
-	i = data->key_count;
-	data->est_moves = data->map_width + data->map_height;
-	while (i > 0)
-	{
-		data->est_moves += i / data->key_count
-			* (data-> enemy_count * data->map_width * data->map_height) * 0.05;
-		i--;
-	}
+	data->est_moves = (data->key_count * data-> enemy_count 
+			* data->map_width * data->map_height) * 0.016;
 }
 
 void	print_report(t_data *data)

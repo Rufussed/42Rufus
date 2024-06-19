@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 15:18:53 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/18 15:49:43 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/19 09:04:09 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void	initialise_data(t_data *data)
 	data->map = NULL;
 	data->black = NULL;
 	data->map_path = MAP1;
-	data->map_width = 0;
-	data->map_height = 0;
 	data->game_status = PLAYING;
 	data->direction = NONE;
 	data->moves = 0;

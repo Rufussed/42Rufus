@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/10 11:50:09 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/18 17:23:12 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/19 09:03:35 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,6 @@ int	read_map(t_data *data)
 		return (0);
 	}
 	bytes_read = read(fd, read_buf, BUFF_SIZE);
-	if (bytes_read < 15)
-	{
-		free(read_buf);
-		close(fd);
-		return (0);
-	}
 	read_buf[bytes_read] = '\0';
 	data->map = ft_split(read_buf, '\n');
 	free(read_buf);
