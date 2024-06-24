@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:45:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/21 12:03:43 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/24 19:49:59 by rufus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	bits_to_char(int bit)
 	{
 		ft_printf("%c", c);
 		if (c == '\0')
-			ft_printf("\nEND MESSAGE\n");
+			ft_printf("\n\033[35mEND MESSAGE\033[0m\n\n");
 		i = 0;
 		c = 0;
 	}
