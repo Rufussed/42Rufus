@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/06 12:58:41 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/06 12:45:15 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/24 19:32:22 by rufus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ size_t	ft_format_handler(char format, va_list args)
 	if (format == 'u')
 		return (ft_putnbr_unsigned_count(va_arg(args, unsigned int)));
 	if (format == 'x')
-		return (ft_putnbr_hex_count(va_arg(args, uintptr_t), 
+		return (ft_putnbr_hex_count(va_arg(args, uintptr_t),
 				"0123456789abcdef"));
 	if (format == 'X')
-		return (ft_putnbr_hex_count(va_arg(args, uintptr_t), 
+		return (ft_putnbr_hex_count(va_arg(args, uintptr_t),
 				"0123456789ABCDEF"));
 	if (format == 'p')
 		return (ft_print_address(va_arg(args, void *)));

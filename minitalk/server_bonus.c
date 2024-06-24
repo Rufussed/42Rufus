@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:45:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/21 12:01:46 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/24 19:19:55 by rufus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	bits_to_int(int bit)
 	i++;
 	if (i == 32)
 	{
-		ft_printf("MESSAGE from %d\n", client_pid);
+		ft_printf("\033[35mMESSAGE from %d\n\033[0m", client_pid);
 		kill(client_pid, BIT1);
 		i = 0;
 		client_pid = 0;
@@ -50,7 +50,7 @@ void	bits_to_char(int bit)
 		ft_printf("%c", c);
 		if (c == '\0')
 		{
-			ft_printf("\nEND MESSAGE\n");
+			ft_printf("\n\033[35mEND MESSAGE\n\n");
 			g_end_message = 1;
 		}
 		i = 0;

@@ -3,22 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   client_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:45:44 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/21 12:01:13 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/24 19:30:38 by rufus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-// void	ping(int server_pid)
-// {
-// 	kill(server_pid, BIT0);
-// 	kill(server_pid, BIT1);
-// }
-
-int	connection_success = 0;
+int	g_connection_success = 0;
 
 void	char_to_bits(int server_pid, char c)
 {
@@ -32,6 +26,8 @@ void	char_to_bits(int server_pid, char c)
 		else
 			kill(server_pid, BIT0);
 		usleep(100);
+		if (bit == 7)
+			ft_printf(".");
 		bit++;
 	}
 }
@@ -56,8 +52,8 @@ void	handler(int signum)
 {
 	if (signum == BIT1)
 	{
-		connection_success = 1;
-		ft_printf("Connection established\n");
+		g_connection_success = 1;
+		ft_printf("Connection established.\n");
 	}
 	else
 		ft_printf("Error\n");
@@ -74,12 +70,12 @@ int	main(int argc, char **argv)
 		ft_printf("Usage: ./client [PID] [message]\n");
 		return (1);
 	}
+	signal(BIT1, handler);
 	server_pid = ft_atoi(argv[1]);
 	client_pid = getpid();
-	ft_printf("MY PID: %d\n", client_pid);
+	ft_printf("\n\033[35mMY PID: %d\033[0m\n\n", client_pid);
 	send_client_pid(server_pid, client_pid);
-	signal(BIT1, handler);
-	while (!connection_success)		
+	while (!g_connection_success)
 		pause();
 	message = argv[2];
 	while (*message)
@@ -88,7 +84,6 @@ int	main(int argc, char **argv)
 		message++;
 	}
 	char_to_bits(server_pid, '\0');
+	ft_printf("\nMessage Sent.\n\n");
 	return (0);
 }
-
-

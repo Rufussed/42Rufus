@@ -3,25 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/21 11:09:11 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/24 19:27:13 by rufus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINITALK_H
-#define MINITALK_H
+# define MINITALK_H
 
-
-// redefined SIGUSR1 12 and SIGUSR2 10
-# define BIT0 10
-# define BIT1 12
-
+# define BIT0 SIGUSR2
+# define BIT1 SIGUSR1
 
 # include <signal.h>
 # include "libft/src/libft.h"
-
-int	server(void);
 
 #endif

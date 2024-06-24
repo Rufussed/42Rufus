@@ -3,20 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   client.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:45:44 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/21 11:19:48 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/24 19:28:55 by rufus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
-
-// void	ping(int server_pid)
-// {
-// 	kill(server_pid, BIT0);
-// 	kill(server_pid, BIT1);
-// }
 
 void	char_to_bits(int server_pid, char c)
 {
@@ -54,5 +48,3 @@ int	main(int argc, char **argv)
 	char_to_bits(server_pid, '\0');
 	return (0);
 }
-
-
