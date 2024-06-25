@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   server_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:45:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/24 19:19:55 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:52:51 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
+#include "minitalk_bonus.h"
 
 int	g_end_message = 1;
 
@@ -50,7 +50,7 @@ void	bits_to_char(int bit)
 		ft_printf("%c", c);
 		if (c == '\0')
 		{
-			ft_printf("\n\033[35mEND MESSAGE\n\n");
+			ft_printf("\n\033[35mEND MESSAGE\033[0m\n\n");
 			g_end_message = 1;
 		}
 		i = 0;

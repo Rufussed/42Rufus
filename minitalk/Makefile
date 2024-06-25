@@ -6,7 +6,7 @@
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/14 13:30:01 by rlane             #+#    #+#              #
-#    Updated: 2024/06/20 16:26:26 by rlane            ###   ########.fr        #
+#    Updated: 2024/06/25 16:50:56 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,7 @@ BONUS_SERVER = server_bonus
 CLIENT_SRC_FILES = client.c
 SERVER_SRC_FILES = server.c
 
-BONUS_CLIENT_SRC_FILES = client_bonus.c 
+BONUS_CLIENT_SRC_FILES = client_bonus.c client_helpers_bonus.c 
 BONUS_SERVER_SRC_FILES = server_bonus.c
 
 # Convert to object files

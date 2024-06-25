@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   server.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:45:50 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/24 19:49:59 by rufus            ###   ########.fr       */
+/*   Updated: 2024/06/25 16:00:20 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minitalk.h"
 
-void	bits_to_char(int bit)
+int	bits_to_char(int bit)
 {
 	static int	i;
 	static char	c;
@@ -28,6 +28,7 @@ void	bits_to_char(int bit)
 		i = 0;
 		c = 0;
 	}
+	return (1);
 }
 
 void	handler(int signum)

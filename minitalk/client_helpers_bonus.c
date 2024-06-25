@@ -1,23 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minitalk.h                                         :+:      :+:    :+:   */
+/*   client_helpers_bonus.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/25 16:51:33 by rlane            ###   ########.fr       */
+/*   Created: 2024/06/20 15:45:44 by rlane             #+#    #+#             */
+/*   Updated: 2024/06/25 16:55:13 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINITALK_H
-# define MINITALK_H
+#include "minitalk_bonus.h"
 
-# define BIT0 SIGUSR2
-# define BIT1 SIGUSR1
-# define SLEEPTIME 1000
+extern int	g_connection_success;
 
-# include <signal.h>
-# include "libft/src/libft.h"
+int	connection_check(void)
+{
+	int	timer;
 
-#endif
+	timer = 0;
+	while (!g_connection_success && timer++ < 100)
+		usleep(10000);
+	if (!g_connection_success)
+	{
+		ft_printf("Connection failed. Check Server PID.\n\n");
+		return (0);
+	}
+	return (1);
+}
