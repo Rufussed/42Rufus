@@ -6,7 +6,7 @@
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/14 13:30:01 by rlane             #+#    #+#              #
-#    Updated: 2024/06/27 12:53:14 by rlane            ###   ########.fr        #
+#    Updated: 2024/06/28 11:36:53 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@
 NAME = push_swap
 BONUS_NAME = push_swap_bonus
 
-SRC_FILES = push_swap.c data_checkers.c
+SRC_FILES = push_swap.c data_checkers.c linked_list.c free_error.c rules1.c rules2.c rules3.c sort.c
 
 BONUS_SRC_FILES = 
 

@@ -6,67 +6,56 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:49:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/27 13:38:26 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/28 12:11:52 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_list_values(t_list *lst)
+void	print_list_values(t_res *res)
 {
-	t_list	*temp;
-	int		i;
+	t_stack	*temp_a;
+	t_stack	*temp_b;
 
-	temp = lst;
-	i = 0;
-	while (temp != NULL)
+	temp_a = res->stack_a;
+	temp_b = res->stack_b;
+	if (res->print)
 	{
-		ft_printf("node: %d  ", i);
-		ft_printf("value: %d\n", (int)(intptr_t)temp->content);
-		temp = temp->next;
-		i++;
+		while (temp_a || temp_b)
+		{
+			if (temp_a)
+			{
+				ft_printf("\033[32m%d\033[I", temp_a->value);
+				temp_a = temp_a->next;
+			}
+			else
+				ft_printf("\033[I");
+			if (temp_b)
+			{
+				ft_printf("\033[35m%d\n\033[0m", temp_b->value);
+				temp_b = temp_b->next;
+			}
+			else
+				ft_printf("\n\033[0m");
+		}
+		ft_printf("\n");
 	}
 }
 
-void	free_input_array(char **array)
-{
-	int	i = 0;
-
-	while (array[i])
-	{
-		free(array[i]);
-		i++;
-	}
-	free(array);
-}
-
-// since we are using int pointers we dont need to free content
-void	modified_lstclear(t_list **lst)
-{
-	t_list	*temp;
-
-	while (*lst)
-	{
-		temp = (*lst)->next;
-		free(*lst);
-		*lst = temp;
-	}
-	*lst = NULL;
-}
-
-int	fill_stack_a(char **input_array, t_list **stack_a)
+int	fill_stack_a(t_res *res)
 {
 	int		value;
 	int		i;
 
 	i = 0;
-	while (input_array[i])
+	while (res->input_array[i])
 	{
-		if (!check_atoi(input_array[i], &value))
-			return (0);
-		ft_lstadd_back(stack_a, ft_lstnew((void *)(intptr_t)value));
+		value = check_atoi(res->input_array[i], res);
+		stack_add_back(&res->stack_a, stack_new(value));
 		i++;
 	}
+	res->count_a = i;
+	res->count_b = 0;
 	return (1);
 }
 
@@ -75,15 +64,11 @@ char	**get_input_data(int argc, char **argv)
 	char	**input_array;
 	int		i;
 
-	input_array = (char **)malloc(sizeof(char *) * argc);
 	if (argc == 2)
-	{
 		input_array = ft_split(argv[1], ' ');
-		if (!input_array)
-				return (NULL);
-	}
 	else
 	{
+		input_array = (char **)malloc(sizeof(char *) * argc);
 		i = 0;
 		while (i < argc - 1)
 		{
@@ -95,37 +80,39 @@ char	**get_input_data(int argc, char **argv)
 			}
 			i++;
 		}
+		input_array[i] = NULL;
 	}
 	return (input_array);
 }
 
+void	init_res(t_res *res)
+{
+	res->input_array = NULL;
+	res->stack_a = NULL;
+	res->stack_b = NULL;
+	res->print = PRINT;
+}
+
 int	main(int argc, char **argv)
 {
-	char	**input_array;
-	t_list	*stack_a;
+	t_res	*res;
+
+	res = (t_res *)malloc(sizeof(t_res));
+	init_res(res);
 
 	if (argc == 1)
 	{
-		ft_putstr("Usage: ./push_swap [numbers]\n");
+		ft_putstr("\n\033[31mUsage: ./push_swap [numbers]\033[0m\n\n");
+		free_res(res);
 		return (0);
 	}
-	input_array = get_input_data(argc, argv);
-	if (!input_array)
+	res->input_array = get_input_data(argc, argv);
+	if (!res->input_array)
 	{
-		ft_printf("Error: memory allocation failed\n");
+		ft_printf("\n\033[31mError: memory allocation failed ! \033[0m\n\n");
+		free(res);
 		return (0);
 	}
-	stack_a = NULL;
-	if (!fill_stack_a(input_array, &stack_a))
-	{
-		ft_putstr("Error: input numbers only!\n");
-		free_input_array(input_array);
-		return (0);
-	}
-	print_list_values(stack_a);
-	free_input_array(input_array);
-	modified_lstclear(&stack_a);
-	return (0);
+	fill_stack_a(res);
+	return (sort_stack(res));
 }
-
-
