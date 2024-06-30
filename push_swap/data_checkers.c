@@ -6,20 +6,20 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:19:37 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/28 11:07:00 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/29 16:38:56 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	check_repeats(t_res *res, int value)
+void	check_repeats(t_res *res, int val)
 {
 	t_stack	*temp;
 
 	temp = res->stack_a;
 	while (temp)
 	{
-		if (temp->value == value)
+		if (temp->val == val)
 			exit_error("there are duplicates", res);
 		temp = temp->next;
 	}
@@ -29,9 +29,9 @@ int	check_atoi(const char *str, t_res *res)
 {
 	int		sign;
 	int		i;
-	long	value;
+	long	val;
 
-	value = 0;
+	val = 0;
 	sign = 1;
 	i = 0;
 	if (str[0] == '-' || str[0] == '+')
@@ -44,23 +44,24 @@ int	check_atoi(const char *str, t_res *res)
 	{
 		if (!ft_isdigit(str[i]))
 			exit_error("some arguments aren't integers", res);
-		value = value * 10 + (str[i] - '0');
+		val = val * 10 + (str[i] - '0');
 		i++;
 	}
-	value = (value * sign);
-	if (value > INT_MAX || value < INT_MIN)
+	val = (val * sign);
+	if (val > INT_MAX || val < INT_MIN)
 		exit_error("some arguments are bigger than an integer", res);
-	check_repeats(res, value);
-	return ((int)value);
+	check_repeats(res, val);
+	return ((int)val);
 }
 
 int	stack_is_sorted(t_stack *node)
 {
 	while (node->next)
 	{
-		if (node->value > node->next->value)
+		if (node->val > node->next->val)
 			return (0);
 		node = node->next;
 	}
+	ft_printf("Stack is sorted !\n");
 	return (1);
 }

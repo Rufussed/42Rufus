@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:56:33 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/28 11:59:18 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/29 16:32:29 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	pb(t_res *res)
 	res->count_a--;
 	res->count_b++;
 	ft_printf("pb\n");
-	print_list_values(res);
+	print_list_vals(res);
 }
 
 void	rotate(t_stack **stack)
@@ -45,14 +45,14 @@ void	ra(t_res *res)
 {
 	rotate(&res->stack_a);
 	ft_printf("ra\n");
-	print_list_values(res);
+	print_list_vals(res);
 }
 
 void	rb(t_res *res)
 {
 	rotate(&res->stack_b);
 	ft_printf("rb\n");
-	print_list_values(res);
+	print_list_vals(res);
 }
 
 void	rr(t_res *res)
@@ -60,5 +60,5 @@ void	rr(t_res *res)
 	rotate(&res->stack_a);
 	rotate(&res->stack_b);
 	ft_printf("rr\n");
-	print_list_values(res);
+	print_list_vals(res);
 }

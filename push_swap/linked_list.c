@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:20:05 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/28 10:22:16 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/30 17:18:44 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,19 +49,22 @@ void	stack_add_front(t_stack **node, t_stack *new)
 	*node = new;
 }
 
-t_stack	*stack_new(int value)
+t_stack	*stack_new(int val)
 {
 	t_stack	*node;
 
 	node = malloc(sizeof(t_stack));
 	if (!node)
 		return (NULL);
-	node->value = value;
-	//node->prev = NULL;
+	node->val = val;
 	node->next = NULL;
-	node->target = NULL;
-	node->cost = 0;
+	node->target = 0;
+	node->push_cost = 0;
+	node->full_cost = 0;
 	node->index = 0;
+	node->max = FALSE;
+	node->min = FALSE;
+	node->median = ABOVE;
 	return (node);
 }
 

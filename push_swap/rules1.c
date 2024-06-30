@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:56:33 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/28 11:58:37 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/29 16:32:51 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	sa(t_res *res)
 		return ;
 	swap(&res->stack_a);
 	ft_printf("sa\n");
-	print_list_values(res);
+	print_list_vals(res);
 }
 
 void	sb(t_res *res)
@@ -39,7 +39,7 @@ void	sb(t_res *res)
 		return ;
 	swap(&res->stack_b);
 	ft_printf("sb\n");
-	print_list_values(res);
+	print_list_vals(res);
 }
 
 void	ss(t_res *res)
@@ -47,7 +47,7 @@ void	ss(t_res *res)
 	swap(&res->stack_a);
 	swap(&res->stack_b);
 	ft_printf("ss\n");
-	print_list_values(res);
+	print_list_vals(res);
 }
 
 void	pa(t_res *res)
@@ -62,5 +62,5 @@ void	pa(t_res *res)
 	res->count_a++;
 	res->count_b--;
 	ft_printf("pa\n");
-	print_list_values(res);
+	print_list_vals(res);
 }

@@ -6,52 +6,22 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:49:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/28 12:11:52 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/30 17:08:15 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	print_list_values(t_res *res)
-{
-	t_stack	*temp_a;
-	t_stack	*temp_b;
-
-	temp_a = res->stack_a;
-	temp_b = res->stack_b;
-	if (res->print)
-	{
-		while (temp_a || temp_b)
-		{
-			if (temp_a)
-			{
-				ft_printf("\033[32m%d\033[I", temp_a->value);
-				temp_a = temp_a->next;
-			}
-			else
-				ft_printf("\033[I");
-			if (temp_b)
-			{
-				ft_printf("\033[35m%d\n\033[0m", temp_b->value);
-				temp_b = temp_b->next;
-			}
-			else
-				ft_printf("\n\033[0m");
-		}
-		ft_printf("\n");
-	}
-}
-
 int	fill_stack_a(t_res *res)
 {
-	int		value;
+	int		val;
 	int		i;
 
 	i = 0;
 	while (res->input_array[i])
 	{
-		value = check_atoi(res->input_array[i], res);
-		stack_add_back(&res->stack_a, stack_new(value));
+		val = check_atoi(res->input_array[i], res);
+		stack_add_back(&res->stack_a, stack_new(val));
 		i++;
 	}
 	res->count_a = i;
