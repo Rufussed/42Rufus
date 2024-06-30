@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/30 17:06:05 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/30 18:05:40 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 
 # define ABOVE 1
 # define BELOW 2
+
+# define NONE -1
 
 typedef struct s_stack {
 	int				val;

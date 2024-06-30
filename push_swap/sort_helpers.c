@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:47:21 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/30 17:16:19 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/30 18:50:59 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,29 +57,65 @@ void	index_stack(t_stack *stack, int count)
 	}
 }
 
-int get_target_index_desc(int val, t_res *res)
+int	get_max_index(t_stack *stack)
 {
 	t_stack	*temp;
 	int		i;
-	int		diff;
-	int		min_diff;
-	int		target;
+	int		max;
+	int		max_index;
 
-	temp = res->stack_b;
+	temp = stack;
 	i = 0;
-	min_diff = INT_MAX;
+	max = INT_MIN;
+	max_index = NONE;
 	while (temp)
 	{
-		diff = val - temp->val;
-		if (diff < min_diff && diff > 0)
+		if (temp->val > max)
 		{
-			min_diff = diff;
-			target = i;
-			ft_printf("min_diff %d, target %d\n", min_diff, target);
+			max = temp->val;
+			max_index = i;
 		}
 		temp = temp->next;
 		i++;
 	}
+	return (max_index);
+}
+
+int	find_target(t_stack *stack, int val)
+{
+	t_stack	*temp;
+	int		i;
+	int		target;
+	int		min_diff;
+	int		diff;
+
+	temp = stack;
+	i = 0;
+	target = NONE;
+	min_diff = INT_MAX;
+	while (temp)
+	{
+		diff = val - temp->val;
+		if (diff > 0 && diff < min_diff)
+		{
+			min_diff = diff;
+			target = i;
+		}
+		temp = temp->next;
+		i++;
+	}
+	return (target);
+}
+
+int	get_target_index_desc(int val, t_res *res)
+{
+	int	max_index;
+	int	target;
+
+	max_index = get_max_index(res->stack_b);
+	target = find_target(res->stack_b, val);
+	if (target == NONE)
+		return (max_index);
 	return (target);
 }
 
@@ -97,6 +133,7 @@ void prepare_stack(t_res *res)
 		temp = temp->next;
 	}
 	print_list_vals(res);
+	//set_max_min_node(res->stack_a);
 	return ;
 }
 

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:20:05 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/30 17:18:44 by rlane            ###   ########.fr       */
+/*   Updated: 2024/06/30 18:05:21 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_stack	*stack_new(int val)
 		return (NULL);
 	node->val = val;
 	node->next = NULL;
-	node->target = 0;
+	node->target = NONE;
 	node->push_cost = 0;
 	node->full_cost = 0;
 	node->index = 0;
