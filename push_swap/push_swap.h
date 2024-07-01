@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 18:18:13 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/01 19:24:15 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # define TRUE 1
 # define FALSE 0
 
+# define UNKNOWN 0
 # define ABOVE 1
 # define BELOW 2
 
@@ -93,4 +94,5 @@ int			find_cheapest_push(t_stack *stack);
 void		rotate_stack_a(t_res *res, int temp_median, int p_cost_a);
 void		rotate_stack_b(t_res *res, int target_median, int p_cost_b);
 void		rotat_stacks_synched(t_res *res, t_stack *temp, t_stack *target);
+void 		rotate_smallest_to_top(t_res *res);
 #endif

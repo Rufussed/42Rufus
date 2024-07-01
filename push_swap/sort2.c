@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:47:21 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 18:04:33 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/01 19:26:56 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void	set_max_min_index(t_res *res)
 	res->min_index_a = min->index;
 	temp = res->stack_b;
 	max = temp;
+	if (!temp)
+		return ;
 	while (temp)
 	{
 		if (temp->val > max->val)
@@ -53,6 +55,8 @@ void	index_stack(t_stack *stack, int count)
 		temp->index = i;
 		if (i > median)
 			temp->median = BELOW;
+		else		
+			temp->median = ABOVE;
 		if (temp->median == ABOVE)
 			temp->push_cost = i;
 		if (temp->median == BELOW)

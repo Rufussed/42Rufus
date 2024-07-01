@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:08:00 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 17:34:26 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/01 18:51:45 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	print_list_vals(t_res *res)
 
 	temp_a = res->stack_a;
 	temp_b = res->stack_b;
-	if (res->print)
+	if (res->print == PRINT)
 	{
 		ft_printf("val\tp_cost\tf_cost\tt_ind\tval\tp_cost\tf_cost\tt_ind\n");
 		while (temp_a || temp_b)

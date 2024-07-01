@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 11:36:18 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 18:13:46 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/01 19:52:37 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,19 @@ void	algo_sort(t_res *res)
 		}
 	}
 	sort_three_a(res);
-	res->print = PRINT;
+
 	print_list_vals(res);
-	prepare_stack_b(res);
+
+	while (res->count_b > 0)
+	{
+		prepare_stack_b(res);
+		pa_ascending(res);
+	}
+	
 	print_list_vals(res);
-	res->print = NO_PRINT;
-	while (res->stack_b)
-		pa_ascending(res);	
+	rotate_smallest_to_top(res);
+	//res->print = PRINT;
+	print_list_vals(res);
 }
 
 int	sort_stack(t_res *res)

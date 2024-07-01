@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:47:21 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 18:05:35 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/01 18:52:40 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,8 +53,8 @@ void	prepare_stack_a(t_res *res)
 		temp = temp->next;
 	}
 	set_full_cost_a(res);
-	res->print = PRINT;
+
 	print_list_vals(res);
-	res->print = NO_PRINT;
+
 	return ;
 }

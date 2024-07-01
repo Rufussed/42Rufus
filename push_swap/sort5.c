@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:47:21 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 18:05:50 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/01 19:52:18 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	set_full_cost_b(t_res *res)
 
 	b = res->stack_b;
 	a = res->stack_a;
-	while (a)
+	while (b)
 	{
 		target = get_stack_index(a, b->target);
 		if (b->median != target->median)
@@ -78,15 +78,15 @@ void	pa_ascending(t_res *res)
 	temp = get_stack_index(res->stack_b, push_ind);
 	target = get_stack_index(res->stack_a, temp->target);
 	rotat_stacks_synched(res, temp, target);
-	rotate_stack_a(res, temp->median, temp->push_cost);
-	rotate_stack_b(res, target->median, target->push_cost);
+	rotate_stack_b(res, temp->median, temp->push_cost);
+	rotate_stack_a(res, target->median, target->push_cost);
 	pa(res);
 }
 
 void	prepare_stack_b(t_res *res)
 {
 	t_stack	*temp;
-
+	
 	index_stack(res->stack_a, res->count_a);
 	index_stack(res->stack_b, res->count_b);
 	set_max_min_index(res);
@@ -97,8 +97,6 @@ void	prepare_stack_b(t_res *res)
 		temp = temp->next;
 	}
 	set_full_cost_b(res);
-	res->print = PRINT;
 	print_list_vals(res);
-	res->print = NO_PRINT;
 	return ;
 }
