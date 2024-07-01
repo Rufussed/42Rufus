@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:49:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/30 17:08:15 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/01 17:33:49 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,21 +55,12 @@ char	**get_input_data(int argc, char **argv)
 	return (input_array);
 }
 
-void	init_res(t_res *res)
-{
-	res->input_array = NULL;
-	res->stack_a = NULL;
-	res->stack_b = NULL;
-	res->print = PRINT;
-}
-
 int	main(int argc, char **argv)
 {
 	t_res	*res;
 
 	res = (t_res *)malloc(sizeof(t_res));
 	init_res(res);
-
 	if (argc == 1)
 	{
 		ft_putstr("\n\033[31mUsage: ./push_swap [numbers]\033[0m\n\n");

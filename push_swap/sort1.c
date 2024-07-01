@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort.c                                             :+:      :+:    :+:   */
+/*   sort1.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 11:36:18 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/30 17:16:59 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/01 18:13:46 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack *get_highest_node(t_stack *stack)
+t_stack	*get_highest_node(t_stack *stack)
 {
 	t_stack	*temp;
 	t_stack	*highest;
@@ -30,7 +30,7 @@ t_stack *get_highest_node(t_stack *stack)
 
 void	sort_three_a(t_res *res)
 {
-	t_stack *highest;
+	t_stack	*highest;
 
 	highest = get_highest_node(res->stack_a);
 	if (res->stack_a->val == highest->val)
@@ -43,19 +43,24 @@ void	sort_three_a(t_res *res)
 
 void	algo_sort(t_res *res)
 {
-	while (res->count_a > 5)
+	while (res->count_a > 3)
 	{
-		//if (res->count_b < 2)
+		if (res->count_b < 2)
 			pb(res);
-		//else
-		//{
-			//sort a to b in descending order
-		//}
+		else
+		{
+			prepare_stack_a(res);
+			pb_descending(res);
+		}
 	}
-	ft_printf("Here?\n");
-		prepare_stack(res);
-		//sort_three_a(res);
-	//sort b to a in ascending order
+	sort_three_a(res);
+	res->print = PRINT;
+	print_list_vals(res);
+	prepare_stack_b(res);
+	print_list_vals(res);
+	res->print = NO_PRINT;
+	while (res->stack_b)
+		pa_ascending(res);	
 }
 
 int	sort_stack(t_res *res)

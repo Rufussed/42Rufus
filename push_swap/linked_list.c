@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 15:20:05 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/30 18:05:21 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/01 17:32:05 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,26 +48,6 @@ void	stack_add_front(t_stack **node, t_stack *new)
 	new -> next = *node;
 	*node = new;
 }
-
-t_stack	*stack_new(int val)
-{
-	t_stack	*node;
-
-	node = malloc(sizeof(t_stack));
-	if (!node)
-		return (NULL);
-	node->val = val;
-	node->next = NULL;
-	node->target = NONE;
-	node->push_cost = 0;
-	node->full_cost = 0;
-	node->index = 0;
-	node->max = FALSE;
-	node->min = FALSE;
-	node->median = ABOVE;
-	return (node);
-}
-
 // since we are using int pointers we dont need to free content
 
 void	modified_lstclear(t_stack **lst)
@@ -82,5 +62,3 @@ void	modified_lstclear(t_stack **lst)
 	}
 	*lst = NULL;
 }
-
-

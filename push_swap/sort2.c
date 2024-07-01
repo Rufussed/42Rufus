@@ -1,36 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort_helpers.c                                     :+:      :+:    :+:   */
+/*   sort2.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:47:21 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/30 18:50:59 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/01 18:04:33 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	set_max_min_node(t_stack *stack)
+void	set_max_min_index(t_res *res)
 {
 	t_stack	*temp;
 	t_stack	*max;
-	t_stack	*min;	
+	t_stack	*min;
 
-	temp = stack;
-	max = temp;
+	temp = res->stack_a;
 	min = temp;
 	while (temp)
 	{
-		if (temp->val > max->val)
-			max = temp;
 		if (temp->val < min->val)
 			min = temp;
 		temp = temp->next;
 	}
-	max->max = 1;
-	min->min = 1;
+	res->min_index_a = min->index;
+	temp = res->stack_b;
+	max = temp;
+	while (temp)
+	{
+		if (temp->val > max->val)
+			max = temp;
+		temp = temp->next;
+	}
+	res->max_index_b = max->index;
 	return ;
 }
 
@@ -57,31 +62,7 @@ void	index_stack(t_stack *stack, int count)
 	}
 }
 
-int	get_max_index(t_stack *stack)
-{
-	t_stack	*temp;
-	int		i;
-	int		max;
-	int		max_index;
-
-	temp = stack;
-	i = 0;
-	max = INT_MIN;
-	max_index = NONE;
-	while (temp)
-	{
-		if (temp->val > max)
-		{
-			max = temp->val;
-			max_index = i;
-		}
-		temp = temp->next;
-		i++;
-	}
-	return (max_index);
-}
-
-int	find_target(t_stack *stack, int val)
+int	find_target_desc(t_stack *stack, int val)
 {
 	t_stack	*temp;
 	int		i;
@@ -109,31 +90,26 @@ int	find_target(t_stack *stack, int val)
 
 int	get_target_index_desc(int val, t_res *res)
 {
-	int	max_index;
 	int	target;
 
-	max_index = get_max_index(res->stack_b);
-	target = find_target(res->stack_b, val);
+	target = find_target_desc(res->stack_b, val);
 	if (target == NONE)
-		return (max_index);
+		return (res->max_index_b);
 	return (target);
 }
 
-void prepare_stack(t_res *res)
+// retrieve the stack node with the index i
+
+t_stack	*get_stack_index(t_stack *stack, int i)
 {
 	t_stack	*temp;
 
-	index_stack(res->stack_a, res->count_a);
-	index_stack(res->stack_b, res->count_b);
-	temp = res->stack_a;
+	temp = stack;
 	while (temp)
 	{
-		ft_printf("index %d\n", temp->index);
-		temp->target = get_target_index_desc(temp->val, res);
+		if (temp->index == i)
+			return (temp);
 		temp = temp->next;
 	}
-	print_list_vals(res);
-	//set_max_min_node(res->stack_a);
-	return ;
+	return (NULL);
 }
-

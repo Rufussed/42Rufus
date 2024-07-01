@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/30 18:05:40 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/01 18:18:13 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,8 @@ typedef struct s_stack {
 	int				max;
 	int				min;
 	int				median;
-	int 			target;
+	int				target;
 	struct s_stack	*next;
-	
 }	t_stack;
 
 // resources to passed and free'd
@@ -48,11 +47,11 @@ typedef struct s_res {
 	t_stack			*stack_a;
 	t_stack			*stack_b;
 	int				count_a;
+	int				max_index_b;
+	int				min_index_a;
 	int				count_b;
 	int				print;
 }	t_res;
-
-
 
 int			check_atoi(const char *str, t_res *res);
 void		stack_add_back(t_stack **lst, t_stack *new);
@@ -79,8 +78,19 @@ void		rra(t_res *res);
 void		rrb(t_res *res);
 void		rrr(t_res *res);
 int			sort_stack(t_res *res);
-void		prepare_stack(t_res *res);
+void		prepare_stack_a(t_res *res);
 void		index_stack(t_stack *stack, int count);
-
-
+void		init_res(t_res *res);
+void		pb_descending(t_res	*res);
+t_stack		*get_stack_index(t_stack *stack, int i);
+void		set_max_min_index(t_res *res);
+int			get_target_index_desc(int val, t_res *res);
+void		prepare_stack_b(t_res *res);
+void		pa_ascending(t_res *res);
+int			ft_abs(int n);
+int			find_cheapest_push(t_stack *stack);
+int			find_cheapest_push(t_stack *stack);
+void		rotate_stack_a(t_res *res, int temp_median, int p_cost_a);
+void		rotate_stack_b(t_res *res, int target_median, int p_cost_b);
+void		rotat_stacks_synched(t_res *res, t_stack *temp, t_stack *target);
 #endif
