@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:47:21 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 19:52:18 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 11:35:00 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ void	pa_ascending(t_res *res)
 void	prepare_stack_b(t_res *res)
 {
 	t_stack	*temp;
-	
+
 	index_stack(res->stack_a, res->count_a);
 	index_stack(res->stack_b, res->count_b);
 	set_max_min_index(res);
@@ -97,6 +97,5 @@ void	prepare_stack_b(t_res *res)
 		temp = temp->next;
 	}
 	set_full_cost_b(res);
-	print_list_vals(res);
 	return ;
 }

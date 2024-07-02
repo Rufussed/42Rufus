@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/28 11:36:18 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 19:52:37 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 12:28:12 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,20 @@ void	algo_sort(t_res *res)
 		else
 		{
 			prepare_stack_a(res);
+			if (res->count_b == 5)
+				print_list_vals(res, "after prepare stack a and count_b = 5");
 			pb_descending(res);
 		}
 	}
 	sort_three_a(res);
-
-	print_list_vals(res);
-
 	while (res->count_b > 0)
 	{
 		prepare_stack_b(res);
+		if (res->count_a == 5)
+			print_list_vals(res, "after prepare stack b and count_a = 5");
 		pa_ascending(res);
 	}
-	
-	print_list_vals(res);
 	rotate_smallest_to_top(res);
-	//res->print = PRINT;
-	print_list_vals(res);
 }
 
 int	sort_stack(t_res *res)
@@ -92,6 +89,7 @@ int	sort_stack(t_res *res)
 		return (1);
 	}
 	algo_sort(res);
+	print_list_vals(res, "sorted array");
 	free_res(res);
 	return (1);
 }

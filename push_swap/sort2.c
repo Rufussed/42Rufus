@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:47:21 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 19:26:56 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 11:03:23 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	index_stack(t_stack *stack, int count)
 		temp->index = i;
 		if (i > median)
 			temp->median = BELOW;
-		else		
+		else
 			temp->median = ABOVE;
 		if (temp->median == ABOVE)
 			temp->push_cost = i;

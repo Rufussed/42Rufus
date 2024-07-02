@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 19:24:15 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 12:14:36 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ typedef struct s_stack {
 	int				index;
 	int				push_cost;
 	int				full_cost;
-	int				max;
-	int				min;
 	int				median;
 	int				target;
 	struct s_stack	*next;
@@ -66,7 +64,7 @@ void		modified_lstclear(t_stack **lst);
 void		free_input_array(char **array);
 void		free_res(t_res *res);
 void		sa(t_res *res);
-void		print_list_vals(t_res *res);
+void		print_list_vals(t_res *res, char *message);
 void		sa(t_res *res);
 void		sb(t_res *res);
 void		ss(t_res *res);
@@ -94,5 +92,5 @@ int			find_cheapest_push(t_stack *stack);
 void		rotate_stack_a(t_res *res, int temp_median, int p_cost_a);
 void		rotate_stack_b(t_res *res, int target_median, int p_cost_b);
 void		rotat_stacks_synched(t_res *res, t_stack *temp, t_stack *target);
-void 		rotate_smallest_to_top(t_res *res);
+void		rotate_smallest_to_top(t_res *res);
 #endif
