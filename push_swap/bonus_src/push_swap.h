@@ -6,14 +6,14 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/02 12:14:36 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 13:10:00 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libft/src/libft.h"
+# include "../libft/src/libft.h"
 
 # define STACK_A 1
 # define STACK_B 2
@@ -93,4 +93,5 @@ void		rotate_stack_a(t_res *res, int temp_median, int p_cost_a);
 void		rotate_stack_b(t_res *res, int target_median, int p_cost_b);
 void		rotat_stacks_synched(t_res *res, t_stack *temp, t_stack *target);
 void		rotate_smallest_to_top(t_res *res);
+
 #endif
