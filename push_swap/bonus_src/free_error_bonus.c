@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_error.c                                       :+:      :+:    :+:   */
+/*   free_error_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:19:37 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/28 11:17:56 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 18:55:20 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 void	free_res(t_res *res)
 {
@@ -39,7 +39,7 @@ void	free_input_array(char **array)
 
 void	exit_error(char *message, t_res *res)
 {
-	ft_printf("\n\033[31mError: %s !\033[0m\n\n", message);
+	ft_printf(RED "\nError: %s !\n\n" RESET, message);
 	free_res(res);
 	exit(1);
 }

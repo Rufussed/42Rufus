@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 14:47:21 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/02 11:35:00 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 15:51:46 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	pa_ascending(t_res *res)
 	push_ind = find_cheapest_push(res->stack_b);
 	temp = get_stack_index(res->stack_b, push_ind);
 	target = get_stack_index(res->stack_a, temp->target);
-	rotat_stacks_synched(res, temp, target);
+	rotate_stacks_synched(res, temp, target);
 	rotate_stack_b(res, temp->median, temp->push_cost);
 	rotate_stack_a(res, target->median, target->push_cost);
 	pa(res);

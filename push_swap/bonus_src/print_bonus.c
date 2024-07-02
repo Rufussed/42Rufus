@@ -1,22 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   print_bonus.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:08:00 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/02 11:53:25 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 15:37:11 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 static t_stack	*print_node_details_return_next(t_stack *node)
 {
 	if (node)
 	{
-		ft_printf("\033[32m%d\t%d\t%d\t%d", node->val, 
+		ft_printf(PURPLE "%d\t%d\t%d\t%d", node->val, 
 			node->push_cost, node->full_cost, node->target);
 		node = node->next;
 	}
@@ -32,7 +32,7 @@ void	print_list_vals(t_res *res, char *message)
 	temp_b = res->stack_b;
 	if (res->print == PRINT)
 	{
-		ft_printf("\n\033[0;33m%s\n\033[0m", message);
+		ft_printf(YELLOW "%s\n" RESET, message);
 		ft_printf("val\tp_cost\tf_cost\tt_ind\tval\tp_cost\tf_cost\tt_ind\n");
 		while (temp_a || temp_b)
 		{
@@ -42,7 +42,7 @@ void	print_list_vals(t_res *res, char *message)
 				ft_printf("\t\t\t");
 			if (temp_b)
 			{
-				ft_printf("\033[35m\t%d\t%d\t%d\t%d\033[0m\n", temp_b->val, 
+				ft_printf(GREEN "\t%d\t%d\t%d\t%d\n" RESET, temp_b->val, 
 					temp_b->push_cost, temp_b->full_cost, temp_b->target);
 				temp_b = temp_b->next;
 			}

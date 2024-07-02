@@ -1,48 +1,58 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rules3.c                                           :+:      :+:    :+:   */
+/*   rules1_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:56:33 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/02 11:40:02 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 16:19:59 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
-void	reverse_rotate(t_stack **stack)
+void	swap(t_stack **node)
 {
 	t_stack	*temp;
-	t_stack	*last;
 
-	if (!*stack || !(*stack)->next)
+	if (!node || !*node || !(*node)->next)
 		return ;
-	last = stack_last(*stack);
-	temp = *stack;
-	while (temp->next != last)
-		temp = temp->next;
-	temp->next = NULL;
-	last->next = *stack;
-	*stack = last;
+	temp = *node;
+	*node = (*node)->next;
+	temp->next = (*node)->next;
+	(*node)->next = temp;
 }
 
-void	rra(t_res *res)
+void	sa(t_res *res)
 {
-	reverse_rotate(&res->stack_a);
-	ft_printf("rra\n");
+	if (res->count_a < 2)
+		return ;
+	swap(&res->stack_a);
 }
 
-void	rrb(t_res *res)
+void	sb(t_res *res)
 {
-	reverse_rotate(&res->stack_b);
-	ft_printf("rrb\n");
+	if (res->count_b < 2)
+		return ;
+	swap(&res->stack_b);
 }
 
-void	rrr(t_res *res)
+void	ss(t_res *res)
 {
-	reverse_rotate(&res->stack_a);
-	reverse_rotate(&res->stack_b);
-	ft_printf("rrr\n");
+	swap(&res->stack_a);
+	swap(&res->stack_b);
+}
+
+void	pa(t_res *res)
+{
+	t_stack	*temp;
+
+	if (!res->stack_b)
+		return ;
+	temp = res->stack_b;
+	res->stack_b = res->stack_b->next;
+	stack_add_front(&res->stack_a, temp);
+	res->count_a++;
+	res->count_b--;
 }

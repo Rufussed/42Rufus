@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:49:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 17:33:49 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 19:08:15 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ int	main(int argc, char **argv)
 	init_res(res);
 	if (argc == 1)
 	{
-		ft_putstr("\n\033[31mUsage: ./push_swap [numbers]\033[0m\n\n");
+		ft_putstr(YELLOW "\nUsage: ./push_swap [numbers]\n\n" RESET);
 		free_res(res);
 		return (0);
 	}
 	res->input_array = get_input_data(argc, argv);
 	if (!res->input_array)
 	{
-		ft_printf("\n\033[31mError: memory allocation failed ! \033[0m\n\n");
+		ft_printf(RED "\nError: memory allocation failed !\n\n" RESET);
 		free(res);
 		return (0);
 	}

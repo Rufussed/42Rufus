@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   rules2.c                                           :+:      :+:    :+:   */
+/*   rules2_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 18:56:33 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/02 11:39:43 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 16:20:15 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "push_swap_bonus.h"
 
 void	pb(t_res *res)
 {
@@ -23,7 +23,6 @@ void	pb(t_res *res)
 	stack_add_front(&res->stack_b, temp);
 	res->count_a--;
 	res->count_b++;
-	ft_printf("pb\n");
 }
 
 void	rotate(t_stack **stack)
@@ -43,18 +42,15 @@ void	rotate(t_stack **stack)
 void	ra(t_res *res)
 {
 	rotate(&res->stack_a);
-	ft_printf("ra\n");
 }
 
 void	rb(t_res *res)
 {
 	rotate(&res->stack_b);
-	ft_printf("rb\n");
 }
 
 void	rr(t_res *res)
 {
 	rotate(&res->stack_a);
 	rotate(&res->stack_b);
-	ft_printf("rr\n");
 }

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/11 11:50:07 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/06 12:39:32 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 18:15:42 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
+#  define BUFFER_SIZE 30000
 # endif
 # ifndef MAX_FD
 #  define MAX_FD 1024

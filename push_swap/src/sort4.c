@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sort3.c                                            :+:      :+:    :+:   */
+/*   sort4.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/01 17:12:18 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/01 17:24:29 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/02 15:50:48 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ void	rotate_stack_b(t_res *res, int target_median, int p_cost_b)
 	}
 }
 
-void	rotat_stacks_synched(t_res *res, t_stack *temp, t_stack *target)
+void	rotate_stacks_synched(t_res *res, t_stack *temp, t_stack *target)
 {
 	if (temp->median == ABOVE && target->median == ABOVE)
 	{
@@ -104,7 +104,7 @@ void	pb_descending(t_res *res)
 	push_ind = find_cheapest_push(res->stack_a);
 	temp = get_stack_index(res->stack_a, push_ind);
 	target = get_stack_index(res->stack_b, temp->target);
-	rotat_stacks_synched(res, temp, target);
+	rotate_stacks_synched(res, temp, target);
 	rotate_stack_a(res, temp->median, temp->push_cost);
 	rotate_stack_b(res, target->median, target->push_cost);
 	pb(res);
