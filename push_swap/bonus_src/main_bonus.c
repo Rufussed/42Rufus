@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:49:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/02 19:06:58 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/03 11:48:37 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,28 +59,26 @@ int	main(int argc, char **argv)
 {
 	t_res	*res;
 
-	res = (t_res *)malloc(sizeof(t_res));
-	init_res(res);
 	if (argc == 1)
 	{
 		ft_printf(YELLOW "\nUsage: ./checker [numbers]\n");
 		ft_printf("then type rules: pa, rrr etc, followed by [Enter]\n");
 		ft_printf("[Enter] to finish\n\n" RESET);
-		free_res(res);
 		return (0);
 	}
+	if (argc == 2)
+		return (0);
+	res = (t_res *)malloc(sizeof(t_res));
+	init_res(res);
 	res->input_array = get_input_data(argc, argv);
 	if (!res->input_array)
-	{
-		ft_printf(RED "\nError: memory allocation failed !\n\n" RESET);
-		free(res);
-		return (0);
-	}
+		exit_error("memory allocation failed", res);
 	fill_stack_a(res);
 	get_instructions(res);
 	if (stack_is_sorted(res->stack_a) && res->count_b == 0)
 		ft_printf(GREEN "OK\n" RESET);
 	else
 		ft_printf(RED "KO\n" RESET);
+	free_res(res);
 	return (1);
 }

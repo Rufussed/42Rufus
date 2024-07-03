@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:19:37 by rlane             #+#    #+#             */
-/*   Updated: 2024/06/29 16:38:56 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/03 11:44:46 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,5 @@ int	stack_is_sorted(t_stack *node)
 			return (0);
 		node = node->next;
 	}
-	ft_printf("Stack is sorted !\n");
 	return (1);
 }

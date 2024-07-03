@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:49:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/02 19:08:15 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/03 11:45:42 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,14 +59,15 @@ int	main(int argc, char **argv)
 {
 	t_res	*res;
 
-	res = (t_res *)malloc(sizeof(t_res));
-	init_res(res);
 	if (argc == 1)
 	{
 		ft_putstr(YELLOW "\nUsage: ./push_swap [numbers]\n\n" RESET);
-		free_res(res);
 		return (0);
 	}
+	if (argc == 2)
+		return (0);
+	res = (t_res *)malloc(sizeof(t_res));
+	init_res(res);
 	res->input_array = get_input_data(argc, argv);
 	if (!res->input_array)
 	{
