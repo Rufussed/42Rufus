@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/02 15:47:26 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/03 10:30:03 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/05 16:40:07 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	get_instructions(t_res *res)
 		{
 			if (ft_strlen(instruction) > 0 && instruction[0] != '\n'
 				&& instruction[0] != '\0')
-				exit_error("bad rule", res);
+				exit_error(res);
 			print_list_vals(res, "stacks after instruction:");
 			free(instruction);
 			break ;

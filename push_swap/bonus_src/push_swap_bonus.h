@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/02 18:54:29 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/05 16:38:22 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void		stack_add_front(t_stack **node, t_stack *new);
 t_stack		*stack_new(int val);
 t_stack		*stack_last(t_stack *node);
 int			fill_stack_a(t_res *res);
-void		exit_error(char *message, t_res *res);
+void		exit_error(t_res *res);
 int			stack_is_sorted(t_stack *node);
 void		modified_lstclear(t_stack **lst);
 void		free_input_array(char **array);

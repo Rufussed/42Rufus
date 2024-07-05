@@ -51,7 +51,7 @@ run: all
 	$(NAME)
 
 clean:
-	@rm -rf $(OBJ_DIR) $(BONUS_OBJ_DIR)
+	@rm -rf $(OBJ_DIR) $(BONUS_OBJ_DIR) 
 	@make clean -C $(LIBFT_DIR)
 
 fclean: clean

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/30 17:08:00 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/02 15:30:51 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/05 16:30:57 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	print_list_vals(t_res *res, char *message)
 				temp_b = temp_b->next;
 			}
 			else
-				ft_printf("\n\033[0m");
+				ft_printf("\n" RESET);
 		}
 	}
 }

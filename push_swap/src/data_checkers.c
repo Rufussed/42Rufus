@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:19:37 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/03 11:44:46 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/05 18:24:04 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,17 @@ void	check_repeats(t_res *res, int val)
 	while (temp)
 	{
 		if (temp->val == val)
-			exit_error("there are duplicates", res);
+			exit_error(res);
 		temp = temp->next;
 	}
+}
+
+int	check_sign_range(t_res *res, long val, int sign)
+{
+	val = (val * sign);
+	if (val > INT_MAX || val < INT_MIN)
+		exit_error(res);
+	return ((int)val);
 }
 
 int	check_atoi(const char *str, t_res *res)
@@ -34,6 +42,8 @@ int	check_atoi(const char *str, t_res *res)
 	val = 0;
 	sign = 1;
 	i = 0;
+	if ((str[0] == '+' || str[0] == '-') && str[1] == '\0')
+		exit_error(res);
 	if (str[0] == '-' || str[0] == '+')
 	{
 		if (str[0] == '-')
@@ -43,15 +53,13 @@ int	check_atoi(const char *str, t_res *res)
 	while (str[i])
 	{
 		if (!ft_isdigit(str[i]))
-			exit_error("some arguments aren't integers", res);
+			exit_error(res);
 		val = val * 10 + (str[i] - '0');
 		i++;
 	}
-	val = (val * sign);
-	if (val > INT_MAX || val < INT_MIN)
-		exit_error("some arguments are bigger than an integer", res);
+	val = check_sign_range(res, val, sign);
 	check_repeats(res, val);
-	return ((int)val);
+	return (val);
 }
 
 int	stack_is_sorted(t_stack *node)

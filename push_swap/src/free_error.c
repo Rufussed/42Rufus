@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/27 12:19:37 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/02 18:55:11 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/05 17:53:20 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,9 @@ void	free_input_array(char **array)
 	free(array);
 }
 
-void	exit_error(char *message, t_res *res)
+void	exit_error(t_res *res)
 {
-	ft_printf(RED "\nError: %s !\n\n" RESET, message);
+	ft_putstr_fd("Error\n", 2);
 	free_res(res);
 	exit(1);
 }
