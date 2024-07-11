@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/26 11:49:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/05 18:03:59 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/09 13:02:50 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,14 +63,14 @@ int	main(int argc, char **argv)
 		return (0);
 	res = (t_res *)malloc(sizeof(t_res));
 	init_res(res);
-	if (argc == 2) 
-	{
-		check_atoi(argv[1], res);
+//	if (argc == 2) 
+	//{
+	//	check_atoi(argv[1], res);
 		if (argv[1][0] == '\0')
 			exit_error(res);
-		free_res(res);
-		return (0);
-	}
+//		free_res(res);
+//return (0);
+//	}
 	res->input_array = get_input_data(argc, argv);
 	if (!res->input_array)
 		exit_error(res);
