@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/11 19:09:55 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/12 14:19:31 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,30 +47,39 @@
 # define TRUE 1
 # define FALSE 0
 
+# define FORK 0
+# define EAT 1
+# define SLEEP 2
+# define THINK 3
+# define DIED 4
+
 typedef struct s_data	t_data;
 
 typedef struct s_philo
 {
 	int					id;
-	int					num_e;
+	int					num_eat;
 	long long			last_eat;
 	int					fork_left;
 	int					fork_right;
 	int					dead;
-	pthread_t 			thread;
 	t_data				*data;
+	pthread_mutex_t		state_mutex;
+	pthread_t			thread;
 }	t_philo;
 
 typedef struct s_data
 {
 	int					num_p;
-	int					ttd;
-	int					tte;
-	int					tts;
-	int					num_e;
+	int					tt_die;
+	int					tt_eat;
+	int					tt_sleep;
+	int					max_eat;
+	int					end_sim;
+	pthread_mutex_t		*fork_mutex;
+	pthread_mutex_t		*print_mutex;
 	t_philo				**philos;
-	pthread_mutex_t		*fork_lock;
-	pthread_mutex_t		*print_lock;
+	pthread_t			death_watch_thread;
 }	t_data;
 
 int				init_philos(t_data *data);
@@ -78,9 +87,20 @@ t_data			*init_data(int argc, char **argv);
 void			free_data(t_data *data);
 void			print_philos(t_data *data);
 long long		get_time(void);
-void 			*philo_routine(void *arg);
+void			*philo_routine(void *arg);
 int				join_philos(t_data *data);
-void			*exit_error(char *msg);
+void			*exit_error_null(char *msg);
+int				exit_error_zero(char *msg);
 char			*assign_colour(int id);
+void			*philo_routine(void *arg);
+void			print_status(t_philo *philo, int msg);
+void			pick_up_forks(t_philo *philo);
+void			put_down_forks(t_philo *philo);
+void			eat(t_philo *philo);
+void			bedtime(t_philo *philo);
+void			think(t_philo *philo);
+int				join_threads(t_data *data);
+int				init_death_watch(t_data *data);
+int				eaten_enough(t_philo *philo);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:01:24 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/11 19:15:42 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/12 11:11:17 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,5 +90,23 @@ char	*assign_colour(int id)
 	else
 		return (BOLD_BLUE);
 }
+/*
+void	print_philos(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->num_p)
+	{
+		printf(YELLOW "Philosopher %d\n" RESET, data->philos[i]->id);
+		printf("index:\t\t%d\n", i);
+		printf("Fork left:\t%d\n", data->philos[i]->fork_left);
+		printf("Fork right:\t%d\n", data->philos[i]->fork_right);
+		printf("Number of times eaten: %d\n", data->philos[i]->num_eat);
+		printf("Last eaten at:\t%lld msecs\n", data->philos[i]->last_eat);
+		printf("Dead:\t\t%d\n", data->philos[i]->dead);
+		i++;
+	}
+}*/
 
 
