@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/12 14:19:31 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/15 13:53:17 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,11 +47,11 @@
 # define TRUE 1
 # define FALSE 0
 
-# define FORK 0
-# define EAT 1
-# define SLEEP 2
-# define THINK 3
-# define DIED 4
+# define FORK "has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define DIED "died"
 
 typedef struct s_data	t_data;
 
@@ -62,7 +62,6 @@ typedef struct s_philo
 	long long			last_eat;
 	int					fork_left;
 	int					fork_right;
-	int					dead;
 	t_data				*data;
 	pthread_mutex_t		state_mutex;
 	pthread_t			thread;
@@ -76,6 +75,7 @@ typedef struct s_data
 	int					tt_sleep;
 	int					max_eat;
 	int					end_sim;
+	pthread_mutex_t		*end_sim_mutex;
 	pthread_mutex_t		*fork_mutex;
 	pthread_mutex_t		*print_mutex;
 	t_philo				**philos;
@@ -93,7 +93,7 @@ void			*exit_error_null(char *msg);
 int				exit_error_zero(char *msg);
 char			*assign_colour(int id);
 void			*philo_routine(void *arg);
-void			print_status(t_philo *philo, int msg);
+void			print_status(t_philo *philo, char *msg);
 void			pick_up_forks(t_philo *philo);
 void			put_down_forks(t_philo *philo);
 void			eat(t_philo *philo);
@@ -102,5 +102,6 @@ void			think(t_philo *philo);
 int				join_threads(t_data *data);
 int				init_death_watch(t_data *data);
 int				eaten_enough(t_philo *philo);
+int				check_end_sim(t_data *data);
 
 #endif
