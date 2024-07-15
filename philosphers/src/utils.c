@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/23 10:01:24 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/15 10:44:33 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/15 15:35:08 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,6 @@ long long	get_time(void)
 
 	gettimeofday(&tv, NULL);
 	current_time = (long long)tv.tv_sec * 1000 + tv.tv_usec / 1000;
-
 	if (base_time == 0)
 		base_time = current_time;
 	return (current_time - base_time);
@@ -108,5 +107,3 @@ void	print_philos(t_data *data)
 		i++;
 	}
 }*/
-
-

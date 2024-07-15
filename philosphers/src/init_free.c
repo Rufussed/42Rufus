@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/15 14:00:59 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/15 15:40:49 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,16 @@ int	init_philos(t_data *data)
 		i_loop = i - 1;
 		if (i_loop < 0)
 			i_loop = data->num_p - 1;
-		data->philos[i] = malloc(sizeof(t_philo));
-		data->philos[i]->id = i + 1;
-		data->philos[i]->num_eat = 0;
-		data->philos[i]->last_eat = get_time();
-		data->philos[i]->fork_left = i;
-		data->philos[i]->fork_right = i_loop;
-		data->philos[i]->data = data;
-		if (pthread_mutex_init(&data->philos[i]->state_mutex, NULL) != 0)
+		data->philos[i].id = i + 1;
+		data->philos[i].num_eat = 0;
+		data->philos[i].last_eat = get_time();
+		data->philos[i].fork_left = i;
+		data->philos[i].fork_right = i_loop;
+		data->philos[i].data = data;
+		if (pthread_mutex_init(&data->philos[i].state_mutex, NULL) != 0)
 			return (exit_error_zero("Failed to init mutex"));
-		if (pthread_create(&(data->philos[i]->thread), NULL, philo_routine,
-				data->philos[i]) != 0)
+		if (pthread_create(&(data->philos[i].thread), NULL, philo_routine,
+				&data->philos[i]) != 0)
 			return (exit_error_zero("Failed to create thread for philosopher"));
 		i++;
 	}
@@ -46,9 +45,7 @@ int	init_mutexes(t_data *data)
 	int	i;
 
 	data->fork_mutex = malloc(sizeof(pthread_mutex_t) * data->num_p);
-	data->end_sim_mutex = malloc(sizeof(pthread_mutex_t));
-	data->print_mutex = malloc(sizeof(pthread_mutex_t));
-	if (!data->fork_mutex || !data->end_sim_mutex || !data->print_mutex)
+	if (!data->fork_mutex)
 		return (exit_error_zero("Failed to allocate memory for mutexes"));
 	i = 0;
 	while (i < data->num_p)
@@ -57,9 +54,9 @@ int	init_mutexes(t_data *data)
 			return (exit_error_zero("Failed to init mutex"));
 		i++;
 	}
-	if (pthread_mutex_init(data->end_sim_mutex, NULL) != 0)
+	if (pthread_mutex_init(&data->end_sim_mutex, NULL) != 0)
 		return (exit_error_zero("Failed to init mutex"));
-	if (pthread_mutex_init(data->print_mutex, NULL) != 0)
+	if (pthread_mutex_init(&data->print_mutex, NULL) != 0)
 		return (exit_error_zero("Failed to init mutex"));
 	return (1);
 }
@@ -89,25 +86,29 @@ void	free_data(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (i < data->num_p)
+	if (data)
 	{
-		pthread_mutex_destroy(&(data->fork_mutex[i]));
-		pthread_mutex_destroy(&data->philos[i]->state_mutex);
-		i++;
+		i = 0;
+		while (i < data->num_p)
+		{
+			pthread_mutex_destroy(&data->fork_mutex[i]);
+			i++;
+		}
+		free(data->fork_mutex);
+		if (data->philos)
+		{
+			i = 0;
+			while (i < data->num_p)
+			{
+				pthread_mutex_destroy(&data->philos[i].state_mutex);
+				i++;
+			}
+			free(data->philos);
+		}
+		pthread_mutex_destroy(&data->end_sim_mutex);
+		pthread_mutex_destroy(&data->print_mutex);
+		free(data);
 	}
-	while (i < data->num_p)
-	{
-		free(data->philos[i]);
-		i++;
-	}
-	pthread_mutex_destroy(data->end_sim_mutex);
-	pthread_mutex_destroy(data->print_mutex);
-	free(data->end_sim_mutex);
-	free(data->philos);
-	free(data->fork_mutex);
-	free(data->print_mutex);
-	free(data);
 }
 
 int	join_threads(t_data *data)
@@ -117,7 +118,7 @@ int	join_threads(t_data *data)
 	i = 0;
 	while (i < data->num_p)
 	{
-		if (pthread_join(data->philos[i]->thread, NULL) != 0)
+		if (pthread_join(data->philos[i].thread, NULL) != 0)
 			return (exit_error_zero("Failed to join thread"));
 		i++;
 	}
@@ -125,5 +126,3 @@ int	join_threads(t_data *data)
 		exit_error_zero("Failed to join thread");
 	return (1);
 }
-
-

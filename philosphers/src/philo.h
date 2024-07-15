@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/15 13:53:17 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/15 15:32:51 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,10 @@ typedef struct s_data
 	int					tt_sleep;
 	int					max_eat;
 	int					end_sim;
-	pthread_mutex_t		*end_sim_mutex;
+	pthread_mutex_t		end_sim_mutex;
 	pthread_mutex_t		*fork_mutex;
-	pthread_mutex_t		*print_mutex;
-	t_philo				**philos;
+	pthread_mutex_t		print_mutex;
+	t_philo				*philos;
 	pthread_t			death_watch_thread;
 }	t_data;
 
@@ -95,13 +95,12 @@ char			*assign_colour(int id);
 void			*philo_routine(void *arg);
 void			print_status(t_philo *philo, char *msg);
 void			pick_up_forks(t_philo *philo);
-void			put_down_forks(t_philo *philo);
 void			eat(t_philo *philo);
 void			bedtime(t_philo *philo);
-void			think(t_philo *philo);
 int				join_threads(t_data *data);
 int				init_death_watch(t_data *data);
 int				eaten_enough(t_philo *philo);
+int				all_eaten_enough(t_data *data);
 int				check_end_sim(t_data *data);
 
 #endif

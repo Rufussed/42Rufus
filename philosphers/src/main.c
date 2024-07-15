@@ -6,71 +6,61 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/15 14:08:49 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/15 15:35:49 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	all_eaten_enough(t_data *data)
+int	check_end_sim(t_data *data)
+{
+	int	result;
+
+	pthread_mutex_lock(&data->end_sim_mutex);
+	result = data->end_sim;
+	pthread_mutex_unlock(&data->end_sim_mutex);
+	return (result);
+}
+
+void	check_death(t_data *data)
 {
 	int	i;
 
 	i = 0;
 	while (i < data->num_p)
 	{
-		if (!eaten_enough(data->philos[i]))
+		if (!check_end_sim(data))
 		{
-			return (0);
+			pthread_mutex_lock(&data->philos[i].state_mutex);
+			if (get_time() - data->philos[i].last_eat > data->tt_die)
+			{
+				print_status(&data->philos[i], DIED);
+				pthread_mutex_unlock(&data->philos[i].state_mutex);
+				pthread_mutex_lock(&data->end_sim_mutex);
+				data->end_sim = 1;
+				pthread_mutex_unlock(&data->end_sim_mutex);
+				return ;
+			}
+			pthread_mutex_unlock(&data->philos[i].state_mutex);
 		}
 		i++;
 	}
-	return (1);
-}
-
-int	check_end_sim(t_data *data)
-{
-	int	result;
-
-	pthread_mutex_lock(data->end_sim_mutex);
-	result = data->end_sim;
-	pthread_mutex_unlock(data->end_sim_mutex);
-	return (result);
 }
 
 void	*death_watch(void *arg)
 {
 	t_data	*data;
-	int		i;
 
 	data = (t_data *)arg;
 	usleep(data->tt_die * 1000);
 	while (!check_end_sim(data))
 	{
-		i = 0;
-		while (i < data->num_p)
-		{
-			if (!check_end_sim(data))
-			{
-				pthread_mutex_lock(&data->philos[i]->state_mutex);
-				if (get_time() - data->philos[i]->last_eat > data->tt_die)
-				{
-					print_status(data->philos[i], DIED);
-					pthread_mutex_unlock(&data->philos[i]->state_mutex);
-					pthread_mutex_lock(data->end_sim_mutex);
-					data->end_sim = 1;
-					pthread_mutex_unlock(data->end_sim_mutex);
-					return (NULL);
-				}
-				pthread_mutex_unlock(&data->philos[i]->state_mutex);
-			}
-			i++;
-		}
+		check_death(data);
 		if (all_eaten_enough(data))
 		{
-			pthread_mutex_lock(data->end_sim_mutex);
+			pthread_mutex_lock(&data->end_sim_mutex);
 			data->end_sim = 1;
-			pthread_mutex_unlock(data->end_sim_mutex);
+			pthread_mutex_unlock(&data->end_sim_mutex);
 			return (NULL);
 		}
 		usleep(1000);
@@ -87,7 +77,6 @@ int	init_death_watch(t_data *data)
 	data->death_watch_thread = thread;
 	return (1);
 }
-
 
 int	main(int argc, char **argv)
 {

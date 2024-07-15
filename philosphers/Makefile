@@ -7,7 +7,7 @@ BONUS_SRC_DIR = bonus_src
 OBJ_DIR = obj
 BONUS_OBJ_DIR = obj_bonus
 
-SRC_FILES = main.c utils.c init_free.c philo_routine.c errors.c
+SRC_FILES = main.c utils.c init_free.c philo_routine.c errors_eaten.c
 BONUS_SRC_FILES = 
 
 # Convert to object files
