@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:55:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/15 15:36:08 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/17 12:50:19 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	*philo_routine(void *arg)
 		eat(philo);
 		if (eaten_enough(philo))
 			break ;
+		
 		bedtime(philo);
 	}
 	return (NULL);
@@ -32,20 +33,16 @@ void	pick_up_forks(t_philo *philo)
 {
 	if (check_end_sim(philo->data))
 		return ;
-	if (philo->id % 2)
+	if (philo->data->num_p == 1)
 	{
-		pthread_mutex_lock(&(philo->data->fork_mutex[philo->fork_left]));
+		sem_wait(philo->data->forks_sem);
 		print_status(philo, FORK);
-		pthread_mutex_lock(&(philo->data->fork_mutex[philo->fork_right]));
-		print_status(philo, FORK);
+		return ;
 	}
-	else
-	{
-		pthread_mutex_lock(&(philo->data->fork_mutex[philo->fork_right]));
-		print_status(philo, FORK);
-		pthread_mutex_lock(&(philo->data->fork_mutex[philo->fork_left]));
-		print_status(philo, FORK);
-	}
+	sem_wait(philo->data->forks_sem);
+	print_status(philo, FORK);
+	sem_wait(philo->data->forks_sem);
+	print_status(philo, FORK);
 }
 
 void	eat(t_philo *philo)
@@ -53,17 +50,21 @@ void	eat(t_philo *philo)
 	if (check_end_sim(philo->data))
 		return ;
 	pick_up_forks(philo);
-	pthread_mutex_lock(&philo->state_mutex);
+	if (philo->data->num_p == 1)
+	{
+		usleep(philo->data->tt_die * 1000);
+		print_status(philo, DIED);
+		sem_post(philo->data->forks_sem);
+		philo->data->end_sim = 1;
+		return ;
+	}
 	philo->last_eat = get_time();
-	pthread_mutex_unlock(&philo->state_mutex);
 	print_status(philo, EAT);
 	usleep(philo->data->tt_eat * 1000);
-	pthread_mutex_unlock(&(philo->data->fork_mutex[philo->fork_left]));
-	pthread_mutex_unlock(&(philo->data->fork_mutex[philo->fork_right]));
-	pthread_mutex_lock(&philo->state_mutex);
 	philo->last_eat = get_time();
+	sem_post(philo->data->forks_sem);
+	sem_post(philo->data->forks_sem);
 	philo->num_eat++;
-	pthread_mutex_unlock(&philo->state_mutex);
 }
 
 void	bedtime(t_philo *philo)
@@ -80,8 +81,6 @@ void	print_status(t_philo *philo, char *msg)
 
 	if (check_end_sim(philo->data))
 		return ;
-	pthread_mutex_lock(&philo->data->print_mutex);
 	colour = assign_colour(philo->id);
 	printf("%s%lld %d %s\n" RESET, colour, get_time(), philo->id, msg);
-	pthread_mutex_unlock(&philo->data->print_mutex);
 }

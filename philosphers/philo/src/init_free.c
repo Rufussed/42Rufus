@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/15 15:40:49 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/17 11:23:34 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,8 @@ t_data	*init_data(int argc, char **argv)
 {
 	t_data	*data;
 
+	if (!atoi(argv[1]))
+		return (NULL);
 	data = malloc(sizeof(t_data));
 	data->num_p = atoi(argv[1]);
 	data->tt_die = atoi(argv[2]);
@@ -76,9 +78,7 @@ t_data	*init_data(int argc, char **argv)
 		data->max_eat = -1;
 	data->end_sim = 0;
 	if (!(init_mutexes(data) && init_philos(data) && init_death_watch(data)))
-	{
 		return (NULL);
-	}
 	return (data);
 }
 

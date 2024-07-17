@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/15 15:32:51 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/17 12:24:03 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,12 @@
 # include <unistd.h>
 // For gettimeofday
 # include <sys/time.h>
-// For pthread functions
-# include <pthread.h>
+// for processes
+# include <semaphore.h>
+// For O_* constants
+# include <fcntl.h>
+// For mode constants
+# include <sys/stat.h>
 
 # define RESET "\033[0m"
 # define GREEN "\033[0;32m"
@@ -60,11 +64,7 @@ typedef struct s_philo
 	int					id;
 	int					num_eat;
 	long long			last_eat;
-	int					fork_left;
-	int					fork_right;
 	t_data				*data;
-	pthread_mutex_t		state_mutex;
-	pthread_t			thread;
 }	t_philo;
 
 typedef struct s_data
@@ -75,11 +75,10 @@ typedef struct s_data
 	int					tt_sleep;
 	int					max_eat;
 	int					end_sim;
-	pthread_mutex_t		end_sim_mutex;
-	pthread_mutex_t		*fork_mutex;
-	pthread_mutex_t		print_mutex;
+	sem_t 				*forks_sem;
+
 	t_philo				*philos;
-	pthread_t			death_watch_thread;
+	
 }	t_data;
 
 int				init_philos(t_data *data);
@@ -89,7 +88,6 @@ void			print_philos(t_data *data);
 long long		get_time(void);
 void			*philo_routine(void *arg);
 int				join_philos(t_data *data);
-void			*exit_error_null(char *msg);
 int				exit_error_zero(char *msg);
 char			*assign_colour(int id);
 void			*philo_routine(void *arg);
