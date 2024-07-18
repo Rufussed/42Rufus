@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/17 12:24:03 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/18 17:09:38 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <string.h>
 // For usleep, write
 # include <unistd.h>
+// For pthread_create, pthread_join
+# include <pthread.h>
 // For gettimeofday
 # include <sys/time.h>
 // for processes
@@ -29,6 +31,8 @@
 # include <fcntl.h>
 // For mode constants
 # include <sys/stat.h>
+// For waitpid
+# include <sys/wait.h>
 
 # define RESET "\033[0m"
 # define GREEN "\033[0;32m"
@@ -64,7 +68,9 @@ typedef struct s_philo
 	int					id;
 	int					num_eat;
 	long long			last_eat;
+	pthread_mutex_t		last_eat_mutex;
 	t_data				*data;
+	pid_t				pid;
 }	t_philo;
 
 typedef struct s_data
@@ -74,11 +80,10 @@ typedef struct s_data
 	int					tt_eat;
 	int					tt_sleep;
 	int					max_eat;
-	int					end_sim;
+	sem_t				*end_sim_sem;
 	sem_t 				*forks_sem;
-
+	sem_t				**eat_sem;
 	t_philo				*philos;
-	
 }	t_data;
 
 int				init_philos(t_data *data);
@@ -100,5 +105,6 @@ int				init_death_watch(t_data *data);
 int				eaten_enough(t_philo *philo);
 int				all_eaten_enough(t_data *data);
 int				check_end_sim(t_data *data);
+void			set_end_sim(t_data *data);
 
 #endif

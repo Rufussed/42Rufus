@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/17 10:53:19 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/18 18:50:59 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,13 @@ int	all_eaten_enough(t_data *data)
 	i = 0;
 	while (i < data->num_p)
 	{
+		pthread_mutex_lock(&data->philos[i].last_eat_mutex);
 		if (!eaten_enough(&data->philos[i]))
 		{
+			pthread_mutex_unlock(&data->philos[i].last_eat_mutex);
 			return (0);
 		}
+		pthread_mutex_unlock(&data->philos[i].last_eat_mutex);
 		i++;
 	}
 	return (1);
@@ -36,17 +39,10 @@ int	all_eaten_enough(t_data *data)
 
 int	eaten_enough(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->state_mutex);
+	
 	if (philo->data->max_eat == -1)
-	{
-		pthread_mutex_unlock(&philo->state_mutex);
 		return (0);
-	}
 	if (philo->num_eat >= philo->data->max_eat)
-	{
-		pthread_mutex_unlock(&philo->state_mutex);
 		return (1);
-	}
-	pthread_mutex_unlock(&philo->state_mutex);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:55:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/17 11:19:34 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/18 13:46:12 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,10 @@ void	*philo_routine(void *arg)
 	{
 		print_status(philo, THINK);
 		eat(philo);
-		if (eaten_enough(philo))
+		if (eaten_enough(philo) || check_end_sim(philo->data))
 			break ;
-		bedtime(philo);
+		print_status(philo, SLEEP);
+		usleep(philo->data->tt_sleep * 1000);
 	}
 	return (NULL);
 }
@@ -82,22 +83,14 @@ void	eat(t_philo *philo)
 	pthread_mutex_unlock(&philo->state_mutex);
 }
 
-void	bedtime(t_philo *philo)
-{
-	if (check_end_sim(philo->data))
-		return ;
-	print_status(philo, SLEEP);
-	usleep(philo->data->tt_sleep * 1000);
-}
-
 void	print_status(t_philo *philo, char *msg)
 {
 	char	*colour;
 
+	colour = assign_colour(philo->id);
 	if (check_end_sim(philo->data))
 		return ;
 	pthread_mutex_lock(&philo->data->print_mutex);
-	colour = assign_colour(philo->id);
 	printf("%s%lld %d %s\n" RESET, colour, get_time(), philo->id, msg);
 	pthread_mutex_unlock(&philo->data->print_mutex);
 }
