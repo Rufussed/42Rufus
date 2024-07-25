@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   errors_eaten.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/18 18:50:59 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/24 17:34:59 by rufus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,31 +18,34 @@ int	exit_error_zero(char *msg)
 	return (0);
 }
 
-int	all_eaten_enough(t_data *data)
+void *philo_full(void *arg)
 {
-	int	i;
+	t_data *data;
 
-	i = 0;
-	while (i < data->num_p)
+	data = (t_data *)arg;
+	if (sem_wait(data->philo_full_sem) == 0)
 	{
-		pthread_mutex_lock(&data->philos[i].last_eat_mutex);
-		if (!eaten_enough(&data->philos[i]))
-		{
-			pthread_mutex_unlock(&data->philos[i].last_eat_mutex);
-			return (0);
-		}
-		pthread_mutex_unlock(&data->philos[i].last_eat_mutex);
-		i++;
+		sem_post(data->philo_full_sem);
+		pthread_mutex_lock(&data->philo_full_mutex);
+		data->philos_full++;
+		pthread_mutex_unlock(&data->philo_full_mutex);
 	}
-	return (1);
+	return (NULL);
 }
 
 int	eaten_enough(t_philo *philo)
 {
-	
+	pthread_mutex_lock(&philo->philo_mutex);
 	if (philo->data->max_eat == -1)
+	{
+		pthread_mutex_unlock(&philo->philo_mutex);
 		return (0);
+	}
 	if (philo->num_eat >= philo->data->max_eat)
+	{
+		sem_post(philo->data->philo_full_sem);
+		pthread_mutex_unlock(&philo->philo_mutex);
 		return (1);
+	}
 	return (0);
 }

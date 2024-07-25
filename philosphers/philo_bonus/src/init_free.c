@@ -3,14 +3,32 @@
 /*                                                        :::      ::::::::   */
 /*   init_free.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/18 18:24:23 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/24 18:13:36 by rufus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	check_starvation(t_philo *philo)
+{
+	while (!check_end_sim(philo->data))
+	{
+		pthread_mutex_lock(&philo->philo_mutex);
+		if (get_time() - philo->last_eat > philo->data->tt_die)
+		{
+			pthread_mutex_unlock(&philo->philo_mutex);
+			print_status(philo, DIED);
+			set_end_sim(philo->data);
+			return ;
+		}
+		pthread_mutex_unlock(&philo->philo_mutex);
+		usleep(1000);
+	}
+	return ;
+}
 
 int	init_philos(t_data *data)
 {
@@ -27,7 +45,7 @@ int	init_philos(t_data *data)
 		data->philos[i].id = i + 1;
 		data->philos[i].num_eat = 0;
 		data->philos[i].last_eat = get_time();
-		if (pthread_mutex_init(&data->philos->last_eat_mutex, NULL) != 0)
+		if (pthread_mutex_init(&data->philos->philo_mutex, NULL) != 0)
 			return (0);
 		data->philos[i].data = data;
 		i++;
@@ -35,17 +53,35 @@ int	init_philos(t_data *data)
 	return (1);
 }
 
-int	init_eat_sem(t_data *data)
+int	init_check_end_sim_thread(t_data *data)
 {
-	int	i;
+	data->end_sim = 0;
 
-	data->eat_sem = malloc(sizeof(sem_t) * data->num_p);
-	i = 0;
-	while (i < data->num_p)
-	{
-		data->eat_sem[i] = sem_open("/eat_semaphore", O_CREAT, 0644, 0);
-		i++;
-	}
+	pthread_create(&data->check_end_sim_thread, NULL, check_end_sim_sem, data);
+	return (1);
+}
+
+static int	init_semaphores(t_data *data)
+{
+	sem_unlink("/end_sim_semaphore");
+	sem_unlink("/forks_semaphore");
+	sem_unlink("/philo_full_semaphore");
+	data->end_sim_sem = sem_open("/end_sim_semaphore", O_CREAT | O_EXCL, 0644, 0);
+	data->forks_sem = sem_open("/forks_semaphore", O_CREAT | O_EXCL, 0644,
+			data->num_p);
+	data->philo_full_sem = sem_open("/philo_full_semaphore", O_CREAT | O_EXCL,
+			0644, 0);
+	if (data->end_sim_sem == SEM_FAILED || data->forks_sem == SEM_FAILED
+		|| data->philo_full_sem == SEM_FAILED)
+		return (0);
+	return (1);
+}
+
+static int	init_mutexes(t_data *data)
+{
+	if (pthread_mutex_init(&data->end_sim_mutex, NULL) != 0
+		|| pthread_mutex_init(&data->philo_full_mutex, NULL) != 0)
+		return (0);
 	return (1);
 }
 
@@ -53,26 +89,25 @@ t_data	*init_data(int argc, char **argv)
 {
 	t_data	*data;
 
-	if (!atoi(argv[1]))
-		return (NULL);
 	data = malloc(sizeof(t_data));
-	data->num_p = atoi(argv[1]);
-	data->tt_die = atoi(argv[2]);
-	data->tt_eat = atoi(argv[3]);
-	data->tt_sleep = atoi(argv[4]);
+	if (!data)
+		return (NULL);
+	data->num_p = ft_atoi(argv[1]);
+	data->tt_die = ft_atoi(argv[2]);
+	data->tt_eat = ft_atoi(argv[3]);
+	data->tt_sleep = ft_atoi(argv[4]);
 	if (argc == 6)
-		data->max_eat = atoi(argv[5]);
+		data->max_eat = ft_atoi(argv[5]);
 	else
 		data->max_eat = -1;
-	data->end_sim_sem = sem_open("/end_sim_semaphore", O_CREAT, 0644, 0);
-	if (data->end_sim_sem == SEM_FAILED)
+	data->philos_full = 0;
+	data->end_sim = 0;
+	if (!init_mutexes(data) || !init_semaphores(data)
+		|| !init_philos(data) || !init_check_end_sim_thread(data))
 	{
-		perror("Failed to create end_sim semaphore");
+		free_data(data);
 		return (NULL);
 	}
-	data->forks_sem = sem_open("/forks_semaphore", O_CREAT, 0644, data->num_p);
-	init_philos(data);
-	init_eat_sem(data);
 	return (data);
 }
 
@@ -83,28 +118,26 @@ void	free_data(t_data *data)
 	if (data)
 	{
 		if (data->philos)
-			free(data->philos);
-		if (data->end_sim_sem != SEM_FAILED)
-		{
-			sem_close(data->end_sim_sem);
-			sem_unlink("/end_sim_semaphore");
-		}
-		if (data->forks_sem != SEM_FAILED)
-		{
-			sem_close(data->forks_sem);
-			sem_unlink("/forks_semaphore");
-		}
-		if (data->eat_sem)
 		{
 			i = 0;
 			while (i < data->num_p)
 			{
-				sem_close(data->eat_sem[i]);
-				sem_unlink("/eat_semaphore");
+				pthread_mutex_destroy(&data->philos[i].philo_mutex);
 				i++;
 			}
-			free(data->eat_sem);
+			free(data->philos);
 		}
+		if (data->end_sim_sem != SEM_FAILED)
+			sem_close(data->end_sim_sem);
+		if (data->forks_sem != SEM_FAILED)
+			sem_close(data->forks_sem);
+		if (data->philo_full_sem != SEM_FAILED)
+			sem_close(data->philo_full_sem);
+		sem_unlink("/end_sim_semaphore");
+		sem_unlink("/forks_semaphore");
+		sem_unlink("/philo_full_semaphore");
+		pthread_mutex_destroy(&data->end_sim_mutex);
+		pthread_mutex_destroy(&data->philo_full_mutex);
 		free(data);
 	}
 }
