@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:55:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/25 18:18:18 by rlane            ###   ########.fr       */
+/*   Updated: 2024/07/25 18:18:34 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	*check_end_sim_sem(void *arg)
 			pthread_mutex_unlock(&data->end_sim_mutex);
 			break ;
 		}
-		usleep(1000); // 1ms
+		usleep(1000);
 	}
 	return (NULL);
 }
