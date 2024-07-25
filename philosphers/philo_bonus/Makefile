@@ -5,7 +5,7 @@ SRC_DIR = src
 
 OBJ_DIR = obj
 
-SRC_FILES = main.c utils.c init_free.c philo_routine.c errors_eaten.c
+SRC_FILES = main.c utils.c init.c free.c check.c philo_routine.c errors_eaten.c
 
 # Convert to object files
 OBJS = $(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

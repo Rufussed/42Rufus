@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/24 18:15:08 by rufus            ###   ########.fr       */
+/*   Updated: 2024/07/25 18:11:21 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@
 # include <sys/stat.h>
 // For waitpid
 # include <sys/wait.h>
+// For kill
+# include <signal.h>
 
 # define RESET "\033[0m"
 # define GREEN "\033[0;32m"
@@ -67,7 +69,6 @@ typedef struct s_philo
 {
 	int					id;
 	int					num_eat;
-	//int					eaten_enough;
 	long long			last_eat;
 	pthread_mutex_t		philo_mutex;
 	pthread_t			check_starvation_thread;
@@ -87,6 +88,7 @@ typedef struct s_data
 	pthread_mutex_t		end_sim_mutex;
 	pthread_mutex_t		philo_full_mutex;
 	pthread_t			check_end_sim_thread;
+	pthread_t			philos_full_thread;
 	sem_t				*end_sim_sem;
 	sem_t				*philo_full_sem;
 	sem_t				*forks_sem;
@@ -96,6 +98,7 @@ typedef struct s_data
 int				ft_atoi(const char *nptr);
 int				init_philos(t_data *data);
 t_data			*init_data(int argc, char **argv);
+int				init_check_end_sim_thread(t_data *data);
 void			free_data(t_data *data);
 long long		get_time(void);
 void			*philo_routine(void *arg);
@@ -105,12 +108,14 @@ void			*philo_routine(void *arg);
 void			print_status(t_philo *philo, char *msg);
 void			pick_up_forks(t_philo *philo);
 void			eat(t_philo *philo);
-
-int				init_monitor(t_data *data);
 int				eaten_enough(t_philo *philo);
 void			*check_end_sim_sem(void *arg);
-int				check_end_sim(t_data *data);
+int				check_end_sim(t_philo *philo);
 void			set_end_sim(t_data *data);
-void			check_starvation(t_philo *philo);
+void			close_semaphores(t_data *data);
+int				check_end_sim_data(t_data *data);
+void			*check_end_sim_sem(void *arg);
+void			finish_threads_join(t_data *data);
+void			*check_starvation(void *arg);
 
 #endif

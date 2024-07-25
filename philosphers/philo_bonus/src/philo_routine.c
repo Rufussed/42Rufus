@@ -3,71 +3,44 @@
 /*                                                        :::      ::::::::   */
 /*   philo_routine.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:55:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/24 18:17:23 by rufus            ###   ########.fr       */
+/*   Updated: 2024/07/25 17:39:10 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	*check_end_sim_sem(void *arg)
-{
-	t_data	*data;
-
-	data = (t_data *)arg;
-	while (1)
-	{
-		if (sem_wait(data->end_sim_sem) == 0)
-		{
-			sem_post(data->end_sim_sem);
-			pthread_mutex_lock(&data->end_sim_mutex);
-			data->end_sim = 1;
-			pthread_mutex_unlock(&data->end_sim_mutex);
-			break ;
-		}
-	}
-	return (NULL);
-}
-
-int	check_end_sim(t_data *data)
-{
-	int	end;
-
-	pthread_mutex_lock(&data->end_sim_mutex);
-	end = data->end_sim;
-	pthread_mutex_unlock(&data->end_sim_mutex);
-	return (end);
-}
-
-// sets the end_sim semaphore to zero
-void	set_end_sim(t_data *data)
-{
-	sem_post(data->end_sim_sem);
-}
-
 void	*philo_routine(void *arg)
 {
 	t_philo	*philo;
+	pthread_t	check_starvation_thread;
 
 	philo = (t_philo *)arg;
-	while (!check_end_sim(philo->data))
+	init_check_end_sim_thread(philo->data);
+	pthread_create(&check_starvation_thread, NULL, check_starvation, philo);
+	while (!check_end_sim(philo))
 	{
 		print_status(philo, THINK);
 		eat(philo);
-		if (eaten_enough(philo) || check_end_sim(philo->data))
+		if (eaten_enough(philo) || check_end_sim(philo))
 			break ;
 		print_status(philo, SLEEP);
 		usleep(philo->data->tt_sleep * 1000);
 	}
+	pthread_join(check_starvation_thread, NULL);
+	pthread_join(philo->data->check_end_sim_thread, NULL);
+	// sem_close(philo->data->end_sim_sem);
+	// sem_close(philo->data->forks_sem);
+	// sem_close(philo->data->philo_full_sem);
 	free_data(philo->data);
-	exit(0);
+	return (NULL);
 }
 
 void	pick_up_forks(t_philo *philo)
 {
-	if (check_end_sim(philo->data))
+	if (check_end_sim(philo))
 		return ;
 	if (philo->data->num_p == 1)
 	{
@@ -83,7 +56,7 @@ void	pick_up_forks(t_philo *philo)
 
 void	eat(t_philo *philo)
 {
-	if (check_end_sim(philo->data))
+	if (check_end_sim(philo))
 		return ;
 	pick_up_forks(philo);
 	if (philo->data->num_p == 1)
@@ -109,7 +82,7 @@ void	print_status(t_philo *philo, char *msg)
 	char	*colour;
 
 	colour = assign_colour(philo->id);
-	if (check_end_sim(philo->data))
+	if (check_end_sim(philo))
 		return ;
 	printf("%s%lld %d %s\n" RESET, colour, get_time(), philo->id, msg);
 }

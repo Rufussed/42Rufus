@@ -3,52 +3,38 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/24 18:27:47 by rufus            ###   ########.fr       */
+/*   Updated: 2024/07/25 18:16:03 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-
-
-void	*monitor(void *arg)
+void	*philos_full(void *arg)
 {
 	t_data	*data;
+	int		i;
 
 	data = (t_data *)arg;
-	while (!check_end_sim(data))
+	i = 0;
+	while (i < data->num_p && !check_end_sim_data(data))
 	{
-		if (data->philos_full >= data->num_p)
-		{
-			set_end_sim(data);
-			break ;
-		}
-		usleep(1000);
+		sem_wait(data->philo_full_sem);
+		i++;
 	}
+	set_end_sim(data);
 	return (NULL);
 }
-
-int	init_monitor(t_data *data)
-{
-	pthread_t	monitor_thread;
-
-	if (pthread_create(&monitor_thread, NULL, monitor, data) != 0)
-		return (0);
-	pthread_join(monitor_thread, NULL);
-	return (1);
-}
-
 
 void	create_process_loop(t_data *data)
 {
 	int		i;
 	pid_t	pid;
 
-	i = -1;
-	while (++i < data->num_p)
+	i = 0;
+	while (i < data->num_p)
 	{
 		pid = fork();
 		if (pid == 0)
@@ -59,11 +45,16 @@ void	create_process_loop(t_data *data)
 		}
 		else if (pid > 0)
 			data->philos[i].pid = pid;
+		i++;
 	}
-	init_monitor(data);
-	i = -1;
-	while (++i < data->num_p)
+	pthread_create(&data->philos_full_thread, NULL,	philos_full, data);
+	i = 0;
+	while (i < data->num_p)
+	{
 		waitpid(data->philos[i].pid, NULL, 0);
+		i++;
+	}
+	finish_threads_join(data);
 }
 
 int	main(int argc, char **argv)
@@ -74,7 +65,7 @@ int	main(int argc, char **argv)
 	{
 		printf("Usage: %s num_philos time_to_die time_to_eat time_to_sleep ",
 			argv[0]);
-		printf("[num_times_each_philo_must_eat]\n");
+		printf("num_times_philo_must_eat\n");
 		return (1);
 	}
 	data = init_data(argc, argv);
