@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/25 16:35:24 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/23 17:35:37 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,18 +20,14 @@ int	exit_error_zero(char *msg)
 
 int	eaten_enough(t_philo *philo)
 {
+	int	result;
+
+	result = 0;
 	pthread_mutex_lock(&philo->philo_mutex);
-	if (philo->data->max_eat == -1)
-	{
-		pthread_mutex_unlock(&philo->philo_mutex);
-		return (0);
-	}
-	if (philo->num_eat >= philo->data->max_eat)
-	{
-		sem_post(philo->data->philo_full_sem);
-		pthread_mutex_unlock(&philo->philo_mutex);
-		return (1);
-	}
+	if (philo->data->max_eat != -1 && philo->num_eat >= philo->data->max_eat)
+		result = 1;
 	pthread_mutex_unlock(&philo->philo_mutex);
-	return (0);
+	if (result)
+		sem_post(philo->data->philo_full_sem);
+	return (result);
 }

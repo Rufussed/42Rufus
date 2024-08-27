@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:55:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/25 17:39:10 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/23 17:41:12 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	*philo_routine(void *arg)
 	while (!check_end_sim(philo))
 	{
 		print_status(philo, THINK);
+		usleep(1000);
 		eat(philo);
 		if (eaten_enough(philo) || check_end_sim(philo))
 			break ;
@@ -31,9 +32,6 @@ void	*philo_routine(void *arg)
 	}
 	pthread_join(check_starvation_thread, NULL);
 	pthread_join(philo->data->check_end_sim_thread, NULL);
-	// sem_close(philo->data->end_sim_sem);
-	// sem_close(philo->data->forks_sem);
-	// sem_close(philo->data->philo_full_sem);
 	free_data(philo->data);
 	return (NULL);
 }
@@ -48,10 +46,13 @@ void	pick_up_forks(t_philo *philo)
 		print_status(philo, FORK);
 		return ;
 	}
+	sem_wait(philo->data->waiter_sem);
 	sem_wait(philo->data->forks_sem);
 	print_status(philo, FORK);
+	usleep(1000);
 	sem_wait(philo->data->forks_sem);
 	print_status(philo, FORK);
+	usleep(1000);
 }
 
 void	eat(t_philo *philo)
@@ -75,6 +76,7 @@ void	eat(t_philo *philo)
 	usleep(philo->data->tt_eat * 1000);
 	sem_post(philo->data->forks_sem);
 	sem_post(philo->data->forks_sem);
+	sem_post(philo->data->waiter_sem);
 }
 
 void	print_status(t_philo *philo, char *msg)

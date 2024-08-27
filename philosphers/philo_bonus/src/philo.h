@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/25 18:11:21 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/23 15:54:21 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,7 @@ typedef struct s_data
 	sem_t				*end_sim_sem;
 	sem_t				*philo_full_sem;
 	sem_t				*forks_sem;
+	sem_t				*waiter_sem;
 	t_philo				*philos;
 }	t_data;
 

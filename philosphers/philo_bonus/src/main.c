@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/25 18:16:03 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/23 17:40:45 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ void	*philos_full(void *arg)
 	i = 0;
 	while (i < data->num_p && !check_end_sim_data(data))
 	{
+		if (check_end_sim_data(data))
+            break;
 		sem_wait(data->philo_full_sem);
 		i++;
 	}
@@ -44,7 +46,10 @@ void	create_process_loop(t_data *data)
 			exit(0);
 		}
 		else if (pid > 0)
+		{
 			data->philos[i].pid = pid;
+			usleep(100);
+		}
 		i++;
 	}
 	pthread_create(&data->philos_full_thread, NULL,	philos_full, data);

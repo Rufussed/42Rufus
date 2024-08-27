@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/25 18:12:44 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/23 16:03:04 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,9 @@ void	close_semaphores(t_data *data)
 		sem_close(data->forks_sem);
 	if (data->philo_full_sem != SEM_FAILED)
 		sem_close(data->philo_full_sem);
+	if (data->waiter_sem != SEM_FAILED)
+		sem_close(data->waiter_sem);
+	sem_unlink("/waiter_semaphore");
 	sem_unlink("/end_sim_semaphore");
 	sem_unlink("/forks_semaphore");
 	sem_unlink("/philo_full_semaphore");

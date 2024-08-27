@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/25 18:00:07 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/23 15:57:45 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,17 @@ static int	init_semaphores(t_data *data)
 	sem_unlink("/end_sim_semaphore");
 	sem_unlink("/forks_semaphore");
 	sem_unlink("/philo_full_semaphore");
+	sem_unlink("/waiter_semaphore");
 	data->forks_sem = sem_open("/forks_semaphore", O_CREAT | O_EXCL, 0644,
 			data->num_p);
+	data->waiter_sem = sem_open("/waiter_semaphore", O_CREAT | O_EXCL, 0644,
+			data->num_p / 2);
 	data->end_sim_sem = sem_open("/end_sim_semaphore", O_CREAT | O_EXCL,
-			0644, 1);
-	sem_wait(data->end_sim_sem);
+			0644, 0);
 	data->philo_full_sem = sem_open("/philo_full_semaphore", O_CREAT | O_EXCL,
-			0644, 1);
-	sem_wait(data->philo_full_sem);
+			0644, 0);
 	if (data->end_sim_sem == SEM_FAILED || data->forks_sem == SEM_FAILED
-		|| data->philo_full_sem == SEM_FAILED)
+		|| data->philo_full_sem == SEM_FAILED || data->waiter_sem == SEM_FAILED)
 		return (0);
 	return (1);
 }

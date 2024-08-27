@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:55:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/25 18:18:34 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/23 17:04:44 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,11 @@ void	*check_end_sim_sem(void *arg)
 	t_data	*data;
 
 	data = (t_data *)arg;
-	while (1)
-	{
-		if (sem_wait(data->end_sim_sem) == 0)
-		{
-			sem_post(data->end_sim_sem);
-			pthread_mutex_lock(&data->end_sim_mutex);
-			data->end_sim = 1;
-			pthread_mutex_unlock(&data->end_sim_mutex);
-			break ;
-		}
-		usleep(1000);
-	}
+	sem_wait(data->end_sim_sem);
+	sem_post(data->end_sim_sem);
+	pthread_mutex_lock(&data->end_sim_mutex);
+	data->end_sim = 1;
+	pthread_mutex_unlock(&data->end_sim_mutex);
 	return (NULL);
 }
 
