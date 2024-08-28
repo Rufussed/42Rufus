@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/08/23 15:54:21 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/28 18:47:37 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ typedef struct s_philo
 {
 	int					id;
 	int					num_eat;
+	int					eaten_enough;
 	long long			last_eat;
 	pthread_mutex_t		philo_mutex;
 	pthread_t			check_starvation_thread;
@@ -97,6 +98,7 @@ typedef struct s_data
 }	t_data;
 
 int				ft_atoi(const char *nptr);
+int				check_bad_chars(char *str);
 int				init_philos(t_data *data);
 t_data			*init_data(int argc, char **argv);
 int				init_check_end_sim_thread(t_data *data);
@@ -112,7 +114,6 @@ void			eat(t_philo *philo);
 int				eaten_enough(t_philo *philo);
 void			*check_end_sim_sem(void *arg);
 int				check_end_sim(t_philo *philo);
-void			set_end_sim(t_data *data);
 void			close_semaphores(t_data *data);
 int				check_end_sim_data(t_data *data);
 void			*check_end_sim_sem(void *arg);

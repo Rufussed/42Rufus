@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/15 15:35:49 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/28 17:26:53 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,6 @@ void	*death_watch(void *arg)
 	usleep(data->tt_die * 1000);
 	while (!check_end_sim(data))
 	{
-		check_death(data);
 		if (all_eaten_enough(data))
 		{
 			pthread_mutex_lock(&data->end_sim_mutex);
@@ -63,6 +62,7 @@ void	*death_watch(void *arg)
 			pthread_mutex_unlock(&data->end_sim_mutex);
 			return (NULL);
 		}
+		check_death(data);
 		usleep(1000);
 	}
 	return (NULL);
@@ -82,12 +82,8 @@ int	main(int argc, char **argv)
 {
 	t_data		*data;
 
-	if (argc != 5 && argc != 6)
-	{
-		printf("\nParams: [num of philosphers] [time to die] [time to eat]");
-		printf(" [time to sleep] [(optional) num of times each must eat]\n\n");
+	if (check_bad_args(argc, argv))
 		return (1);
-	}
 	data = init_data(argc, argv);
 	if (!data)
 		return (1);

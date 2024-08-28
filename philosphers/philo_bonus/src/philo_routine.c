@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:55:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/08/23 17:41:12 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/28 19:08:25 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,18 +14,18 @@
 
 void	*philo_routine(void *arg)
 {
-	t_philo	*philo;
-	pthread_t	check_starvation_thread;
+	t_philo			*philo;
+	pthread_t		check_starvation_thread;
 
 	philo = (t_philo *)arg;
 	init_check_end_sim_thread(philo->data);
 	pthread_create(&check_starvation_thread, NULL, check_starvation, philo);
-	while (!check_end_sim(philo))
+	while (!check_end_sim(philo)) 
 	{
 		print_status(philo, THINK);
 		usleep(1000);
 		eat(philo);
-		if (eaten_enough(philo) || check_end_sim(philo))
+		if (eaten_enough(philo) || philo->data->num_p == 1)
 			break ;
 		print_status(philo, SLEEP);
 		usleep(philo->data->tt_sleep * 1000);
@@ -64,7 +64,7 @@ void	eat(t_philo *philo)
 	{
 		usleep(philo->data->tt_die * 1000);
 		print_status(philo, DIED);
-		set_end_sim(philo->data);
+		sem_post(philo->data->end_sim_sem);
 		sem_post(philo->data->forks_sem);
 		return ;
 	}

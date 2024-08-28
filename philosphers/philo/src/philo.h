@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/20 15:49:27 by rlane             #+#    #+#             */
-/*   Updated: 2024/07/17 10:53:05 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/28 17:18:23 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,5 +101,6 @@ int				init_death_watch(t_data *data);
 int				eaten_enough(t_philo *philo);
 int				all_eaten_enough(t_data *data);
 int				check_end_sim(t_data *data);
+int				check_bad_args(int argc, char **argv);
 
 #endif

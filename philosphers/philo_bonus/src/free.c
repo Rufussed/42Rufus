@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/10 12:20:32 by rlane             #+#    #+#             */
-/*   Updated: 2024/08/23 16:03:04 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/28 15:56:00 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,4 +58,3 @@ void	finish_threads_join(t_data *data)
 	pthread_join(data->philos_full_thread, NULL);
 	pthread_join(data->check_end_sim_thread, NULL);
 }
-

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/07/11 15:55:39 by rlane             #+#    #+#             */
-/*   Updated: 2024/08/23 17:04:44 by rlane            ###   ########.fr       */
+/*   Updated: 2024/08/28 15:55:38 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,10 @@ void	*check_starvation(void *arg)
 		if (get_time() - philo->last_eat > philo->data->tt_die)
 		{
 			pthread_mutex_unlock(&philo->philo_mutex);
+			if (eaten_enough(philo))
+				return (NULL);
 			print_status(philo, DIED);
-			set_end_sim(philo->data);
+			sem_post(philo->data->end_sim_sem);
 			return (NULL);
 		}
 		pthread_mutex_unlock(&philo->philo_mutex);
@@ -64,10 +66,4 @@ int	check_end_sim(t_philo *philo)
 	end = philo->data->end_sim;
 	pthread_mutex_unlock(&philo->data->end_sim_mutex);
 	return (end);
-}
-
-// sets the end_sim semaphore to zero
-void	set_end_sim(t_data *data)
-{
-	sem_post(data->end_sim_sem);
 }
