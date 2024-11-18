@@ -29,9 +29,10 @@ void	alpha_sort(char *str, int start, int end)
 	}
 }
 
+
 void permute(char *str, int start, int end)
 {
-	int i;
+	int i = 0;
 
 	alpha_sort(str, start, end);
 	if (start == end)

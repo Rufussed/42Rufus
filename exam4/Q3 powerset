@@ -1,4 +1,13 @@
-powerset
+Powerset - writing a program that takes multiple argument. First one is the sum.
+All the others are members. Print all the sets of members where the total of the
+set is the sum. 
+
+Eg
+./a.out 4 1 3
+1 3
+./a.out 4 1 5 -1 3
+1 3
+5 -1
 
 allowed functions: atoi, printf, malloc, calloc, realloc, free
 
@@ -16,3 +25,6 @@ set like in python
 positive 1 negative (??)
 
 We will not test with invalid set
+
+
+
