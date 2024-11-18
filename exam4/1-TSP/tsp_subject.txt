@@ -1,0 +1,24 @@
+Question 1 - TSP
+ Write a program that will read a set of city coordinates under the form '%f, %f\n' from the stdint and will print the length of the shortest possible path containing all these cities under the form %.2f
+ 
+ Your program should work like this:
+ 
+ cat square.txt
+ 0.0, 0.0
+ 0.0, 1.0
+ 1.0, 0.0
+ 1.0, 1.0
+ 
+ $> ./tsp < square.txt | cat -e
+ 4.00$
+ 
+ We will not test your program with more than 11 cities.
+ 
+ Authorized functions: getline, sqrtf, stdin, stdout, fprintf, write fscanf
+
+ The function to calculate the distances between coordinates (not the original one provided, reconstructed at home):
+ 
+ double  distance(double x1, double y1, double x2, double y2)
+ {
+     return sqrtf((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+ }

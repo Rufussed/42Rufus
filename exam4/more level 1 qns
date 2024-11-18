@@ -1,0 +1,117 @@
+rip
+ Write a program that receives a string with only '(' and ')'. Ex '((())'
+ If the parentheses pattern is balanced - print the string ex '()()((()))'
+ If the parentheses pattern is not balanced, remove the minimum number of parentheses
+ to make it balanced. By removing we mean replacing with space. Print all the solutions.
+ There can be more than one solution.
+ Functions you can use: write puts
+ $> ./rip '( ( )' | cat -e
+ _ ( ) $
+ ( _ ) $
+ $> ./rip '( ( ( ) ( ) ( ) ) ( ) )' | cat -e
+ ( ( ( ) ( ) ( ) ) ( ) ) $
+ $> ./rip '( ) ( ) ) ( )' | cat -e
+ ( ) ( ) _ ( ) $
+ ( ) ( _ ) ( ) $
+ ( _ ( ) ) ( ) $
+ $> ./rip '( ( ) ( ( ) (' | cat -e
+ ( ( ) _ _ ) _ $
+ ( _ ) ( _ ) _ $
+ ( _ ) _ ( ) _ $
+ _ ( ) ( _ ) _ $
+ _ ( ) _ ( ) _ $
+
+
+
+TSP
+Write a program that will read a set of city coordinates under the form 
+'%f, %f\n' from the stdint and will print the length of the shortest possible
+path containing all these cities under the form %.2f
+ 
+Your program should work like this:
+ 
+ cat square.txt
+ 0.0, 0.0
+ 0.0, 1.0
+ 1.0, 0.0
+ 1.0, 1.0
+ 
+ $> ./tsp < square.txt | cat -e
+ 4.00$
+ 
+ We will not test your program with more than 11 cities.
+ 
+ Authorized functions: getline, sqrtf, stdin, stdout, fprintf, write fscanf
+
+ The function to calculate the distances between coordinates (not the original
+ one provided, reconstructed at home):
+ 
+ double  distance(double x1, double y1, double x2, double y2)
+ {
+     return sqrtf((x2 - x1) * (x2 - x1) + (y2 - y1) * (y2 - y1));
+ }
+
+
+
+Powerset - writing a program that takes multiple argument. First one is the sum.
+All the others are members. Print all the sets of members where the total of the
+set is the sum. 
+Eg
+./a.out 4 1 3
+1 3
+./a.out 4 1 5 -1 3
+1 3
+5 -1
+
+
+
+permutations: Print all the permutations of the given string - powerset: 
+/*
+functions allowed: atoi, fprintf, malloc, calloc, realloc, free, stdout, stderr, write
+Write a program that will take as an argument an integer n followed by a set s of integers.
+Your program should display all the subsets of s whose sum of elements is n.
+The order of the lines is not important, but the order of the element in a subset is. 
+You must not have any duplicates (e.g. '1 2' and '2 1'). In case of malloc error your 
+program will exit with code 1.
+We will not test with invalid sets('1 1 2').
+
+Examples:
+./a.out 3 1 0 2 4 5 3
+3 $
+0 3 $
+1 2 $
+1 0 2 $
+./a.out 12 5 2 1 8 4 3 7 11
+8 4 $
+1 11 $
+1 4 7 $
+1 8 3 $
+2 3 7 $
+5 7 $
+5 4 3 $
+5 2 1 4 $
+./a.out 0 1 -1
+1 -1 $
+./a.out 7 3 8 2
+$
+
+
+
+n_queens
+TASK:
+atoi, fprintf
+Given a number n, you have to place n queens on a chess board with the size n*n
+while the queens cannot attack each other.
+You have to print all the different solutions in the following format:
+1 3 0 2
+2 0 3 1
+11:59
+this is the n queen,
+
+
+
+
+
+
+
+
