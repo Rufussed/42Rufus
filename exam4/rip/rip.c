@@ -36,10 +36,11 @@ int check_balance(char *str)
     return -1;
 }
 
+//the first pass is to find the minimum number of spaces needed to balance the string
 void remove_brackets(char *str, int pos)
 {
     static int min_spaces = 1024;
-    static int first_pass = 1;
+    static int first_pass = 1; //this is initialised to 1 only once then keeps its value
     
     if (pos == ft_strlen(str))
     {
@@ -67,9 +68,9 @@ void remove_brackets(char *str, int pos)
     if (str[pos] != '_')
     {
         char temp = str[pos];
-        str[pos] = '_';
-        remove_brackets(str, pos + 1);
-        str[pos] = temp;
+        str[pos] = '_';                 // remove bracket
+        remove_brackets(str, pos + 1);  // recurse
+        str[pos] = temp;                // backtrack
     }
     
     if (pos == 0 && first_pass)

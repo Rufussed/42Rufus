@@ -23,6 +23,7 @@ void print_queens(int *queens, int n)
     printf("\n");
     return;
 }
+
 // void print_queens(int *queens, int n)
 // {
 //     int i;
@@ -36,6 +37,20 @@ void print_queens(int *queens, int n)
 //     return;
 // }
 
+/**
+ * Checks if a queen can be safely placed at the given row and column.
+ *
+ * This function determines if placing a queen at the specified row and column
+ * would result in a conflict with any previously placed queens. A conflict
+ * occurs if another queen is in the same column, or on the same diagonal.
+ *
+ * @param queens An array where the index represents the row and the value at
+ *               that index represents the column of a previously placed queen.
+ * @param row The row where the new queen is to be placed.
+ * @param col The column where the new queen is to be placed.
+ * @return 1 if it is safe to place the queen at the specified row and column,
+ *         0 otherwise.
+ */
 int is_safe(int *queens, int row, int col)
 {
     int i;
@@ -56,6 +71,7 @@ int is_safe(int *queens, int row, int col)
 void solve_nq(int *queens, int row, int n)
 {
     int col;
+
     col = 0;
     if (row == n)
     {
@@ -84,17 +100,7 @@ int  main(int argc, char **argv)
         return (1);
     }
     n = atoi(argv[1]);
-    if (n <= 3)
-    {
-        fprintf(stderr, "Input number must be greater than 3\n");
-        return (1);
-    }
     queens = (int *)malloc(sizeof(int) * n);
-    if(queens < 0)
-    {
-        fprintf(stderr, "Malloc is failed\n");
-        return (1);
-    }
     solve_nq(queens, 0, n);
     free(queens);
     return (0);

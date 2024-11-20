@@ -32,9 +32,9 @@ int find_members(int *members, int num_members, int sum)
 		j = 0;
 		set_size = 0;
 		set_sum = 0;
-		while (j < num_members)
+		while (j < num_members) // check if the jth member is included in the set
 		{
-			if (i & (1 << j))
+			if (i & (1 << j)) // if the jth bit is set in i
 			{
 				set[set_size] = members[j];
 				set_sum += members[j];
@@ -42,10 +42,10 @@ int find_members(int *members, int num_members, int sum)
 			}
 			j++;
 		}
-		if (set_sum == sum)
+		if (set_sum == sum) // check if the sum of the set is equal to the sum
 		{
 			j = 0;
-			while (j < set_size)
+			while (j < set_size) // print the set
 			{
 				printf("%d", set[j]);
 				if (j < set_size - 1)

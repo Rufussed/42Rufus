@@ -35,7 +35,7 @@ void permute(char *str, int start, int end)
 	int i = 0;
 
 	alpha_sort(str, start, end);
-	if (start == end)
+	if (start == end) // base case
 	{
 		puts(str);
 		return;
@@ -44,9 +44,9 @@ void permute(char *str, int start, int end)
 	i = start;
 	while(i <= end)
 	{
-		swap(&str[start], &str[i]);
-		permute(str, start + 1, end);
-		swap(&str[start], &str[i]);
+		swap(&str[start], &str[i]); 	//swap
+		permute(str, start + 1, end); 	//recurse
+		swap(&str[start], &str[i]);		//backtrack reverse the swap
 		i++;
 	}
 }
