@@ -28,3 +28,13 @@ We will not test with invalid set
 
 
 
+
+
+i = 1 << num_members;
+while (i > 0)
+i--;
+
+if (i & (1 << j)) check the the jth member of i is in the set
+
+
+

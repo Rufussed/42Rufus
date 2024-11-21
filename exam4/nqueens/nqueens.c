@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void print_queens(int *queens, int n)
+void print_queens(int *queens, int n) // visual print
 {
     int i = 0;
 	int j =0;
@@ -24,7 +24,7 @@ void print_queens(int *queens, int n)
     return;
 }
 
-// void print_queens(int *queens, int n)
+// void print_queens(int *queens, int n) // numeric print
 // {
 //     int i;
 //     i = 0;
@@ -51,43 +51,40 @@ void print_queens(int *queens, int n)
  * @return 1 if it is safe to place the queen at the specified row and column,
  *         0 otherwise.
  */
-int is_safe(int *queens, int row, int col)
+int check_pos(int *queens, int row, int col)
 {
-    int i;
-    int placed_col;
-    i = 0;
-    while(i < row)
+    int try_col;
+    int i = 0;
+
+    while (i < row)
     {
-        placed_col = queens[i];
-        if (placed_col == col
-            || (placed_col - i == col - row)
-            || (placed_col + i == col + row))
-        return (0);
+        try_col = queens[i];
+        if (try_col == col
+        || try_col + i == col + row
+        || try_col - i == col - row)
+            return 0;
         i++;
     }
-    return(1);
+    return 1;
 }
 
-void solve_nq(int *queens, int row, int n)
+void solve_nq(int *queens, int n, int row)
 {
-    int col;
+    int col = 0;
+    int i = 0;
 
-    col = 0;
     if (row == n)
-    {
         print_queens(queens, n);
-        return;
-    }
-    while( col < n)
+    col = 0;
+    while (col < n)
     {
-        if (is_safe(queens, row, col))
+        if (check_pos(queens, row, col))
         {
             queens[row] = col;
-            solve_nq(queens, row + 1, n);
+            solve_nq(queens, n, row + 1);
         }
         col++;
     }
-    return;
 }
 
 int  main(int argc, char **argv)
@@ -101,7 +98,6 @@ int  main(int argc, char **argv)
     }
     n = atoi(argv[1]);
     queens = (int *)malloc(sizeof(int) * n);
-    solve_nq(queens, 0, n);
-    free(queens);
+    solve_nq(queens, n, 0);
     return (0);
 }

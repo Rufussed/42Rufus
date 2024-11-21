@@ -10,31 +10,24 @@
 
 int find_members(int *members, int num_members, int sum)
 {
-	int *set;
-	int i;
-	int j;
+	int	*set;
+	int set_size = 0;
 	int set_sum;
-	int set_size;
+	int found_set = 0;
+	int i = 1 << num_members;
+	int j;
 
-	i = 0;
-
-	// we iterate through all possible combinations of members
-	// 1 << num_members is same as 2^num_members 
-	// since each member can be included or not (2 posisbilities)	
-	while (i < (1 << num_members)) 
+	while (i > 0)
 	{
-		set = (int *)malloc(sizeof(int) * num_members);
-		if (set == NULL)
-		{
-			printf("Malloc failed\n");
+		set = malloc(num_members * sizeof(int));
+		if (!set)
 			return 1;
-		}
-		j = 0;
-		set_size = 0;
 		set_sum = 0;
-		while (j < num_members) // check if the jth member is included in the set
+		set_size = 0;
+		j = 0;
+		while(j < num_members)
 		{
-			if (i & (1 << j)) // if the jth bit is set in i
+			if (i & (1 << j))
 			{
 				set[set_size] = members[j];
 				set_sum += members[j];
@@ -42,21 +35,25 @@ int find_members(int *members, int num_members, int sum)
 			}
 			j++;
 		}
-		if (set_sum == sum) // check if the sum of the set is equal to the sum
+		if (set_sum == sum)
 		{
+			found_set = 1;
 			j = 0;
-			while (j < set_size) // print the set
+			while(j < set_size)
 			{
 				printf("%d", set[j]);
-				if (j < set_size - 1)
+				if (j < set_size -1)
 					printf(" ");
+				if (j == set_size - 1)
+					printf("\n");
 				j++;
 			}
-			printf("\n");
 		}
+		i--;
 		free(set);
-		i++;
 	}
+	if (!found_set)
+			printf("\n");
 	return 0;
 }
 
@@ -80,12 +77,14 @@ int main(int argc, char **argv)
 		printf("Malloc failed\n");
 		return (1);
 	}
+
 	int i = 0;
 	while (i < num_members)
 	{
 		members[i] = atoi(argv[i + 2]);
 		i++;
 	}
+	
 	if (find_members(members, num_members, sum))
 	{
 		free(members);

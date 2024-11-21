@@ -1,22 +1,21 @@
 #include <stdio.h>
 #include <string.h>
 
-void	swap(char *a, char *b)
+void swap(char *a, char *b)
 {
-	char	temp;
+	char temp;
 
 	temp = *a;
 	*a = *b;
 	*b = temp;
 }
 
-void	alpha_sort(char *str, int start, int end)
+void alpha_sort(char *str, int start, int end)
 {
-	int	i;
-	int	j;
+	int i = start;
+	int j;
 
-	i = start;
-	while (i <= end - 1)
+	while(i <= end - 1)
 	{
 		j = i + 1;
 		while (j <= end)
@@ -28,7 +27,6 @@ void	alpha_sort(char *str, int start, int end)
 		i++;
 	}
 }
-
 
 void permute(char *str, int start, int end)
 {
@@ -51,13 +49,18 @@ void permute(char *str, int start, int end)
 	}
 }
 
-int	main(int argc, char **argv)
+
+int	main(void)
 {
-	char	*input;
+	char	input[4] = {"acbd"};
 
 	if (argc != 2)
 		return (1);
 	input = argv[1];
+	//alpha_sort(input, 0, strlen(input) - 1);
+	//puts(input);
+	puts("\n");
 	permute(input, 0, strlen(input) - 1);
 	return (0);
 }
+
