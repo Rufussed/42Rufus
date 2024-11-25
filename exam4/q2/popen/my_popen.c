@@ -36,7 +36,7 @@ int ft_popen(const char *file, const char *argv[], char type)
 		return -1;
 	pipe(fd);
 	pid = fork();
-	if (pid == 0)
+	if (pid == 0) // child
 	{
 		if (type == 'r') // 'read' the output of the child in the parent
 		{
@@ -53,7 +53,7 @@ int ft_popen(const char *file, const char *argv[], char type)
 		execvp(file, (char *const *)argv);
 		exit(1); // execvp failed
 	}
-	else // child
+	else // parent
 	{
 		if (type == 'r')
 		{
