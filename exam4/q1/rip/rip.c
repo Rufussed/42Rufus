@@ -45,7 +45,7 @@ void remove_brackets(char *str, int pos, int min_removals)
     remove_brackets(str, pos + 1, min_removals);  // Try keeping current bracket
     if (str[pos] != '_'  && str[pos] != ' ') // Try removing current bracket
     {
-        char temp = str[pos];
+       char temp = str[pos];
         str[pos] = '_'; // Remove bracket
         remove_brackets(str, pos + 1, min_removals - 1);
         str[pos] = temp; // Backtrack
