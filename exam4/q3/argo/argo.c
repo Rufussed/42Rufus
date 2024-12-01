@@ -35,185 +35,143 @@ int expect(FILE *stream, char c)
     return 0;
 }
 
-
 //----------------------------------------------------------------
 
-// Parse a JSON string
-int parse_string(json *dst, FILE *stream) {
-    if (getc(stream) != '"') {
+int ft_strlen(const char *str)
+{
+    int i = 0;
+    while (str[i] != '\0')
+        i++;
+    return i;
+}
+
+char *ft_strdup(const char *str)
+{
+    int len = ft_strlen(str);
+    char *new_str = malloc(len + 1);
+    if (!new_str)
+        return NULL;
+    for (int i = 0; i < len; i++)
+        new_str[i] = str[i];
+    new_str[len] = '\0';
+    return new_str;
+}
+
+int fail(FILE *stream)
+{
         unexpected(stream);
         return 0;
-    }
+}
 
-    size_t capacity = 16;
-    size_t length = 0;
-    char *buffer = malloc(capacity);
-    if (!buffer) return 0;
+// Parse a JSON string
+int parse_string(json *dst, FILE *stream)
+{
+    char buffer[512];
+    int length = 0;
 
-    int escape = 0;
-    while (1) {
+    if(getc(stream) != '"') // get & check first quote
+        return fail(stream);
+    
+    while (1)
+    {
         int c = getc(stream);
+
+        if (c == EOF) // Check for string termination
+            return fail(stream);
         
-        if (c == EOF) {
-            free(buffer);
-            unexpected(stream);
-            return 0;
-        }
-
-        // Handle escape sequences
-        if (escape) {
-            if (c == '"' || c == '\\') {
-                if (length + 1 >= capacity) {
-                    capacity *= 2;
-                    char *new_buffer = realloc(buffer, capacity);
-                    if (!new_buffer) {
-                        free(buffer);
-                        return 0;
-                    }
-                    buffer = new_buffer;
-                }
-                buffer[length++] = c;
-                escape = 0;
-                continue;
-            }
-            free(buffer);
-            unexpected(stream);
-            return 0;
-        }
-
-        // Check for string termination
-        if (c == '"') {
+        if (c == '"')
+        {
             buffer[length] = '\0';
             dst->type = STRING;
-            dst->string = buffer;
+            dst->string = ft_strdup(buffer);
             return 1;
         }
-
-        // Handle backslash escape
-        if (c == '\\') {
-            escape = 1;
-            continue;
+        if (c == '\\' && (peek(stream) == '"' || peek(stream) == '\\'))
+        {
+            c = getc(stream);
+            printf("c: %c\n", c);
         }
-
-        // Grow buffer if needed
-        if (length + 1 >= capacity) {
-            capacity *= 2;
-            char *new_buffer = realloc(buffer, capacity);
-            if (!new_buffer) {
-                free(buffer);
-                return 0;
-            }
-            buffer = new_buffer;
-        }
-
-        // Store character
-        buffer[length++] = c;
+        buffer[length++] = c;   // Store character
     }
 }
 
 // Parse an integer
-int parse_integer(json *dst, FILE *stream) {
-    int value = 0;
-    int sign = 1;
-    int first_digit = 1;
-
-    while (1) {
-        int c = peek(stream);
-
-        // Handle optional sign
-        if (first_digit && c == '-') {
-            sign = -1;
-            getc(stream);
-            first_digit = 0;
-            continue;
-        }
-
-        // Check for digit
-        if (c >= '0' && c <= '9') {
-            c = getc(stream);
-            value = value * 10 + (c - '0');
-            first_digit = 0;
-            continue;
-        }
-
-        // End of integer
-        if (!first_digit) {
-            dst->type = INTEGER;
-            dst->integer = sign * value;
-            return 1;
-        }
-
-        // No valid integer found
+int parse_integer(json *dst, FILE *stream)
+{
+    if (!isdigit(peek(stream)) && peek(stream) != '-')
+     {
         unexpected(stream);
         return 0;
     }
+    if (peek(stream) == '-')
+    {
+        getc(stream);
+        if (!isdigit(peek(stream)))
+            return fail(stream);
+        ungetc('-', stream);
+    }
+    dst->type = INTEGER;
+    fscanf(stream, "%d", &dst->integer);
+    return 1;
 }
 
-// Parse a JSON map/object
-int parse_map(json *dst, FILE *stream) {
-    if (getc(stream) != '{') {
-        unexpected(stream);
-        return 0;
-    }
+int parse_map(json *dst, FILE *stream)
+{
+    if (getc(stream) != '{')
+        return fail(stream);  
 
     dst->type = MAP;
     dst->map.data = NULL;
     dst->map.size = 0;
-
-    // Immediately check for empty map without allowing any whitespace
-    int next = peek(stream);
-    if (next == '}') {
+   
+    if (peek(stream) == '}')
+    {   
         getc(stream);
         return 1;
     }
+    
+    while (1)
+    {
+        dst->map.size++;
+        dst->map.data = realloc(dst->map.data, dst->map.size*sizeof(pair));
+        
+        json *key = malloc(1);       
+        if (!parse_string(key, stream)) // expect string
+            return 0;        
+        dst->map.data[dst->map.size - 1].key = key->string;
+        
+        if (getc(stream) != ':') // expect colon
+            return fail(stream);
 
-    while (1) {
-        // Resize map to add new pair
-        size_t new_size = dst->map.size + 1;
-        pair *new_data = realloc(dst->map.data, new_size * sizeof(pair));
-        if (!new_data) return 0;
-        dst->map.data = new_data;
-
-        // Parse key (must be a string)
-        json key;
-        if (!parse_string(&key, stream)) return 0;
-        dst->map.data[dst->map.size].key = key.string;
-
-        // Expect immediate colon
-        if (getc(stream) != ':') {
-            unexpected(stream);
+        json *value = &dst->map.data[dst->map.size - 1].value;
+        if (!argo(value, stream)) // could be any new json
             return 0;
+
+        if (peek(stream) == ',') // see it there are more pairs
+        {
+            getc(stream);
+            continue;
         }
 
-        // Parse value
-        json *value = &dst->map.data[dst->map.size].value;
-        if (!argo(value, stream)) return 0;
-
-        // Increment size
-        dst->map.size++;
-
-        // Check for comma or closing brace
-        next = peek(stream);
-        if (next == '}') {
+        if (peek(stream) == '}') //finish
+        {
             getc(stream);
             return 1;
         }
-        if (next != ',') {
-            unexpected(stream);
-            return 0;
-        }
-        getc(stream);
+        return fail(stream); // chars beside , or } are unexpected
     }
 }
 
 
-int argo(json *dst, FILE *stream) {
-   
+
+int argo(json *dst, FILE *stream)
+{
+
     int next = peek(stream);
 
     if (next == '"')
         return parse_string(dst, stream);
-    
+
     if (next == '{')
         return parse_map(dst, stream);
 
@@ -223,3 +181,71 @@ int argo(json *dst, FILE *stream) {
     unexpected(stream);
     return 0;
 }
+
+
+//Parse a JSON map/object
+// int parse_map(json *dst, FILE *stream)
+// {
+//     if (getc(stream) != '{')
+//     {
+//         unexpected(stream);
+//         return 0;
+//     }
+
+//     dst->type = MAP;
+//     dst->map.data = NULL;
+//     dst->map.size = 0;
+
+//     // Immediately check for empty map without allowing any whitespace
+//     int next = peek(stream);
+//     if (next == '}')
+//     {
+//         getc(stream);
+//         return 1;
+//     }
+
+//     while (1)
+//     {
+//         // Resize map to add new pair
+//         size_t new_size = dst->map.size + 1;
+//         pair *new_data = realloc(dst->map.data, new_size * sizeof(pair));
+//         if (!new_data)
+//             return 0;
+//         dst->map.data = new_data;
+
+//         // Parse key (must be a string)
+//         json key;
+//         if (!parse_string(&key, stream))
+//             return 0;
+//         dst->map.data[dst->map.size].key = key.string;
+
+//         // Expect immediate colon
+//         if (getc(stream) != ':')
+//         {
+//             unexpected(stream);
+//             return 0;
+//         }
+
+//         // Parse value
+//         json *value = &dst->map.data[dst->map.size].value;
+//         if (!argo(value, stream))
+//             return 0;
+
+//         // Increment size
+//         dst->map.size++;
+
+//         // Check for comma or closing brace
+//         next = peek(stream);
+//         if (next == '}')
+//         {
+//             getc(stream);
+//             return 1;
+//         }
+//         if (next != ',')
+//         {
+//             unexpected(stream);
+//             return 0;
+//         }
+//         getc(stream);
+//     }
+// }
