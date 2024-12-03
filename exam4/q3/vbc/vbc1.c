@@ -20,67 +20,64 @@ $> .vbc '(((((2+2)*2+2)*2+2)2+2)*2+2)*2' | cat -e
 #include <ctype.h>
 int evaluate_expression(char **expr);
 int evaluate_term(char **expr);
-int evaluate_factor(char **expr);
+
+
+
 int evaluate_factor(char **expr)
 {
 	int result;
-		
-	if(**expr == '(')
+
+	if (**expr == '(')
 	{
 		(*expr)++;
 		result = evaluate_expression(expr);
-		if(**expr == ')')
+		if (**expr == ')')
 			(*expr)++;
-		else if(**expr != ')')
+		else if (**expr != ')')
 		{
-			printf("Missing ')'\n");
-			exit (1);
+			printf("missing )\n");
+			exit(1);
 		}
-		if(isdigit(**expr) || **expr == '(')
-			result *=evaluate_factor(expr);
+		if (**expr == '(' || isdigit(**expr))
+			result *= evaluate_factor(expr);
 	}
-	else if(isdigit(**expr))
+	else if (isdigit(**expr))
 	{
-		result = 0;
-		while (isdigit(**expr))
-		{
-        		result = result * 10 + (**expr - '0'); // Build the number
-			(*expr)++;
-		}		
-		if(**expr == '(')
+		result = **expr - '0';
+		(*expr)++;
+		if (**expr == '(')
 			result *= evaluate_factor(expr);
 	}
 	else
 	{
-		fprintf(stderr, "Error: Unexpected character '%c'\n", **expr);
-		exit (1);
+		printf("unexpected char\n");
+		exit(1);
 	}
-	return (result);
+	return result;
 }
+
 int evaluate_term(char **expr)
 {
-	int result;
-	
-	result = evaluate_factor(expr);
-	while(**expr == '*')
+	int result = evaluate_factor(expr);
+	while (**expr == '*')
 	{
 		(*expr)++;
 		result *= evaluate_factor(expr);
 	}
 	return (result);
 }
+
 int evaluate_expression(char **expr)
 {
-	int result;
-	
-	result = evaluate_term(expr);
-	while(**expr == '+')
+	int result = evaluate_term(expr);
+	while (**expr == '+')
 	{
 		(*expr)++;
-		result +=evaluate_term(expr);
+		result += evaluate_term(expr);
 	}
 	return (result);
 }
+
 int main(int argc, char **argv)
 {
 	int result;

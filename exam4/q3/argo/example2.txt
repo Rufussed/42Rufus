@@ -1,0 +1,2 @@
+{"TEST ESCAPES":"\\ \" \x \ "}
+{"name":"John \\ \" \x Doe","age":30,"is_student":"false","grades":-42,"contact":{"email":"john@example.com","phone":"null"},"interests":"hi"}

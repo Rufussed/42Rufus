@@ -70,8 +70,8 @@ int parse_int(json *dst, FILE *stream)
     // check start is int
     if (!(peek(stream) == '-' || isdigit(peek(stream))))
         return quit(stream);
-
-    // if start is minus, check next is digit
+    
+    //if start is minus, check next is digit
     if (peek(stream) == '-')
     {
         char c = getc(stream);
@@ -80,7 +80,7 @@ int parse_int(json *dst, FILE *stream)
         ungetc(c, stream);
     }
 
-    // scan integer to struct
+    //scan integer to struct
     dst->type = INTEGER;
     fscanf(stream, "%d", &dst->integer);
     return 1;
@@ -89,24 +89,24 @@ int parse_int(json *dst, FILE *stream)
 int parse_string(json *dst, FILE *stream)
 {
     if (peek(stream) != '"')
-        return quit(stream);
+        return quit(stream);        
     getc(stream);
     dst->type = STRING;
     char buffer[512];
     int len = 0;
     char c;
-    while (1)
+    while(1)
     {
         c = getc(stream);
 
         if (c == EOF)
             return quit(stream);
 
-        // check for end and store buffer in struct
+        //check for end and store buffer in struct
         if (c == '"')
         {
             buffer[len] = '\0';
-
+            
             dst->string = ft_strdup(buffer);
             return 1;
         }
@@ -125,46 +125,71 @@ int parse_map(json *dst, FILE *stream)
     char c = getc(stream);
     if (c != '{')
         return quit(stream);
-    if (peek(stream) == '}')
-        return quit(stream);
+
     dst->type = MAP;
     dst->map.data = NULL;
     dst->map.size = 0;
-    while (1)
+
+    c = peek(stream);
+    if (c == '}')
     {
-        // grow map
+        // Consume the closing brace
+        getc(stream);
+        return 1;
+    }
+
+    dst->type = MAP;
+    dst->map.data = NULL;
+    dst->map.size = 0;
+
+    while(1)
+    {
+        // Grow map
         dst->map.size++;
 
-        // realloc
-        dst->map.data = realloc(dst->map.data, dst->map.size * sizeof(pair));
+        // Realloc with error checking
+        pair *new_data = realloc(dst->map.data, dst->map.size * sizeof(pair));
+  
+        dst->map.data = new_data;
+        
+        memset(&dst->map.data[dst->map.size - 1], 0, sizeof(pair));
 
-        // expect string key
-        json key = {0}; // Zero-initialize
-        if (!parse_string(&key, stream))
+        // Expect string key
+        json key = {0};
+        if (!(parse_string(&key, stream)))
+        {
+            free_json(*dst);
             return quit(stream);
-        if(key.string)
-            dst->map.data[dst->map.size - 1].key = ft_strdup(key.string);
-        free_json(key);
+        }
+        dst->map.data[dst->map.size - 1].key = key.string; 
 
-        // expect :
+        // Expect :        
         if (getc(stream) != ':')
+        {
+            free_json(*dst);
             return quit(stream);
+        }
 
-        // expect value
+        // Expect value
         json *value = &dst->map.data[dst->map.size - 1].value;
         if (!argo(value, stream))
+        {
+            free_json(*dst);
             return -1;
+        }
 
-        // check for }
-        char c = getc(stream);
+        // Check for }
+        c = getc(stream);
         if (c == '}')
             return 1;
 
-        // check for ,
-        else if (c != ',')
+        // Check for ,
+        if (c != ',')
+        {
+            free_json(*dst);
             return quit(stream);
+        }
     }
-    return 1;
 }
 
 int argo(json *dst, FILE *stream)
