@@ -4,6 +4,7 @@
 		"printf.h": "c",
 		"ft_printf.h": "c",
 		"stdlib.h": "c",
-		"fcntl.h": "c"
+		"fcntl.h": "c",
+		"random": "c"
 	}
 }
