@@ -35,7 +35,7 @@ int expect(FILE *stream, char c)
     return 0;
 }
 
-//----------------------------------------------------------------
+//-Your Code--------------------------------------------------------------
 
 size_t ft_strlen(const char *s)
 {
@@ -75,8 +75,8 @@ int parse_int(json *dst, FILE *stream)
     if (peek(stream) == '-')
     {
         char c = getc(stream);
-        if (!isdigit(c))
-            quit(stream);
+        if (!isdigit(peek(stream)))
+            return quit(stream);
         ungetc(c, stream);
     }
 
@@ -88,9 +88,9 @@ int parse_int(json *dst, FILE *stream)
 
 int parse_string(json *dst, FILE *stream)
 {
-    if (peek(stream) != '"')
+    if (!accept(stream,'"'))
         return quit(stream);
-    getc(stream);
+    
     dst->type = STRING;
     char buffer[512];
     int len = 0;
@@ -106,7 +106,6 @@ int parse_string(json *dst, FILE *stream)
         if (c == '"')
         {
             buffer[len] = '\0';
-
             dst->string = ft_strdup(buffer);
             return 1;
         }
@@ -118,24 +117,14 @@ int parse_string(json *dst, FILE *stream)
         // add char to buffer with len increment
         buffer[len++] = c;
     }
-    if (peek(stream) == '-')
-    {
-        getc(stream);
-        if (!isdigit(peek(stream)))
-            return quit(stream);
-        ungetc('-', stream);
-    }
-    dst->type = INTEGER;
-    fscanf(stream, "%d", &dst->integer);
-    return 1;
+    return -1;
 }
 
 int parse_map(json *dst, FILE *stream)
 {
-    char c = getc(stream);
-    if (c != '{')
+    if (!accept(stream, '{'))
         return quit(stream);
-    if (peek(stream) == '}')
+    if (accept(stream, '}'))
         return quit(stream);
     dst->type = MAP;
     dst->map.data = NULL;
@@ -150,48 +139,42 @@ int parse_map(json *dst, FILE *stream)
 
         // expect string key
         json key = {0}; // Zero-initialize
-        if (!parse_string(&key, stream))
-            return quit(stream);
+        if (parse_string(&key, stream) == -1)
+            return -1;
         if(key.string)
             dst->map.data[dst->map.size - 1].key = ft_strdup(key.string);
         free_json(key);
 
         // expect :
-        if (getc(stream) != ':')
+        if (!accept(stream, ':'))
             return quit(stream);
 
         // expect value
-        json *value = &dst->map.data[dst->map.size - 1].value;
-        if (!argo(value, stream))
+        
+        if (argo(&dst->map.data[dst->map.size - 1].value, stream) == -1)
             return -1;
 
         // check for }
-        char c = getc(stream);
-        if (c == '}')
+        if (accept(stream, '}'))
             return 1;
 
         // check for ,
-        else if (c != ',')
+        else if (accept(stream, ','))
             return quit(stream);
     }
-    return 1;
+    return -1;
 }
-
-
 
 int argo(json *dst, FILE *stream)
 {
-
     int c = peek(stream);
 
     if (c == '"')
         return parse_string(dst, stream);
-
     if (c == '{')
         return parse_map(dst, stream);
     if (c == '-' || isdigit(c))
         return parse_int(dst, stream);
-
     unexpected(stream);
     return -1;
 }
