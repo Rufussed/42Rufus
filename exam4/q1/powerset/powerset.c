@@ -38,7 +38,7 @@ int find_members(int *members, int num_members, int sum)
 			}
 			j++;
 		}
-		if (set_sum == sum)
+		if (set_sum == sum) // if the sum of the set is the target sum, we print the set
 		{
 			found_set = 1;
 			j = 0;
