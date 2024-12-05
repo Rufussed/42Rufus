@@ -14,7 +14,9 @@ int find_members(int *members, int num_members, int sum)
 	int set_size = 0;
 	int set_sum;
 	int found_set = 0;
-	int i = 1 << num_members;
+	int i = 1 << num_members;   // this bitshift gives 2^num_members, eg 4 members gives 8 combos,  1111 in binary
+								// each bit represents a member, 1 means member is in the set, 
+								// 0 means member is not in the set, and we iterate through all the possible combos
 	int j;
 
 	while (i > 0)
@@ -27,7 +29,8 @@ int find_members(int *members, int num_members, int sum)
 		j = 0;
 		while(j < num_members)
 		{
-			if (i & (1 << j))
+			if (i & (1 << j))  // j steps through each possition in the binary number, and if the bit is set, 
+								// we add the member to the set
 			{
 				set[set_size] = members[j];
 				set_sum += members[j];

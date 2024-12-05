@@ -149,8 +149,7 @@ int parse_map(json *dst, FILE *stream)
         if (!accept(stream, ':'))
             return quit(stream);
 
-        // expect value
-        
+        // expect value        
         if (argo(&dst->map.data[dst->map.size - 1].value, stream) == -1)
             return -1;
 
