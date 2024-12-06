@@ -158,7 +158,7 @@ int parse_map(json *dst, FILE *stream)
             return 1;
 
         // check for ,
-        else if (accept(stream, ','))
+        else if (!accept(stream, ','))
             return quit(stream);
     }
     return -1;
