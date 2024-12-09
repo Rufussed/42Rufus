@@ -158,7 +158,7 @@ int parse_map(json *dst, FILE *stream)
         // check for }
         if (accept(stream, '}'))
         {
-            if (peek(stream) == EOF || peek(stream) == ',' || peek(stream) == '}')
+            if (peek(stream) == EOF || peek(stream) == ',' || peek(stream) == '}' || peek(stream) == '\'')
                 return 1;            
         }
 
