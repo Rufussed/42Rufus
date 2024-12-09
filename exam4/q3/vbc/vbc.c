@@ -18,7 +18,7 @@ int eval_factor(char **expr)
 	if (**expr == '(')
 	{
 		(*expr)++;
-		result = eval_expr(expr); //brackets can contain a new expression		
+		result = eval_expr(expr); //brackets contain a new expression		
 		if (**expr == ')')
 			(*expr)++;
 		else if (**expr != ')')
@@ -33,7 +33,7 @@ int eval_factor(char **expr)
 		if (**expr == '(')
 			result *= eval_factor(expr);
 	}
-	
+
 	else
 		quit(expr);
 	return result;

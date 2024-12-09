@@ -61,6 +61,8 @@ char *ft_strdup(const char *s)
 
 int quit(FILE *stream)
 {
+    if (peek(stream) == ':')
+        return -1;
     unexpected(stream);
     return -1;
 }
@@ -155,7 +157,10 @@ int parse_map(json *dst, FILE *stream)
 
         // check for }
         if (accept(stream, '}'))
-            return 1;
+        {
+            if (peek(stream) == EOF || peek(stream) == ',' || peek(stream) == '}')
+                return 1;            
+        }
 
         // check for ,
         else if (!accept(stream, ','))

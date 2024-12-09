@@ -6,34 +6,44 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:10:12 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/05 15:22:08 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/09 14:04:56 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef CONTACT_HPP
 #define CONTACT_HPP
 
-#include "PhoneBook.hpp"
 #include <string>
+#include <iostream>
+#include <iomanip>
 
+// Class representing a contact in the phonebook
 class Contact {
 private:
-	// Private member variables
-	std::string firstName;
-	std::string lastName;
-	std::string nickname;
-	std::string phoneNumber;
-	std::string darkestSecret;
+    std::string firstName;    // Contact's first name
+    std::string lastName;     // Contact's last name
+    std::string nickname;     // Contact's nickname
+    std::string phoneNumber;  // Contact's phone number
+    std::string darkestSecret;// Contact's darkest secret
 
 public:
-	// Public member functions
-	void setDetails(const std::string &firstName, const std::string &lastName,
-	                const std::string &nickname, const std::string &phoneNumber,
-	                const std::string &darkestSecret);
+    Contact(); // Default constructor
+    ~Contact(); // Destructor
+    Contact(const Contact &other); // Copy constructor
+    Contact &operator=(const Contact &other); // Assignment operator
 
-	std::string getSummary(int fieldWidth = 10) const;
+    // Method to input contact details from user
+    void setDetails();
+    
+    // Method to display a summary of the contact (truncated fields)
+    void displaySummary(int index) const;
 
-	void displayFullDetails() const;
+    // Method to display all contact details
+    void displayDetails() const;
+
+private:
+    // Helper function to truncate strings longer than 10 characters
+    std::string truncate(const std::string &text) const;
 };
 
-#endif // CONTACT_HPP
+#endif

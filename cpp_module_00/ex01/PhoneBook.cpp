@@ -6,40 +6,64 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:09:15 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/05 15:19:27 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/09 14:17:09 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "PhoneBook.hpp"
 
-class PhoneBook {
-private:
-	Contact contacts[8];
-	int currentIndex = 0;
-	int totalContacts = 0;
+// Default constructor
+PhoneBook::PhoneBook() : count(0) {}
 
-public:
-	void addContact(const Contact& contact) {
-		contacts[currentIndex] = contact;
-		currentIndex = (currentIndex + 1) % 8;
-		if (totalContacts < 8) totalContacts++;
-	}
+// Destructor
+PhoneBook::~PhoneBook() {}
 
-	void displayContacts() const {
-		std::cout << std::setw(10) << "Index" << "|"
-		          << std::setw(10) << "First Name" << "|"
-		          << std::setw(10) << "Last Name" << "|"
-		          << std::setw(10) << "Nickname" << "\n";
-		for (int i = 0; i < totalContacts; i++) {
-			std::cout << std::setw(10) << i << "|" << contacts[i].getSummary() << "\n";
-		}
-	}
+// Copy constructor
+PhoneBook::PhoneBook(const PhoneBook &other) : count(other.count) {
+    for (int i = 0; i < 8; ++i) {
+        contacts[i] = other.contacts[i];
+    }
+}
 
-	void displayContactDetails(int index) const {
-		if (index < 0 || index >= totalContacts) {
-			std::cout << "Invalid index!\n";
-			return;
-		}
-		contacts[index].displayFullDetails();
-	}
-};
+// Assignment operator
+PhoneBook &PhoneBook::operator=(const PhoneBook &other) {
+    if (this != &other) {
+        count = other.count;
+        for (int i = 0; i < 8; ++i) {
+            contacts[i] = other.contacts[i];
+        }
+    }
+    return *this;
+}
+
+// Add a new contact to the phonebook
+void PhoneBook::addContact() {
+    if (count >= 8) {
+        std::cout << "Replacing the oldest contact." << std::endl;
+        count = 0; // Overwrite the oldest contact
+    }
+    contacts[count].setDetails();
+    count++;
+}
+
+// Display all contacts in the phonebook and allow the user to view details
+void PhoneBook::searchContacts() const {
+    std::cout << std::setw(10) << "Index" << "|"
+              << std::setw(10) << "First Name" << "|"
+              << std::setw(10) << "Last Name" << "|"
+              << std::setw(10) << "Nickname" << "|" << std::endl;
+    for (int i = 0; i < count; i++) {
+        contacts[i].displaySummary(i);
+    }
+    std::cout << "Enter the index to view details: ";
+    int index;
+    std::cin >> index;
+    std::cin.ignore(); // Clear the input buffer
+    if (index >= 0 && index < count) {
+        contacts[index].displayDetails();
+    } else {
+        std::cerr << "Invalid index!" << std::endl;
+    }
+}
+
