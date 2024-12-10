@@ -90,7 +90,7 @@ int parse_int(json *dst, FILE *stream)
 
 int parse_string(json *dst, FILE *stream)
 {
-    if (!accept(stream,'"'))
+    if (!accept(stream, '"'))
         return quit(stream);
     
     dst->type = STRING;

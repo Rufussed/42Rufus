@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:08:41 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/09 14:29:35 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/10 13:38:49 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,21 +41,47 @@ Contact &Contact::operator=(const Contact &other)
 // Method to set contact details from user input
 void Contact::setDetails()
 {
-	std::cout << "Enter First Name: ";
-	std::getline(std::cin, firstName);
-	std::cout << "Enter Last Name: ";
-	std::getline(std::cin, lastName);
-	std::cout << "Enter Nickname: ";
-	std::getline(std::cin, nickname);
-	std::cout << "Enter Phone Number: ";
-	std::getline(std::cin, phoneNumber);
-	std::cout << "Enter Darkest Secret: ";
-	std::getline(std::cin, darkestSecret);
-
-	if (firstName.empty() || lastName.empty() || nickname.empty() ||
-		phoneNumber.empty() || darkestSecret.empty())
+	while (firstName.empty() || lastName.empty() || nickname.empty() ||
+		   phoneNumber.empty() || darkestSecret.empty())
 	{
-		std::cerr << "All fields must be filled!" << std::endl;
+		if (firstName.empty() || lastName.empty() || nickname.empty() ||
+			phoneNumber.empty() || darkestSecret.empty())
+			std::cerr << "All fields required, please provide missing details." << std::endl;
+		if (firstName.empty())
+		{
+			std::cout << "Enter First Name: ";
+			std::getline(std::cin, firstName);
+			if (std::cin.eof())
+				return;
+		}
+		if (lastName.empty())
+		{
+			std::cout << "Enter Last Name: ";
+			std::getline(std::cin, lastName);
+			if (std::cin.eof())
+				return;
+		}
+		if (nickname.empty())
+		{
+			std::cout << "Enter Nickname: ";
+			std::getline(std::cin, nickname);
+			if (std::cin.eof())
+				return;
+		}
+		if (phoneNumber.empty())
+		{
+			std::cout << "Enter Phone Number: ";
+			std::getline(std::cin, phoneNumber);
+			if (std::cin.eof())
+				return;
+		}
+		if (darkestSecret.empty())
+		{
+			std::cout << "Enter Darkest Secret: ";
+			std::getline(std::cin, darkestSecret);
+			if (std::cin.eof())
+				return;
+		}
 	}
 }
 
@@ -71,10 +97,14 @@ void Contact::displaySummary(int index) const
 // Display all contact details
 void Contact::displayDetails() const
 {
-	std::cout << "First Name: " << ORANGE << firstName << "\n" << RESET
-			  << "Last Name:  " << ORANGE << lastName << "\n" << RESET
-			  << "Nickname:   " << ORANGE << nickname << "\n" << RESET
-			  << "Phone Number:   " << ORANGE << phoneNumber << "\n" << RESET
+	std::cout << "First Name: " << ORANGE << firstName << "\n"
+			  << RESET
+			  << "Last Name:  " << ORANGE << lastName << "\n"
+			  << RESET
+			  << "Nickname:   " << ORANGE << nickname << "\n"
+			  << RESET
+			  << "Phone Number:   " << ORANGE << phoneNumber << "\n"
+			  << RESET
 			  << "Darkest Secret: " << ORANGE << darkestSecret << RESET << std::endl;
 }
 

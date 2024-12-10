@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:10:12 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/09 14:04:56 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/10 13:48:52 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,23 +18,24 @@
 #include <iomanip>
 
 // Class representing a contact in the phonebook
-class Contact {
+class Contact
+{
 private:
-    std::string firstName;    // Contact's first name
-    std::string lastName;     // Contact's last name
-    std::string nickname;     // Contact's nickname
-    std::string phoneNumber;  // Contact's phone number
-    std::string darkestSecret;// Contact's darkest secret
+    std::string firstName;     // Contact's first name
+    std::string lastName;      // Contact's last name
+    std::string nickname;      // Contact's nickname
+    std::string phoneNumber;   // Contact's phone number
+    std::string darkestSecret; // Contact's darkest secret
 
 public:
-    Contact(); // Default constructor
-    ~Contact(); // Destructor
-    Contact(const Contact &other); // Copy constructor
+    Contact();                                // Default constructor
+    ~Contact();                               // Destructor
+    Contact(const Contact &other);            // Copy constructor
     Contact &operator=(const Contact &other); // Assignment operator
 
     // Method to input contact details from user
     void setDetails();
-    
+
     // Method to display a summary of the contact (truncated fields)
     void displaySummary(int index) const;
 

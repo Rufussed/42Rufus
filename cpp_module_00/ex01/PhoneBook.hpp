@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:10:37 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/09 14:11:36 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/10 13:49:05 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@
 #define RESET "\033[0m"
 
 // Class representing the phonebook
-class PhoneBook {
+class PhoneBook
+{
 private:
     Contact contacts[8]; // Fixed array of contacts (max 8 contacts)
     int count;           // Number of contacts currently in the phonebook
 
 public:
-    PhoneBook(); // Default constructor
-    ~PhoneBook(); // Destructor
-    PhoneBook(const PhoneBook &other); // Copy constructor
+    PhoneBook();                                  // Default constructor
+    ~PhoneBook();                                 // Destructor
+    PhoneBook(const PhoneBook &other);            // Copy constructor
     PhoneBook &operator=(const PhoneBook &other); // Assignment operator
 
     // Method to add a new contact to the phonebook
@@ -38,5 +39,3 @@ public:
 };
 
 #endif
-
-
