@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:10:12 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/10 13:48:52 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/11 13:56:31 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,12 @@ private:
     std::string phoneNumber;   // Contact's phone number
     std::string darkestSecret; // Contact's darkest secret
 
+    // Helper function to truncate strings longer than 10 characters
+    std::string truncate(const std::string &text) const;
+    
 public:
-    Contact();                                // Default constructor
-    ~Contact();                               // Destructor
-    Contact(const Contact &other);            // Copy constructor
-    Contact &operator=(const Contact &other); // Assignment operator
+    Contact();  // Default constructor
+    ~Contact(); // Destructor
 
     // Method to input contact details from user
     void setDetails();
@@ -41,10 +42,6 @@ public:
 
     // Method to display all contact details
     void displayDetails() const;
-
-private:
-    // Helper function to truncate strings longer than 10 characters
-    std::string truncate(const std::string &text) const;
 };
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:10:37 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/10 13:49:05 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/11 13:57:19 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,22 +14,22 @@
 #define PHONEBOOK_HPP
 
 #include "Contact.hpp"
+#include <limits>
 
 #define ORANGE "\033[38;2;255;165;0m"
 #define RESET "\033[0m"
+#define MAX_CONTACTS 8
 
 // Class representing the phonebook
 class PhoneBook
 {
 private:
-    Contact contacts[8]; // Fixed array of contacts (max 8 contacts)
-    int count;           // Number of contacts currently in the phonebook
+    Contact contacts[MAX_CONTACTS]; // Fixed array of contacts (max 8 contacts)
+    int count;                      // Number of contacts currently in the phonebook
 
 public:
-    PhoneBook();                                  // Default constructor
-    ~PhoneBook();                                 // Destructor
-    PhoneBook(const PhoneBook &other);            // Copy constructor
-    PhoneBook &operator=(const PhoneBook &other); // Assignment operator
+    PhoneBook();  // Default constructor
+    ~PhoneBook(); // Destructor
 
     // Method to add a new contact to the phonebook
     void addContact();

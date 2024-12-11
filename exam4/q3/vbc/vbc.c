@@ -4,8 +4,8 @@
 #include <stdlib.h>
 
 
-/// this is not a good solution as the actuale exam qn does not allow exit.  i solved it this way
-// by using a return of -666 for an error and checking for it it many places.
+/// this is not a good solution as the actual exam qn does not allow exit().  i solved it this way
+// by using a return of -666 for an error and checking for it it several places.
 // the exam qn prived a tree and struct code partially written to build on
 
 void quit(char **expr)

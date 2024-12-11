@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:08:01 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/10 13:48:27 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/11 12:48:03 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int main()
 
     while (true)
     {
-        std::cout << "\nWelcome to " ORANGE "Awesome Phonebook 95!\n\n" RESET;
-        std::cout << "Enter a command (ADD, SEARCH, EXIT): ";
-        if (!std::getline(std::cin, command)) // if not Handle EOF (Ctrl+D)
+        std::cout << ORANGE "\nAwesome Phonebook 95!\n\n" RESET;
+        std::cout << "Enter command (ADD, SEARCH, EXIT): ";
+        if (!std::getline(std::cin, command)) // Handle EOF (Ctrl+D)
         {
             std::cout << "\nExiting program." << std::endl;
             break;
@@ -37,6 +37,7 @@ int main()
         }
         else if (command == "EXIT")
         {
+            std::cout << "\nExiting program." << std::endl;
             break; // Exit the program
         }
         else
