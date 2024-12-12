@@ -56,3 +56,6 @@ dkms.conf
 
 #sub-repository
 minishell
+
+#project_pdfs
+project_pdfs
