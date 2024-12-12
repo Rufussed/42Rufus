@@ -5,6 +5,9 @@
 		"ft_printf.h": "c",
 		"stdlib.h": "c",
 		"fcntl.h": "c",
-		"random": "c"
+		"random": "c",
+		"iomanip": "cpp",
+		"iostream": "cpp",
+		"new": "cpp"
 	}
 }
