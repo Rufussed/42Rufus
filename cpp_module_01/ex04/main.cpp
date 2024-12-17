@@ -6,11 +6,11 @@
 /*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:02:53 by rufus             #+#    #+#             */
-/*   Updated: 2024/12/17 13:46:40 by rufus            ###   ########.fr       */
+/*   Updated: 2024/12/17 17:56:10 by rufus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-/*Create a program that takes three parameters in the following order: a filename and
+/*Program takes three parameters in the following order: a filename and
 two strings, s1 and s2.
 It will open the file <filename> and copies its content into a new file
 <filename>.replace, replacing every occurrence of s1 with s2.
@@ -36,7 +36,7 @@ std::string myReplace(const std::string &line, size_t pos, size_t s1_length, con
 int main(int argc, char **argv)
 {
     if (argc != 4)
-    { // Ensure correct number of arguments
+    {
         std::cerr << "Usage: " << argv[0] << " <filename> <s1> <s2>" << std::endl;
         return 1;
     }
@@ -61,8 +61,6 @@ int main(int argc, char **argv)
         inputFile.close();
         return 1;
     }
-
-    std::cout << "Successfully opened input file and created output file." << std::endl;
 
     // Read file content line by line (example placeholder for next steps)
     std::string line;

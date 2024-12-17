@@ -6,7 +6,7 @@
 /*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:50:50 by rufus             #+#    #+#             */
-/*   Updated: 2024/12/17 13:52:22 by rufus            ###   ########.fr       */
+/*   Updated: 2024/12/17 16:50:03 by rufus            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,8 @@ private:
     void info( void );
     void warning( void );
     void error( void );
+    
+    
 };
+
+#endif
