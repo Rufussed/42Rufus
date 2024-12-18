@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rufus <rufus@student.42.fr>                +#+  +:+       +#+         #
+#    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 15:28:20 by rlane             #+#    #+#              #
-#    Updated: 2024/12/17 17:58:53 by rufus            ###   ########.fr        #
+#    Updated: 2024/12/18 13:58:57 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CXX = g++
-CXXFLAGS = -Wall -Wextra -Werror -std=c++17 -g
+CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 SRC = main.cpp
 OBJ = $(SRC:.cpp=.o)
 NAME = sed_is_for_losers

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   Harl.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rufus <rufus@student.42.fr>                +#+  +:+       +#+        */
+/*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 13:50:50 by rufus             #+#    #+#             */
-/*   Updated: 2024/12/17 16:50:03 by rufus            ###   ########.fr       */
+/*   Updated: 2024/12/18 13:49:03 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 # define HARL_HPP
 
 # include <iostream>
-# include <fstream> // For file handling
-# include <string>  // For std::string
+# include <fstream>
+# include <string>
 
 class Harl
 {
@@ -28,8 +28,6 @@ private:
     void info( void );
     void warning( void );
     void error( void );
-    
-    
 };
 
 #endif

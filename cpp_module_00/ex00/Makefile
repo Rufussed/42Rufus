@@ -6,13 +6,13 @@
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/05 14:18:35 by rlane             #+#    #+#              #
-#    Updated: 2024/12/05 14:18:38 by rlane            ###   ########.fr        #
+#    Updated: 2024/12/18 13:57:59 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = megaphone
 SRC = megaphone.cpp
-CC = c++
+CC = c++ -Wall -Wextra -Werror -std=c++98
 
 all:
 	$(CC) $(SRC) -o $(NAME)
