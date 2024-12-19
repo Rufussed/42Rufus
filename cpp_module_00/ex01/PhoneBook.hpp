@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:10:37 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/11 13:57:19 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/19 15:21:40 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,21 +20,18 @@
 #define RESET "\033[0m"
 #define MAX_CONTACTS 8
 
-// Class representing the phonebook
 class PhoneBook
 {
 private:
-    Contact contacts[MAX_CONTACTS]; // Fixed array of contacts (max 8 contacts)
-    int count;                      // Number of contacts currently in the phonebook
+    Contact contacts[MAX_CONTACTS]; // Fixed array of contacts
+    int count;                      // Number of entered contacts
 
 public:
-    PhoneBook();  // Default constructor
-    ~PhoneBook(); // Destructor
+    PhoneBook();
+    ~PhoneBook();
 
-    // Method to add a new contact to the phonebook
     void addContact();
 
-    // Method to display and search contacts in the phonebook
     void searchContacts() const;
 };
 

@@ -6,11 +6,11 @@
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/12 15:28:20 by rlane             #+#    #+#              #
-#    Updated: 2024/12/18 13:59:12 by rlane            ###   ########.fr        #
+#    Updated: 2024/12/19 12:46:09 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CXX = g++
+CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 SRC = main.cpp Harl.cpp
 OBJ = $(SRC:.cpp=.o)

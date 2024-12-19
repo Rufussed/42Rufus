@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:33:07 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/12 17:52:39 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/19 18:16:03 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 #include <string>
 #include <iostream>
+#include <sstream>
 
 class Zombie {
 	

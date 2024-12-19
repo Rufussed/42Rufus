@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:02:53 by rufus             #+#    #+#             */
-/*   Updated: 2024/12/18 13:08:10 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/19 19:00:38 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int main( void )
 	harl.complain("INFO");
 	harl.complain("WARNING");
 	harl.complain("ERROR");
+	// invalid inputs below
 	harl.complain("somthing else");
 	harl.complain("Debug");
 	harl.complain("");

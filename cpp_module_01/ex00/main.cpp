@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:30:56 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/12 16:19:42 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/19 17:55:25 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,5 @@ int main()
     // Create a Zombie on the stack using randomChump
     randomChump("StackZombie");
     // StackZombie is destroyed when it goes out of scope
-
     return 0;
 }

@@ -6,26 +6,23 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:09:15 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/11 12:13:20 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:54:31 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "PhoneBook.hpp"
 
-// Default constructor
 PhoneBook::PhoneBook() : count(0) {}
 
-// Destructor
 PhoneBook::~PhoneBook() {}
 
-// Add a new contact to the phonebook
 void PhoneBook::addContact()
 {
     static int oldestIndex = 0; // Tracks the oldest contact to be replaced
 
     contacts[oldestIndex].setDetails();
 
-    // Update the oldest index in a circular manner
+    // Update the oldest index in a circular way
     oldestIndex = (oldestIndex + 1) % MAX_CONTACTS;
 
     // Only increment count until we reach MAX_CONTACTS
@@ -33,7 +30,6 @@ void PhoneBook::addContact()
         count++;
 }
 
-// Display all contacts in the phonebook and allow the user to view details
 void PhoneBook::searchContacts() const
 {
     if (!count)
@@ -61,7 +57,7 @@ void PhoneBook::searchContacts() const
             std::cout << "\nExiting program." << std::endl;
             return;
         }
-        // Check if the input is a digit and within the valid range
+        // Check if input is digit and in range
         if (std::cin.fail() || index < 0 || index >= count)
         {
             std::cin.clear();                                                   // Clear the error flag

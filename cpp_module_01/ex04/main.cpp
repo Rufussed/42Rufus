@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/17 12:02:53 by rufus             #+#    #+#             */
-/*   Updated: 2024/12/18 10:42:06 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/19 18:48:46 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,14 +40,14 @@ int main(int argc, char **argv)
     std::string s1 = argv[2];
     std::string s2 = argv[3];
     //open input
-    std::ifstream inputFile(filename);
+    std::ifstream inputFile(filename.c_str()); //c_str() returns a pointer to an array that contains a null-terminated sequence of characters
     if (!inputFile.is_open())
     {
         std::cerr << "Error: Could not open file " << filename << " for reading." << std::endl;
         return 1;
     }
     //open output
-    std::ofstream outputFile(filename + ".replace");
+    std::ofstream outputFile((filename + ".replace").c_str());
     if (!outputFile.is_open())
     {
         std::cerr << "Error: Could not create output file " << filename << ".replace" << std::endl;
@@ -61,7 +61,7 @@ int main(int argc, char **argv)
     {
         size_t pos = 0;
 
-        while ((pos = line.find(s1, pos)) != std::string::npos)
+        while ((pos = line.find(s1, pos)) != std::string::npos) //npos is "no pistion found"
         {
             // cannot use this line.replace(pos, s1.length(), s2); replace forbidden
             line = myReplace(line, pos, s1.length(), s2);

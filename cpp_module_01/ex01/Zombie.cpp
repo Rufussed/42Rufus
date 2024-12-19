@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 15:28:25 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/12 17:52:25 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:31:57 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,5 @@ void Zombie::announce() const
 void Zombie::setZombieName(std::string name)
 {
     _name = name;
-}
+}   
+	

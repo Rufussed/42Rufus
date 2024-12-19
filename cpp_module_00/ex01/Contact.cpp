@@ -6,20 +6,17 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:08:41 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/11 12:40:37 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/19 12:53:10 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Contact.hpp"
 #include "PhoneBook.hpp"
 
-// Default constructor
 Contact::Contact() {}
 
-// Destructor
 Contact::~Contact() {}
 
-// Method to set contact details from user input
 void Contact::setDetails() 
 {
 	// Reset all fields to ensure they are empty on wrap-around
@@ -69,11 +66,12 @@ void Contact::setDetails()
 			std::getline(std::cin, darkestSecret);
 			if (std::cin.eof())
 				return;
+			
 		}
 	}
+	std::cout << "\nContact added!" << std::endl;
 }
 
-// Display a summary of the contact (truncated fields)
 void Contact::displaySummary(int index) const
 {
 	std::cout << ORANGE << std::setw(10) << index << RESET << "|"
@@ -82,7 +80,6 @@ void Contact::displaySummary(int index) const
 			  << ORANGE << std::setw(10) << truncate(nickname) << RESET "|" << std::endl;
 }
 
-// Display all contact details
 void Contact::displayDetails() const
 {
 	std::cout << "\nFirst Name: " ORANGE << firstName << "\n" RESET
@@ -95,9 +92,5 @@ void Contact::displayDetails() const
 // Helper function to truncate strings longer than 10 characters
 std::string Contact::truncate(const std::string &text) const
 {
-	//return text.length() > 10 ? text.substr(0, 9) + "." : text;
-	if (text.length() > 10)
-        return text.substr(0, 9) + ".";
-    else
-        return text;
+	return text.length() > 10 ? text.substr(0, 9) + "." : text;
 }

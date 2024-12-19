@@ -6,7 +6,7 @@
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/12/05 15:06:53 by rlane             #+#    #+#              #
-#    Updated: 2024/12/11 14:09:30 by rlane            ###   ########.fr        #
+#    Updated: 2024/12/19 15:31:52 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
 
 # Project files
-NAME = Account
+NAME = account
 SRCS = tests.cpp Account.cpp
 OBJS = $(SRCS:.cpp=.o)
 

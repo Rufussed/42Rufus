@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/05 15:08:01 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/11 12:48:03 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/19 13:05:15 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,20 +29,20 @@ int main()
 
         if (command == "ADD")
         {
-            phoneBook.addContact(); // Add a new contact
+            phoneBook.addContact();
         }
         else if (command == "SEARCH")
         {
-            phoneBook.searchContacts(); // Search and display contacts
+            phoneBook.searchContacts();
         }
         else if (command == "EXIT")
         {
             std::cout << "\nExiting program." << std::endl;
-            break; // Exit the program
+            break;
         }
         else
         {
-            std::cerr << "Invalid command!" << std::endl;
+            std::cerr << "\nInvalid command!" << std::endl;
         }
     }
 

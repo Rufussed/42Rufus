@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/16 14:01:26 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/16 15:18:58 by rlane            ###   ########.fr       */
+/*   Updated: 2024/12/19 18:35:46 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ Weapon::~Weapon(){}
 
 Weapon::Weapon(std::string type) : _type(type) {}
 
-std::string Weapon::getType()
+const std::string& Weapon::getType()
 {
 	return _type;
 }
