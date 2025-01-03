@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:29:34 by rlane             #+#    #+#             */
-/*   Updated: 2025/01/02 18:51:10 by rlane            ###   ########.fr       */
+/*   Updated: 2025/01/03 13:38:21 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,8 @@ Fixed &Fixed::operator=(const Fixed &other) {
 	if (this != &other) {
 		this->_value = other._value; // Copy the raw value
 	}
-	return *this;
+	return *this;	// return derferenced content of the pointer "this" 
+					//(the object itself)
 }
 
 // Destructor
