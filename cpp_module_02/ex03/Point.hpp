@@ -1,30 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   HumanA.hpp                                         :+:      :+:    :+:   */
+/*   Point.hpp                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/12/16 13:55:42 by rlane             #+#    #+#             */
-/*   Updated: 2024/12/16 15:31:55 by rlane            ###   ########.fr       */
+/*   Created: 2025/01/06 14:29:47 by rlane             #+#    #+#             */
+/*   Updated: 2025/01/06 14:40:25 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef HUMANA_H
-# define HUMANA_H
 
-#include "Weapon.hpp"
 
-class HumanA {
+#ifndef POINT_HPP
+#define POINT_HPP
+
+#include "Fixed.hpp"
+
+class Point
+{
 private:
-	std::string _name;
-	Weapon& _weapon; // humanA always has a weapon so a reference is used
+
+	Fixed _x;
+	Fixed _y;
+	
 public:
-	HumanA(std::string name, Weapon& weapon);
-	~HumanA();
-	void setWeapon(Weapon& weapon);
-	void attack();
+
+	Point();
+	Point(const Point &other);
+	Point(const Fixed x, const Fixed y);
+	~Point();
+	Point &operator=(const Point &other);
+
+	Point(float x, float y);
+
+	Fixed getX() const;
+	Fixed getY() const;
 };
 
-
-#endif
+#endif // POINT_HPP

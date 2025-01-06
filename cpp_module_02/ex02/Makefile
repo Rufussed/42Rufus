@@ -5,16 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/12/12 15:28:20 by rlane             #+#    #+#              #
-#    Updated: 2024/12/19 12:45:50 by rlane            ###   ########.fr        #
+#    Created: 2025/01/02 17:29:12 by rlane             #+#    #+#              #
+#    Updated: 2025/01/02 18:53:47 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
+
 CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-SRC = main.cpp
+SRC = main.cpp Fixed.cpp
 OBJ = $(SRC:.cpp=.o)
-NAME = brain
+NAME = fixed
 
 all: $(NAME)
 

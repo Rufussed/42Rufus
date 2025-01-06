@@ -5,16 +5,17 @@
 #                                                     +:+ +:+         +:+      #
 #    By: rlane <rlane@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/12/12 15:28:20 by rlane             #+#    #+#              #
-#    Updated: 2024/12/18 13:58:49 by rlane            ###   ########.fr        #
+#    Created: 2025/01/02 17:29:12 by rlane             #+#    #+#              #
+#    Updated: 2025/01/06 14:29:27 by rlane            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-CXX = g++
+
+CXX = c++
 CXXFLAGS = -Wall -Wextra -Werror -std=c++98
-SRC = main.cpp HumanA.cpp HumanB.cpp Weapon.cpp
+SRC = main.cpp Fixed.cpp Point.cpp
 OBJ = $(SRC:.cpp=.o)
-NAME = violence
+NAME = bsp
 
 all: $(NAME)
 

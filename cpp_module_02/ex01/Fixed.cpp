@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:29:34 by rlane             #+#    #+#             */
-/*   Updated: 2025/01/03 14:02:40 by rlane            ###   ########.fr       */
+/*   Updated: 2025/01/06 12:34:19 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ float Fixed::toFloat(void) const
 }
 
 // An overload of the insertion << operator that inserts a floating-point representation
-// of the fixed-point number into the output stream object passed as parameter without friend
+// of the fixed-point number into the output stream object passed as parameter *without friend*
 std::ostream &operator<<(std::ostream &out, const Fixed &fixed)
 {
 	out << fixed.toFloat();
