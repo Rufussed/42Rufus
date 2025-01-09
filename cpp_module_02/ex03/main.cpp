@@ -6,43 +6,59 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:29:19 by rlane             #+#    #+#             */
-/*   Updated: 2025/01/06 15:00:29 by rlane            ###   ########.fr       */
+/*   Updated: 2025/01/07 14:06:35 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "Fixed.hpp"
-
 #include "Point.hpp"
+#include "bsp.cpp"
 
-// we calculate he areas of the three triangles made between the point and the three points of the triangle
-// if the point is inside the triangle, the sum of the areas of the three triangles is equal to the area of the triangle
-bool bsp( Point const a, Point const b, Point const c, Point const point)
+#include <string.h>
+#include <sstream>
+
+// Function to convert string to float using stringstream
+float stringToFloat(const std::string &str)
 {
-    Fixed area1 = (b.getX() - a.getX()) * (point.getY() - a.getY()) - (b.getY() - a.getY()) * (point.getX() - a.getX());
-    Fixed area2 = (c.getX() - b.getX()) * (point.getY() - b.getY()) - (c.getY() - b.getY()) * (point.getX() - b.getX());
-    Fixed area3 = (a.getX() - c.getX()) * (point.getY() - c.getY()) - (a.getY() - c.getY()) * (point.getX() - c.getX());
-    if ((area1 > 0 && area2 > 0 && area3 > 0) || (area1 < 0 && area2 < 0 && area3 < 0))
-        return true;
-    return false;
+    std::stringstream ss(str);
+    float result;
+    ss >> result;
+    return result;
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-    Point a = Point(0, 0);
-    Point b = Point(3, 0);
-    Point c = Point(0, 3);
-    Point point = Point(0, 0);
+    if (argc != 9)
+    {
+        std::cout << "Usage enter 4 coord pairs, first a triangle then point to check: x1 y1 x2 y2 x3 y3 x4 y4" << std::endl;
+        return 1;
+    }
+
+    float x1 = stringToFloat(argv[1]);
+    float y1 = stringToFloat(argv[2]);
+    float x2 = stringToFloat(argv[3]);
+    float y2 = stringToFloat(argv[4]);
+    float x3 = stringToFloat(argv[5]);
+    float y3 = stringToFloat(argv[6]);
+    float x4 = stringToFloat(argv[7]);
+    float y4 = stringToFloat(argv[8]);
+
+    Point a = Point(x1, y1);
+    Point b = Point(x2, y2);
+    Point c = Point(x3, y3);
+    Point point = Point(x4, y4);
 
     std::cout << "Our triangle has points " << std::endl;
-    std::cout << "A: x="  << a.getX() << " y=" << a.getY() << std::endl;
-    std::cout << "B: x="  << b.getX() << " y=" << b.getY() << std::endl;
-    std::cout << "C: x="  << c.getX() << " y=" << c.getY() << std::endl;
+    std::cout << "A: x=" << a.getX() << " y=" << a.getY() << std::endl;
+    std::cout << "B: x=" << b.getX() << " y=" << b.getY() << std::endl;
+    std::cout << "C: x=" << c.getX() << " y=" << c.getY() << std::endl;
     std::cout << "And our point is " << std::endl;
-    std::cout << "Point: x="  << point.getX() << " y=" << point.getY() << std::endl;
+    std::cout << "Point: x=" << point.getX() << " y=" << point.getY() << std::endl;
     if (bsp(a, b, c, point))
-        std::cout << "\nThe point is inside the triangle" << std::endl;
+        std::cout << "\nThe point is inside the triangle\n"
+                  << std::endl;
     else
-        std::cout << "\nThe point is outside or on the edge of the triangle" << std::endl;
+        std::cout << "\nThe point is on or outside triangle\n"
+                  << std::endl;
     return 0;
-    
 }

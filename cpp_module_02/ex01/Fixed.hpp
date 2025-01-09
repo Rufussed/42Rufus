@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:29:24 by rlane             #+#    #+#             */
-/*   Updated: 2025/01/03 14:09:45 by rlane            ###   ########.fr       */
+/*   Updated: 2025/01/07 14:04:51 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,8 @@
 
 #include <iostream>
 
-class Fixed {
+class Fixed
+{
 private:
 	// Integer to store the fixed-point value
 	int _value;
@@ -46,18 +47,17 @@ public:
 	// Member function to set the raw fixed-point value
 	void setRawBits(int const raw);
 
-	//A constructor that takes a constant integer as a parameter.
+	// A constructor that takes a constant integer as a parameter.
 	Fixed(const int value);
 
-	//A constructor that takes a constant float as a parameter.
+	// A constructor that takes a constant float as a parameter.
 	Fixed(const float value);
-	
-	//A member function that converts the fixed point value to an integer.
-	int toInt(void) const;
-	
-	//A member function that converts the fixed point value to a float.
-	float toFloat(void) const;
 
+	// A member function that converts the fixed point value to an integer.
+	int toInt(void) const;
+
+	// A member function that converts the fixed point value to a float.
+	float toFloat(void) const;
 };
 
 // An overload of the insertion << operator that inserts a floating-point representation

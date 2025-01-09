@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:29:19 by rlane             #+#    #+#             */
-/*   Updated: 2025/01/06 13:51:04 by rlane            ###   ########.fr       */
+/*   Updated: 2025/01/07 14:05:19 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,26 +39,26 @@ int main(void)
     std::cout << "c: " << c << std::endl;
     std::cout << "d: " << d << std::endl;
     std::cout << "e: " << e << std::endl;
-    
+
     std::cout << "a + b: " << a + b << std::endl;
     std::cout << "a - b: " << a - b << std::endl;
     std::cout << "a * b: " << a * b << std::endl;
     std::cout << "a / b: " << a / b << std::endl;
-    
+
     std::cout << "a > b: " << (a > b) << std::endl;
     std::cout << "a < b: " << (a < b) << std::endl;
     std::cout << "a >= b: " << (a >= b) << std::endl;
     std::cout << "a <= b: " << (a <= b) << std::endl;
     std::cout << "a == b: " << (a == b) << std::endl;
     std::cout << "a != b: " << (a != b) << std::endl;
-    
+
     std::cout << "a > c: " << (a > c) << std::endl;
     std::cout << "a < c: " << (a < c) << std::endl;
     std::cout << "a >= c: " << (a >= c) << std::endl;
     std::cout << "a <= c: " << (a <= c) << std::endl;
     std::cout << "a == c: " << (a == c) << std::endl;
     std::cout << "a != c: " << (a != c) << std::endl;
-    
+
     std::cout << "min(a, b): " << Fixed::min(a, b) << std::endl;
     std::cout << "max(a, b): " << Fixed::max(a, b) << std::endl;
     std::cout << "min(a, c): " << Fixed::min(a, c) << std::endl;

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:29:24 by rlane             #+#    #+#             */
-/*   Updated: 2025/01/06 13:34:36 by rlane            ###   ########.fr       */
+/*   Updated: 2025/01/07 14:05:15 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,11 @@
 class Fixed
 {
 private:
-
 	int _value;
 
 	static const int _fractionalBits = 8;
 
 public:
-
 	// Default constructor
 	Fixed();
 
@@ -74,13 +72,13 @@ public:
 	// min and max functions with constant references
 	static const Fixed &min(const Fixed &a, const Fixed &b);
 	static const Fixed &max(const Fixed &a, const Fixed &b);
-	
-	///min and max functions
+
+	/// min and max functions
 	static Fixed &min(Fixed &a, Fixed &b);
 	static Fixed &max(Fixed &a, Fixed &b);
 };
 
-// An overload of the insertion << operator 
+// An overload of the insertion << operator
 std::ostream &operator<<(std::ostream &out, const Fixed &fixed);
 
 #endif // FIXED_HPP

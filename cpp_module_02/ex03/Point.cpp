@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/06 14:29:47 by rlane             #+#    #+#             */
-/*   Updated: 2025/01/06 14:49:22 by rlane            ###   ########.fr       */
+/*   Updated: 2025/01/07 14:06:48 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Point::Point(const Point &other) : _x(other._x), _y(other._y)
 {
 }
 
-//create point from floats
+// create point from floats
 Point::Point(float x, float y) : _x(Fixed(x)), _y(Fixed(y))
 {
 }
@@ -47,4 +47,3 @@ Fixed Point::getY() const
 {
 	return _y;
 }
-

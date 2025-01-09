@@ -6,17 +6,17 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:29:24 by rlane             #+#    #+#             */
-/*   Updated: 2025/01/02 18:47:32 by rlane            ###   ########.fr       */
+/*   Updated: 2025/01/07 14:04:12 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #ifndef FIXED_HPP
 #define FIXED_HPP
 
 #include <iostream>
 
-class Fixed {
+class Fixed
+{
 private:
 	// Integer to store the fixed-point value
 	int _value;
