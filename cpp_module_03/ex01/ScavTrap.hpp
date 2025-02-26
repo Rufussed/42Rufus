@@ -1,35 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_bonus.h                              :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/11 11:50:07 by rlane             #+#    #+#             */
-/*   Updated: 2024/05/16 16:22:15 by rlane            ###   ########.fr       */
+/*   Created: 2025/02/25 16:30:04 by rlane             #+#    #+#             */
+/*   Updated: 2025/02/26 08:51:47 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_BONUS_H
-# define GET_NEXT_LINE_BONUS_H
+#ifndef SCAVTRAP_HPP
+#define SCAVTRAP_HPP
 
-# ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 42
-# endif
+#include <iostream>
+#include "ClapTrap.hpp"
 
-# ifndef MAX_FD
-#  define MAX_FD 1024
-# endif
+class ScavTrap : public ClapTrap
+{
+private:
 
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include <stdlib.h>
 
-char	*get_next_line(int fd);
-char	*ft_strdup(char *s);
-size_t	ft_strlen(char *s);
-char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strchr(char *s, int c);
+public:
+//standard constructor
+ScavTrap(const std::string& name);
+// copy constructor
+ScavTrap(const ScavTrap& other);
+// destructor
+~ScavTrap();
+// assignation operator
+ScavTrap& operator=(const ScavTrap& other);
 
-#endif
+void guardGate();
+};
+
+#endif // SCAVTRAP_HPP
