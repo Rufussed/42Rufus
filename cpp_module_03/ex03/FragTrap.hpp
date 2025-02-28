@@ -1,41 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*   FragTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 17:29:24 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 12:39:28 by rlane            ###   ########.fr       */
+/*   Created: 2025/02/28 11:30:56 by rlane             #+#    #+#             */
+/*   Updated: 2025/02/28 12:38:21 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLAPTRAP_HPP
-#define CLAPTRAP_HPP
+#ifndef FRAGTRAP_HPP
+#define FRAGTRAP_HPP
 
 #include <iostream>
+#include "ClapTrap.hpp"
 
-class ClapTrap
+class FragTrap : public ClapTrap
 {
 private:
-    std::string	_name;
-    int 	_hitPoints;
-    int 	_energyPoints;
-    int 	_attackDamage;
 
 public:
     //standard constructor
-    ClapTrap(const std::string& name);
+    FragTrap(const std::string& name);
     // copy constructor
-    ClapTrap(const ClapTrap& other);
+    FragTrap(const FragTrap& other);
     // destructor
-    ~ClapTrap();
+    ~FragTrap();
     // assignation operator
-    ClapTrap& operator=(const ClapTrap& other);
+    FragTrap& operator=(const FragTrap& other);
 
-void attack(const std::string& target);
-void takeDamage(unsigned int amount);
-void beRepaired(unsigned int amount);
+void highFivesGuys(void);
+
 };
 
-#endif // CLAPTRAP_HPP
+
+#endif // FRAGTRAP_HPP

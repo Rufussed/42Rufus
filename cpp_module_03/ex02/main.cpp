@@ -1,35 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
+/*   main.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/02/25 16:30:04 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 13:27:46 by rlane            ###   ########.fr       */
+/*   Created: 2025/01/02 17:29:19 by rlane             #+#    #+#             */
+/*   Updated: 2025/02/28 12:16:28 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCAVTRAP_HPP
-#define SCAVTRAP_HPP
-
-#include <iostream>
 #include "ClapTrap.hpp"
+#include "FragTrap.hpp"
 
-class ScavTrap : public ClapTrap
+int main()
 {
-public:
-    //standard constructor
-    ScavTrap(const std::string& name);
-    // copy constructor
-    ScavTrap(const ScavTrap& other);
-    // destructor
-    ~ScavTrap();
-    // assignation operator
-    ScavTrap& operator=(const ScavTrap& other);
+    FragTrap fraggy("Fraggy");
+    FragTrap trappy("Trappy");
 
-void guardGate();
-virtual void attack(const std::string& target);
-};
 
-#endif // SCAVTRAP_HPP
+    trappy.attack("Fraggy");
+    fraggy.takeDamage(30);
+    fraggy.beRepaired(10);
+
+    fraggy.highFivesGuys();
+
+    return 0;
+}

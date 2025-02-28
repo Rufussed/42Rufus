@@ -1,41 +1,35 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*   ScavTrap.hpp                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 17:29:24 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 12:39:28 by rlane            ###   ########.fr       */
+/*   Created: 2025/02/25 16:30:04 by rlane             #+#    #+#             */
+/*   Updated: 2025/02/28 13:36:52 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLAPTRAP_HPP
-#define CLAPTRAP_HPP
+#ifndef SCAVTRAP_HPP
+#define SCAVTRAP_HPP
 
 #include <iostream>
+#include "ClapTrap.hpp"
 
-class ClapTrap
+class ScavTrap : public ClapTrap
 {
-private:
-    std::string	_name;
-    int 	_hitPoints;
-    int 	_energyPoints;
-    int 	_attackDamage;
-
 public:
     //standard constructor
-    ClapTrap(const std::string& name);
+    ScavTrap(const std::string& name);
     // copy constructor
-    ClapTrap(const ClapTrap& other);
+    ScavTrap(const ScavTrap& other);
     // destructor
-    ~ClapTrap();
+    ~ScavTrap();
     // assignation operator
-    ClapTrap& operator=(const ClapTrap& other);
+    ScavTrap& operator=(const ScavTrap& other);
 
-void attack(const std::string& target);
-void takeDamage(unsigned int amount);
-void beRepaired(unsigned int amount);
+void guardGate();
+virtual void attack(const std::string& target);
 };
 
-#endif // CLAPTRAP_HPP
+#endif // SCAVTRAP_HPP

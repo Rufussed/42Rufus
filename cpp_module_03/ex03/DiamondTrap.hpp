@@ -1,41 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ClapTrap.hpp                                       :+:      :+:    :+:   */
+/*   DiamondTrap.hpp                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 17:29:24 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 12:39:28 by rlane            ###   ########.fr       */
+/*   Created: 2025/02/28 12:36:23 by rlane             #+#    #+#             */
+/*   Updated: 2025/02/28 12:52:03 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef CLAPTRAP_HPP
-#define CLAPTRAP_HPP
+#ifndef DIAMONDTRAP_HPP
+#define DIAMONDTRAP_HPP
 
 #include <iostream>
+#include "ScavTrap.hpp"
+#include "FragTrap.hpp"
 
-class ClapTrap
+class DiamondTrap : public ClapTrap, public ScavTrap, public FragTrap
 {
 private:
-    std::string	_name;
-    int 	_hitPoints;
-    int 	_energyPoints;
-    int 	_attackDamage;
-
+    std::string _name;
+    int _hitpoints;
+    int _energyPoints;
+    int _attackDamage;
+    
 public:
-    //standard constructor
-    ClapTrap(const std::string& name);
+    // standard constructor
+    DiamondTrap(const std::string& name);
     // copy constructor
-    ClapTrap(const ClapTrap& other);
+    DiamondTrap(const DiamondTrap& other);
     // destructor
-    ~ClapTrap();
+    ~DiamondTrap();
     // assignation operator
-    ClapTrap& operator=(const ClapTrap& other);
+    DiamondTrap& operator=(const DiamondTrap& other);
 
-void attack(const std::string& target);
-void takeDamage(unsigned int amount);
-void beRepaired(unsigned int amount);
+    void whoAmI();
 };
 
-#endif // CLAPTRAP_HPP
+#endif // DIAMONDTRAP_HPP

@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:29:34 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/26 09:25:14 by rlane            ###   ########.fr       */
+/*   Updated: 2025/02/28 13:31:52 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void ClapTrap::attack(const std::string& target)
     } 
 	else if (_hitPoints <= 0)
 	{
-		std::cout << "ClapTrap " << _name << " cannot attack, he is dead!" << std::endl;
+		std::cout << "ClapTrap " << _name << " cannot attack, it is dead!" << std::endl;
 	} 
 	else
 	{
@@ -63,25 +63,25 @@ void ClapTrap::takeDamage(unsigned int amount)
 {
 	if (_hitPoints > 0)
 	{
-		std::cout << "ClapTrap " << _name << " takes " << amount << " points of damage!" << std::endl;
+		std::cout << _name << " takes " << amount << " points of damage!" << std::endl;
 		_hitPoints -= amount;
 	}
 	else
-		std::cout << "ClapTrap " << _name << " is already dead!" << std::endl;
+		std::cout << _name << " is already dead!" << std::endl;
 	if (_hitPoints < 0)
-	std::cout << "ClapTrap " << _name << " died" << std::endl;
+	std::cout << _name << " died" << std::endl;
 }
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
 	if (_hitPoints > 0 && _energyPoints > 0) 
 	{
-		std::cout << "ClapTrap " << _name << " is repaired for " << amount << " hit points!" << std::endl;
+		std::cout << _name << " is repaired for " << amount << " hit points!" << std::endl;
 		_hitPoints += amount;
 		_energyPoints--;
 	}
 	else if (_hitPoints <= 0)
-		std::cout << "It is too late for repairs! ClapTrap " << _name << " is already dead" << std::endl;
+		std::cout << "It is too late for repairs! " << _name << " is already dead" << std::endl;
 	else
-		std::cout << "ClapTrap " << _name << " is too low on energy to be repaired!" << std::endl;
+		std::cout << _name << " is too low on energy to make repairs!" << std::endl;
 }

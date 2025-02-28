@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/01/02 17:29:24 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 12:39:28 by rlane            ###   ########.fr       */
+/*   Created: 2025/02/25 17:29:24 by rlane             #+#    #+#             */
+/*   Updated: 2025/02/28 12:37:43 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,13 +17,15 @@
 
 class ClapTrap
 {
-private:
+protected:
+
     std::string	_name;
     int 	_hitPoints;
     int 	_energyPoints;
     int 	_attackDamage;
 
 public:
+
     //standard constructor
     ClapTrap(const std::string& name);
     // copy constructor
