@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 17:29:24 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 12:38:11 by rlane            ###   ########.fr       */
+/*   Updated: 2025/02/28 14:51:49 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@ class ClapTrap
 protected:
 
     std::string	_name;
-    int 	_hitPoints;
-    int 	_energyPoints;
-    int 	_attackDamage;
+    int 	    _hitPoints;
+    int 	    _energyPoints;
+    int 	    _attackDamage;
 
 public:
 

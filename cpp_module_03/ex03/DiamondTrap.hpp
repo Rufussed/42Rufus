@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:36:23 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 12:52:03 by rlane            ###   ########.fr       */
+/*   Updated: 2025/02/28 14:43:32 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,8 @@ public:
     ~DiamondTrap();
     // assignation operator
     DiamondTrap& operator=(const DiamondTrap& other);
+
+    using ScavTrap::attack;
 
     void whoAmI();
 };
