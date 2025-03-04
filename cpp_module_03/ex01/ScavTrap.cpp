@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/25 16:29:54 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 13:33:11 by rlane            ###   ########.fr       */
+/*   Updated: 2025/03/04 16:08:46 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ ScavTrap::ScavTrap(const ScavTrap& other)
 	: ClapTrap(other)
 {
 	std::cout << "ScavTrap copy constructor called" << std::endl;
-	*this = other;
+	_hitPoints = other._hitPoints;
+    _energyPoints = other._energyPoints;
+    _attackDamage = other._attackDamage;
 }
 
 //destructor

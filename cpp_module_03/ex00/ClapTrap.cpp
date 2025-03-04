@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:29:34 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 13:31:19 by rlane            ###   ########.fr       */
+/*   Updated: 2025/03/04 16:13:09 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ ClapTrap::ClapTrap(const std::string& name)
 }
 
 ClapTrap::ClapTrap(const ClapTrap& other)
+    : _name(other._name), _hitPoints(other._hitPoints), _energyPoints(other._energyPoints), _attackDamage(other._attackDamage)
 {
-	std::cout << "ClapTrap copy constructor called" << std::endl;
-	*this = other;
+    std::cout << "ClapTrap copy constructor called, copied " << _name <<std::endl;
 }
 
 ClapTrap::~ClapTrap()
@@ -63,14 +63,17 @@ void ClapTrap::takeDamage(unsigned int amount)
 {
 	if (_hitPoints > 0)
 	{
-		std::cout << _name << " takes " << amount << " points of damage!" << std::endl;
+		std::cout << _name << " takes " << amount << " hit points of damage!" << std::endl;
 		_hitPoints -= amount;
 	}
 	else
+	{
 		std::cout << _name << " is already dead!" << std::endl;
+		return ;
+	}
 	if (_hitPoints < 0)
 	std::cout << _name << " died" << std::endl;
-}
+}	
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
@@ -84,4 +87,9 @@ void ClapTrap::beRepaired(unsigned int amount)
 		std::cout << "It is too late for repairs! " << _name << " is already dead" << std::endl;
 	else
 		std::cout << _name << " is too low on energy to make repairs!" << std::endl;
+}
+
+int ClapTrap::getAttackDamage(void)
+{
+	return _attackDamage;
 }

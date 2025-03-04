@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 11:30:35 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 12:00:54 by rlane            ###   ########.fr       */
+/*   Updated: 2025/03/04 15:19:41 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ FragTrap::FragTrap(const FragTrap& other)
     : ClapTrap(other)
 {
     std::cout << "FragTrap copy constructor called" << std::endl;
-    *this = other;
+    _hitPoints = other._hitPoints;
+    _energyPoints = other._energyPoints;
+    _attackDamage = other._attackDamage;
 }
 
 //destructor

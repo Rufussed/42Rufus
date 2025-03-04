@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/02 17:29:34 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 13:32:05 by rlane            ###   ########.fr       */
+/*   Updated: 2025/03/04 16:14:01 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 ClapTrap::ClapTrap(const std::string& name) 
     : _name(name), _hitPoints(10), _energyPoints(10), _attackDamage(0) 
 {
+	
     std::cout << "ClapTrap constructor called: ClapTrap " << _name << " created" << std::endl;
 }
 
@@ -63,14 +64,17 @@ void ClapTrap::takeDamage(unsigned int amount)
 {
 	if (_hitPoints > 0)
 	{
-		std::cout << _name << " takes " << amount << " points of damage!" << std::endl;
+		std::cout << _name << " takes " << amount << " hit points of damage!" << std::endl;
 		_hitPoints -= amount;
 	}
 	else
+	{
 		std::cout << _name << " is already dead!" << std::endl;
+		return ;
+	}
 	if (_hitPoints < 0)
 	std::cout << _name << " died" << std::endl;
-}
+}	
 
 void ClapTrap::beRepaired(unsigned int amount)
 {
@@ -85,3 +89,8 @@ void ClapTrap::beRepaired(unsigned int amount)
 	else
 		std::cout << _name << " is too low on energy to make repairs!" << std::endl;
 }
+
+int ClapTrap::getAttackDamage(void)
+{
+	return _attackDamage;
+}	

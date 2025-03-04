@@ -6,7 +6,7 @@
 /*   By: rlane <rlane@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/28 12:44:41 by rlane             #+#    #+#             */
-/*   Updated: 2025/02/28 15:05:13 by rlane            ###   ########.fr       */
+/*   Updated: 2025/03/04 15:28:14 by rlane            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@
 
 // default constructor
 DiamondTrap::DiamondTrap(const std::string &name)
-    : ClapTrap(name + "_clap_name"), FragTrap(name), ScavTrap(name)
+    : ClapTrap(name + "_clap_name"), ScavTrap(name), FragTrap(name)
 {
     _name = name;
-    _hitpoints = FragTrap::_hitPoints;
+    _hitPoints = FragTrap::_hitPoints;
     _energyPoints = ScavTrap::_energyPoints;
     _attackDamage = FragTrap::_attackDamage;
     std::cout << "DiamondTrap " << _name << " is here!" << std::endl;
@@ -28,9 +28,10 @@ DiamondTrap::DiamondTrap(const std::string &name)
 
 // copy constructor
 DiamondTrap::DiamondTrap(const DiamondTrap &other)
+    : ClapTrap(other._name + "_clap_name"), ScavTrap(other), FragTrap(other),
+      _name(other._name)
 {
     std::cout << "DiamondTrap copy constructor called" << std::endl;
-    *this = other;
 }
 
 // destructor
@@ -39,15 +40,18 @@ DiamondTrap::~DiamondTrap()
     std::cout << "DiamondTrap " << _name << " is destroyed" << std::endl;
 }
 
-// assignation operator
+// Assignation operator
 DiamondTrap &DiamondTrap::operator=(const DiamondTrap &other)
 {
     std::cout << "DiamondTrap assignation operator called" << std::endl;
-    std::cout << "DiamondTrap " << other._name << " will now be assigned to " << _name << std::endl;
+    std::cout << "DiamondTrap " << other._name << " will now be assigned to " << ClapTrap::_name << std::endl;
     if (this == &other)
         return *this;
+    ClapTrap::operator=(other);
+    ScavTrap::operator=(other);
+    FragTrap::operator=(other);
     _name = other._name;
-    _hitpoints = other._hitpoints;
+    _hitPoints = other._hitPoints;
     _energyPoints = other._energyPoints;
     _attackDamage = other._attackDamage;
     return *this;
