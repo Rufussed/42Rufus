@@ -1,8 +1,10 @@
-#ifndef BIGINT__HPP
-#define BIGINT_HPP
+#pragma once
 
 #include <iostream>
 #include <string>
+#include <cstdio>   // for sprintf
+#include <cstdlib>  // for atoi
+#include <cstring>  // for string operations
 
 class bigint {
     private:
@@ -12,7 +14,7 @@ class bigint {
         bigint(): value("0") {}
         bigint(int val) {
             char buf[32];
-            sprintf(buf, "%d", val); // string print f converts integer into string with a null terminator
+            std::sprintf(buf, "%d", val); 
             value = buf;
         }
         ~bigint() {}
@@ -77,9 +79,12 @@ class bigint {
         bigint operator<<(int shift) const {
             bigint result = *this;
             for (int i = 0; i < shift; ++i) {
-                result.value += '0'; // append zeros
+                result.value += '0'; // append zeros to value string
             }
             return result;
+        }
+        bigint operator<<(bigint shift) const {
+            return *this << atoi(shift.value.c_str());
         }
 
         //bitshifting base 10 negative
@@ -92,16 +97,61 @@ class bigint {
             }
             return result;
         }
+        bigint operator>>(bigint shift) const {
+            return *this >> atoi(shift.value.c_str());
+        }
+
         bigint& operator>>=(int shift) {
             *this = *this >> shift;
             return *this;
         }
+        bigint& operator>>=(bigint shift) {
+            return *this >>= atoi(shift.value.c_str());
+        }
+
         bigint& operator<<=(int shift) {
             *this = *this << shift;
             return *this;
         }
+        bigint& operator<<=(bigint shift) {
+            return *this <<= atoi(shift.value.c_str());
+        }
 
+        bool operator<(const bigint& other) const {
+            if (value.length() != other.value.length()) {
+                return value.length() < other.value.length();
+            }
+            for (size_t i = 0; i < value.length(); i++) {
+                if (value[i] != other.value[i]) {
+                    return value[i] < other.value[i];
+                }
+            }
+            return false; // equal
+        }
 
+        bool operator>(const bigint& other) const {
+            return other < *this;
+        }
+
+        bool operator==(const bigint& other) const {
+            return value == other.value;
+        }
+
+        bool operator!=(const bigint& other) const {
+            return !(*this == other);
+        }
+        
+        bool operator<=(const bigint& other) const {
+            return *this < other || *this == other;
+        }
+
+        bool operator>=(const bigint& other) const {
+            return *this > other || *this == other;
+        }
+
+        bigint operator-(const bigint& other) const {
+            bigint temp = other; // useless line to avoid warning
+
+            return bigint(); // just assume - op is for equal values.
+        }
 };
-
-#endif

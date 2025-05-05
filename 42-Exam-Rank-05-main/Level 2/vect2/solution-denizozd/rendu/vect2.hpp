@@ -67,7 +67,7 @@ public:
         y -= oth.y;
         return *this;
     }
-
+    protected:
     vect2 operator+(const vect2& oth) const {
         return vect2(x + oth.x, y + oth.y);
     }
