@@ -1,7 +1,7 @@
 Life:
 
 Submitted files: *.c, *.h
-Allowed functions: atoi, read, putvhar, malloc, calloc, realloc, free
+Allowed functions: atoi, read, putchar, malloc, calloc, realloc, free
 
 Prototype of program: ./life width height iterations
 
@@ -15,7 +15,7 @@ Each command is one of these characters:
 	x 		-> lift or lower the pen in order to start or stop drawing.
 
 once end of Tile is reached, your program must simulate a game ot Lite on
-board and print the result in stdout (each cell alive will be represented l
+board and print the result in stdout (each cell alive will be represented by
 the character '0' and each dead cell will be represented by a space)
 
 each cell outside of the array will be considered dead.
@@ -47,3 +47,4 @@ $> echo 'dxss' | ./a.out 3 3 2 | cat -e
  0 $
  0 $
  0 $
+
