@@ -22,16 +22,7 @@ public:
     vect2 &operator=(const vect2 &other)
     {
         if (this != &other)
-        {typedef struct s_life
-            {
-                int* map;
-                int width;
-                int height;
-                int iterations;
-                char *setup;
-                int max_iterations;
-            } t_life;
-            
+        {
             x = other.x;
             y = other.y;
         }
@@ -93,8 +84,8 @@ public:
         return vect2(x * scalar, y * scalar);
     }
 
-     // Friend function for int * vect2
-     friend vect2 operator*(const int& scalar, const vect2& v) {
+    // Friend function for int * vect2
+    friend vect2 operator*(const int& scalar, const vect2& v) {
         return v * scalar;  // Reuse the member operator*
     }
 

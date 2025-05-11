@@ -34,29 +34,24 @@ class bigint {
             return *this;
         }
 
-        bigint operator+(const bigint& other) const{
+        bigint operator+(const bigint& other) const {
             bigint result;
-            size_t len1 = value.length();
-            size_t len2 = other.value.length();
-            size_t max_len = std::max(len1, len2);
-            result.value.resize(max_len + 1); // +1 for carry
+            result.value = "";
+            int i = value.length()-1;
+            int j = other.value.length()-1;
             int carry = 0;
-            for (size_t i = 0; i < max_len; ++i) {
-                int digit1 = (i < len1) ? value[len1 - 1 - i] - '0' : 0;
-                int digit2 = (i < len2) ? other.value[len2 - 1 - i] - '0' : 0;
-                int sum = digit1 + digit2 + carry;
-                result.value[max_len - i] = (sum % 10) + '0';
+            int sum;
+            while(i >=0 || j >=0 || carry > 0) {
+                sum = ((other.value[i] - '0') + (value[j] - '0') + carry);
                 carry = sum / 10;
-            }
-            if (carry) { // leftmost digit is carry
-                result.value[0] = carry + '0';
-                result.value = result.value.substr(0, max_len + 1);
-            } else {
-                result.value = result.value.substr(1, max_len);
+                sum = sum % 10;
+                result.value.insert(0, 1, sum + '0'); 
+                i--;
+                j--;      
             }
             return result;
-        }
-       
+        }        
+        
         bigint& operator+=(const bigint& other) {
             *this = *this + other;
             return *this;
@@ -76,21 +71,22 @@ class bigint {
         }
 
         //bitshifting base 10
-        bigint operator<<(int shift) const {
+        bigint operator<<(size_t shift) const {
             bigint result = *this;
-            for (int i = 0; i < shift; ++i) {
+            for (size_t i = 0; i < shift; ++i) {
                 result.value += '0'; // append zeros to value string
             }
             return result;
         }
         bigint operator<<(bigint shift) const {
-            return *this << atoi(shift.value.c_str());
+            // Convert string to unsigned long using C-style functions for compatibility
+            return *this << std::atol(shift.value.c_str());
         }
 
         //bitshifting base 10 negative
-        bigint operator>>(int shift) const {
+        bigint operator>>(size_t shift) const {
             bigint result = *this;
-            if (shift >= static_cast<int>(result.value.length())) {
+            if (shift >= result.value.length()) {
                 result.value = "0"; // shift out all digits
             } else {
                 result.value = result.value.substr(0, result.value.length() - shift);
@@ -98,7 +94,7 @@ class bigint {
             return result;
         }
         bigint operator>>(bigint shift) const {
-            return *this >> atoi(shift.value.c_str());
+            return *this >> std::atol(shift.value.c_str());
         }
 
         bigint& operator>>=(int shift) {
@@ -106,7 +102,7 @@ class bigint {
             return *this;
         }
         bigint& operator>>=(bigint shift) {
-            return *this >>= atoi(shift.value.c_str());
+            return *this >>= std::atol(shift.value.c_str());
         }
 
         bigint& operator<<=(int shift) {
@@ -114,7 +110,7 @@ class bigint {
             return *this;
         }
         bigint& operator<<=(bigint shift) {
-            return *this <<= atoi(shift.value.c_str());
+            return *this <<= std::atol(shift.value.c_str());
         }
 
         bool operator<(const bigint& other) const {
