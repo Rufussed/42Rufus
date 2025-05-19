@@ -34,20 +34,33 @@ void setup_cells(t_life *life)
     int draw = 0;
     while (life->setup[i] != '\0')
     {
-        switch (life->setup[i])
+        // switch (life->setup[i])
+        // {
+        // case 'w': y--; break;
+        // case 's': y++; break;
+        // case 'a': x--; break;
+        // case 'd': x++; break;
+        // case 'x': draw = !draw; break;
+        // default:  break;
+        // }
+        switch(life->setup[i])
         {
         case 'w': y--; break;
         case 's': y++; break;
-        case 'a': x--; break;
-        case 'd': x++; break;
-        case 'x': draw = !draw; break;
-        default:  break;
+        case 'a' : x--; break;
+        case 'd' : x++; break;
+        case 'x' : draw = !draw; break;
+        default: break;
         }
+
+
         if (draw)
             life->map[y * life->width + x] = 1;
         i++;
     }
 }
+
+
 
 void init_life(t_life *life, char **argv, char *setup)
 {
@@ -77,32 +90,10 @@ void detect_boundaries_count(t_life *life, int nx, int ny, int *count)
 int count_neighbours(t_life *life, int x, int y)
 {
     int count = 0;
-    //top left
-    int nx = x - 1; int ny = y - 1;
-    detect_boundaries_count(life, nx, ny, &count);
-    //top middle
-    nx = x; ny = y-1;
-    detect_boundaries_count(life, nx, ny, &count);
-    //top right
-    nx = x + 1; ny = y-1;
-    detect_boundaries_count(life, nx, ny, &count);
-
-    //middle left
-    nx = x - 1; ny = y;
-    detect_boundaries_count(life, nx, ny, &count);  
-    //middle right
-    nx = x + 1; ny = y;
-    detect_boundaries_count(life, nx, ny, &count);
-
-    //bottom left
-    nx = x - 1; ny = y + 1;
-    detect_boundaries_count(life, nx, ny, &count);
-    //bottom middle
-    nx = x; ny = y+1;
-    detect_boundaries_count(life, nx, ny, &count);
-    //bottom right
-    nx = x + 1; ny = y+1;
-    detect_boundaries_count(life, nx, ny, &count);
+    for (int ny = y-1; ny <= y+1; ny++)
+        for (int nx = x-1; nx <= x+1; nx++)
+            if (!(ny ==y && nx == x)) // not midpoint
+                detect_boundaries_count(life, nx, ny, &count);
     return count;    
 }
 
@@ -142,4 +133,5 @@ int main(int argc, char **argv)
     print_map(life);
     free(life);
     return 0;
+    
 }

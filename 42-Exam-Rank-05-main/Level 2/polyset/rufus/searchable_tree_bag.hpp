@@ -38,3 +38,9 @@ public:
     return false;
   }
 };
+
+// constructor and destructor = default;
+// assign other to tree_bag
+// operator= use the tree_bag::operator=  
+
+//in tree search if val is lower the search left otherwise right

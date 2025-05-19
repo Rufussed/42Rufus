@@ -23,3 +23,7 @@ class searchable_array_bag : public array_bag, public  searchable_bag {
         return false;
     }
 };
+
+// constructor and destructor = default;
+// assign other to array_bag
+//operator= use the array_bag::operator=  

@@ -15,8 +15,8 @@ int main(){
     std::cout << "b = " << b << std::endl;
     std::cout << "++b " << ++b << std::endl;
     std::cout << "b++ " << b++ << std::endl;
-    std::cout << "b = " << b << std::endl;
-     std::cout << "(b << 10) + 42 " << (b << 10) + 42 << std::endl;
+    std::cout << "b = " << b << std::endl; //added by me for check
+    std::cout << "(b << 10) + 42 " << (b << 10) + 42 << std::endl;
     std::cout << "c = b << 10 " << (c = b << 10) << std::endl;
     std::cout << "c = " << c << std::endl;
     std::cout << "c = c >> 10 " << (c = c >> 10) << std::endl;

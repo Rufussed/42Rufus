@@ -15,15 +15,20 @@ class searchable_tree_bag : public tree_bag, public searchable_bag {
 	~searchable_tree_bag() = default;
 
 	bool	has(int val) const {
-		node *current = tree;
-		while (current) {
-			if (current->value == val)
-				return true;
-			else if (val > current->value)
-				current = current->r;
-			else
-				current = current->l;
-		}
-		return false;
-	}
+        // Method 1: Using pointer copy (original way)
+        node *current = tree;     // current now points to the same node as tree
+
+        // OR Method 2: Direct use of tree pointer
+        // node *current = this->tree;   // more explicit but functionally identical
+        
+        while (current) {
+            if (current->value == val)
+                return true;
+            else if (val > current->value)
+                current = current->r;
+            else
+                current = current->l;
+        }
+        return false;
+    }
 };
