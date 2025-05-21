@@ -286,38 +286,6 @@ void print_filled_map(t_map map[static 1], int best_row, int best_col, int squar
 	}
 }
 
-// Checking whether the square/rectangle has an obstacle inside by calculating
-// an alternating sum on the clockwise obstacle counts:
-//
-// Starting map
-// .............
-// .............
-// ....o........
-// .............
-// .............
-// .............
-// .............
-//
-// Obstacle counts
-// 0000000000000
-// 0000000000000
-// 0000111111111
-// 0000111111111
-// 0000111111111
-// 0000111111111
-// 0000111111111
-//
-// Checking the square of size 4 (marked by X)
-// 0000000000000
-// 000A000B00000
-// 0000XXXX11111
-// 0000XXXX11111 // Notice that C is right on the bottom right corner of the actual square,
-// 0000XXXX11111 // but A, B, and D are 'one-off'. This is necessary because with C,
-// 000DXXXC11111 // we're counting all obstacles from that position up until the top left,
-// 0000111111111 // and with D and B we are excluding those regions in which we are not
-//               // interested in from count, but the intersection of D and B is doubly-excluded,
-//               // so we need to include it again by adding A. this is where the alternating
-//               // summation comes from.
 int count_obstacles(t_map map[static 1], int row_idx, int col_idx, int square_size) {
 	if (row_idx - 1 + square_size >= map->n_rows || col_idx - 1 + square_size >= map->n_cols)
 		return -1; // out of bounds, don't need to check this and bigger squares
