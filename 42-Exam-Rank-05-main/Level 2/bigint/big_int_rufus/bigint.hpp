@@ -1,6 +1,7 @@
 #pragma once
 #include <string>
 #include <iostream>
+#include <algorithm>
 
 class bigint {
     private:
@@ -8,6 +9,22 @@ class bigint {
     public:
     bigint(): value("0") {}
     bigint(size_t num): value(std::to_string(num)) {}
+    bigint(const std::string &str) {
+        if (str.empty() || !std::all_of(str.begin(), str.end(), ::isdigit)) {
+            value = "0";
+            return;
+        }
+        
+        // Find first non-zero digit
+        size_t firstNonZero = str.find_first_not_of('0');
+        
+        // If string is all zeros or empty
+        if (firstNonZero == std::string::npos) {
+            value = "0";
+        } else {
+            value = str.substr(firstNonZero);
+        }
+    }
     bigint(const bigint &other) : value(other.value) {}
     ~bigint() {}
     bigint& operator=(const bigint &other)
@@ -31,8 +48,8 @@ class bigint {
         int j = other.value.length() - 1;
         int n1, n2;
         while(i >= 0 || j >=0 || carry > 0) {
-            if (i >= 0) n1 = this->value[i] - '0'; else n1 = 0;
-            if (j >= 0) n2 = other.value[j] - '0'; else n2 = 0;
+            n1 = (i >= 0) ? this->value[i] - '0' : 0;
+            n2 = (j >= 0) ? other.value[j] - '0' : 0;
             sum = (n1 + n2 + carry);
             carry = sum / 10;
             sum %= 10;
@@ -63,6 +80,7 @@ class bigint {
 
     bigint operator<<(long shift) const {
         bigint temp = *this;
+        if (value == "0") return *this;
         for(int i = 0; i < shift; i++)
             temp.value += "0";
         return temp;

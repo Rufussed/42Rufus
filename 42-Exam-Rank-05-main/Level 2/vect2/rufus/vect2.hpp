@@ -84,10 +84,8 @@ class vect2 {
         return result;
     }
 
-    vect2& operator-() {
-        x = -x;
-        y = -y;     
-        return *this;
+    vect2 operator-() {
+        return vect2(-x, -y);
     }
 
     vect2& operator-=(const vect2 &other) {
@@ -96,10 +94,8 @@ class vect2 {
     }
 
     vect2 operator*(int scalar) const {
-        vect2 result;
-        result.x *= scalar;
-        result.y *= scalar;
-        return result;
+       
+        return vect2(x * scalar, y *scalar);
     }
 
     friend vect2 operator*(int scalar, const vect2 &v) {

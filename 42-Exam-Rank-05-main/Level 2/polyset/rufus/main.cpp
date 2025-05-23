@@ -5,6 +5,9 @@
 
 #include <iostream>
 
+//g++ array_bag.cpp searchable_array_bag.cpp searchable_tree_bag.cpp tree_bag.cpp set.cpp main.cpp && ./a.out 1 2 3 4
+
+
 int main(int argc, char **argv) {
   if (argc == 1)
     return 1;
@@ -43,14 +46,8 @@ int main(int argc, char **argv) {
     sa.get_bag().print();
     st.print();
     sa.clear();
-    sa.insert(
-        (int[]){
-            1,
-            2,
-            3,
-            4,
-        },
-        4);
+    int arr[] = {1, 2, 3, 4};
+    sa.insert(arr, 4);
     std::cout << std::endl;
   }
 

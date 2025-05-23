@@ -5,7 +5,7 @@
 #include "iostream"
 
 
-class searchable_array_bag : public array_bag, public  searchable_bag {
+class searchable_array_bag : public array_bag, public searchable_bag {
     public:
     searchable_array_bag() = default;
     searchable_array_bag(const searchable_array_bag &other) : array_bag(other) {}

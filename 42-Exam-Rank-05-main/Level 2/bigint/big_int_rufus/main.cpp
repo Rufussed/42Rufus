@@ -2,7 +2,7 @@
 #include <iostream>
 
 int main(){
-    const bigint a(42);
+    const bigint a("0042");
     bigint b(21), c, d(1337), e(d);
 
     std::cout << "a = " << a << std::endl;

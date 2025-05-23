@@ -3,14 +3,17 @@
 #include <stdlib.h>
 #include <unistd.h>
 
+#define MAX_WIDTH 1000
+#define MAX_HEIGHT 500
+
 typedef struct s_life
 {
-    int *map;
-    int *new_map;
+    int map1[MAX_HEIGHT][MAX_WIDTH];
+    int map2[MAX_HEIGHT][MAX_WIDTH];
     int width;
     int height;
     char *setup;
-    int max_iterations;
+    int iterations;
 } Life;
 
 void print_map(Life *life)
@@ -19,8 +22,7 @@ void print_map(Life *life)
     {
         for (int x = 0; x < life->width; x++)
         {
-            int cell = life->map[y * life->width + x];
-            putchar(cell ? 'O' : ' ');
+            putchar(life->map1[y][x] ? 'O' : ' '); //if its true (1) print O else print space
         }
         putchar('\n');
     }
@@ -37,39 +39,30 @@ void setup_cells(Life *life)
         switch(life->setup[i]) {
         case 'w': y--; break;
         case 's': y++; break;
-        case 'a' : x--; break;
-        case 'd' : x++; break;
-        case 'x' : draw = !draw; break;
+        case 'a': x--; break;
+        case 'd': x++; break;
+        case 'x': draw = !draw; break;
         default: break;
         }
         if (draw)
-            life->map[y * life->width + x] = 1;
+            life->map1[y][x] = 1;
         i++;
     }
 }
 
-void iniLife(Life *life, char **argv, char *setup)
+void init_life(Life *life, char **argv, char *setup)
 {
     life->width = atoi(argv[1]);
     life->height = atoi(argv[2]);
-    life->max_iterations = atoi(argv[3]);
+    life->iterations = atoi(argv[3]);
     life->setup = setup;
-    life->map = calloc(life->width * life->height, sizeof(int));
-    life->new_map = calloc(life->width * life->height, sizeof(int));
     setup_cells(life);
-}
-
-void free_life(Life *life)
-{
-    free(life->map);
-    free(life->new_map);
-    free(life);
 }
 
 void detect_boundaries_count(Life *life, int nx, int ny, int *count)
 {
     if (nx >= 0 && nx < life->width && ny >= 0 && ny < life->height)
-        if (life->map[ny * life->width + nx] == 1)
+        if (life->map1[ny][nx] == 1)
             *count = *count + 1;
 }
 
@@ -85,22 +78,23 @@ int count_neighbours(Life *life, int x, int y)
 
 void grow_life(Life *life)
 {
-    for (int iterations = 0; iterations < life->max_iterations; iterations++)
+    for (int i = 0; i < life->iterations; i++)
     {
         for(int y = 0; y < life->height; y++)
         {
             for(int x = 0; x < life->width; x++)
             {
                 int neighbours = count_neighbours(life, x, y);
-                int alive = life->map[y * life->width + x];
+                int alive = life->map1[y][x]; //if cell contain 1 (true) then its alive
                 if ((alive && (neighbours == 2 || neighbours == 3)) || (!alive && neighbours == 3))
-                    life->new_map[y * life->width + x] = 1;
-                else life->new_map[y * life->width + x] = 0;
+                    life->map2[y][x] = 1; //lives
+                else 
+                    life->map2[y][x] = 0; //dies
             }            
         }
-        int *temp = life->map;
-        life->map = life->new_map;
-        life->new_map = temp;
+        for(int y = 0; y < life->height; y++) // copy new map to old map cell by cell (since we are not allocating seperately)
+            for(int x = 0; x < life->width; x++)
+                life->map1[y][x] = life->map2[y][x];
     }
 }
 
@@ -112,9 +106,9 @@ int main(int argc, char **argv)
     int bytes_read = read(0, buffer, 1024);
     buffer[bytes_read] = '\0';
     Life *life = calloc(1, sizeof(Life));
-    iniLife(life, argv, buffer);
+    init_life(life, argv, buffer);
     grow_life(life);
     print_map(life);
-    free(life);
+    free(life);    
     return 0;    
 }
