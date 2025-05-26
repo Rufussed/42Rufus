@@ -135,8 +135,8 @@ void try_position(t_data *data)
                     int valid = 1; // last check was valid, assume it is valid until proven otherwise
                     for (int i = 1; i <= size && valid; i++) // Start from 1 since we're checking new edges
                     {
-                        if (data->map[y + size][x + i] == OBSTACLE 
-                        ||  data->map[y + i][x + size] == OBSTACLE)
+                        if (data->map[y + size -1 ][x + i] == OBSTACLE 
+                        ||  data->map[y + i][x + size -1] == OBSTACLE)
                             valid = 0; //invalid
                     }
                     if (!valid)
