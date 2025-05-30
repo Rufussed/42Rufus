@@ -4,7 +4,6 @@ Expected files               : *.c *.h
 Allowed functions and globals: malloc, calloc, realloc, free, fopen, fclose,
 getline, fscanf, fputs, fprintf, stderr, stdout, stdin, errno*/
 
-
 #include "unistd.h"
 #include "stdlib.h"
 #include "stdio.h"
@@ -97,15 +96,15 @@ void try_positions(t_data *data)
                 int valid = 1;
                 for (int size = 1; y + size < data->y && x + size < data->x; size++)
                 {
-                    for (int i = 0; i <= size && valid; i++)
+                    for (int i = 0; i < size && valid; i++)
                     {
                         if (data->map[y + size - 1][x + i] == OBSTACLE ||
-                            data->map[y + i][x + size -1 ] == OBSTACLE)
-                            valid = 0;
+                            data->map[y + i][x + size - 1] == OBSTACLE)
+                            valid = 0; //invalid
                     }
                     if (!valid)
                         break;
-                    //increase max size
+                    //increase max size if needed
                     if (size>data->bsq.size)
                     {
                         data->bsq.size = size;
@@ -120,8 +119,6 @@ void try_positions(t_data *data)
         for (int j = 0; j < data->bsq.size; j++)
             data->map[data->bsq.y + i][data->bsq.x+j] = FULL ;
 }
-
-
 
 int main(int argc, char **argv)
 {

@@ -16,7 +16,7 @@ class bigint {
         }
         
         // Find first non-zero digit
-        size_t firstNonZero = str.find_first_not_of('0');
+        size_t firstNonZero = str.find_first_not_of('0'); // returns index of first non-zero character
         
         // If string is all zeros or empty
         if (firstNonZero == std::string::npos) {
@@ -57,7 +57,7 @@ class bigint {
             i--;
             j--;
         }
-        return result;
+        return bigint(result.value); // make use of the trim zeros from the constructor
     }
 
     bigint& operator+=(const bigint &other)  {
@@ -78,7 +78,7 @@ class bigint {
         return temp;
     }
 
-    bigint operator<<(long shift) const {
+    bigint operator<<(size_t shift) const {
         bigint temp = *this;
         if (value == "0") return *this;
         for(int i = 0; i < shift; i++)
@@ -156,9 +156,10 @@ class bigint {
             return *this < other;
     }
 
-    bigint operator-(const bigint &other) {
-        (void) other;
-        return bigint(0);
-    }
+    // i passed the exam may 2025 without implementing the subtraction operator
+    // bigint operator-(const bigint &other) {    
+    //     (void) other;
+    //     return bigint(0);
+    // }
 
 };

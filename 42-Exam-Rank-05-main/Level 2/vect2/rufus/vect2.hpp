@@ -77,7 +77,7 @@ class vect2 {
         return *this;
     }
 
-    vect2 operator-(const vect2 &other) {
+    vect2 operator-(const vect2 &other) const {
         vect2 result;
         result.x = x - other.x;
         result.y = y - other.y;     
