@@ -59,7 +59,6 @@ void try_position(Life *life)
     for (int i = 0; i < life->iterations ; i++)
     {
         for(int y = 0; y < life->height; y++)
-        {
             for(int x = 0; x < life->width; x++) {
                 int neighbours = count_neighbours(life, y, x);
                 int alive = life->map1[y][x];
@@ -68,12 +67,9 @@ void try_position(Life *life)
                 else
                     life->map2[y][x] = 0;
             }
-        }
         for(int y = 0; y < life->height; y++)
-        {
             for(int x = 0; x < life->width; x++)
                 life->map1[y][x] =  life->map2[y][x];
-        }
     }
 }
 

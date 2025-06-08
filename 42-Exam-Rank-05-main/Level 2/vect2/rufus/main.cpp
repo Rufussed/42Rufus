@@ -20,13 +20,22 @@ int main()
 	std::cout << v4-- << std::endl;	// 2,3
 	std::cout << --v4 << std::endl;	// 1,2
 
-	v2+=v3;				// 2,4
-	v1-=v2;				// -2,-4
-	v2 = v3 + v3 * 2;	// 3,6
-	v2 = 3 * v2;		// 9,18
-	v2 += v2 += v3;		// 20,40
-	v1 *= 42;			// -84,-168
-	v1 = v1-v1+v1;
+	//v2+=v3;				// 2,4
+	std::cout << "v2+=v3 = " << (v2+=v3) << std::endl;
+	//v1-=v2;				// -2,-4
+	std::cout << "v1-=v2  = " << (v1-=v2) << std::endl;
+	//v2 = v3 + v3 * 2;	// 3,6
+	std::cout << "v2 = v3 + v3 * 2  = " << (v2 = v3 + v3 * 2) << std::endl;
+	//v2 = 3 * v2;		// 9,18
+	std::cout << "v2 = 3 * v2 = " << (v2+= 3 * v2) << std::endl;
+	//v2 += v2 += v3;		// 20,40
+	std::cout << "v2+=v3 = " << (v2 = 3 * v2) << std::endl;
+//	v1 *= 42;			// -84,-168
+	std::cout << "v1 *= 42 = " << (v1 *= 42) << std::endl;
+	//v1 = v1-v1+v1;
+	std::cout << "v1 = v1-v1+v1 = " << v1 << std::endl;
+	
+	
 
 	std::cout << "v1: " << v1 << std::endl;
 	std::cout << "-v2: " << -v2 << std::endl;

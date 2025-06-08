@@ -156,10 +156,6 @@ class bigint {
             return *this < other;
     }
 
-    // i passed the exam may 2025 without implementing the subtraction operator
-    // bigint operator-(const bigint &other) {    
-    //     (void) other;
-    //     return bigint(0);
-    // }
+
 
 };

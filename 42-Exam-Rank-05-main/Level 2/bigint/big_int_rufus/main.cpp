@@ -2,9 +2,16 @@
 #include <iostream>
 
 int main(){
-    const bigint a("0042");
+    const bigint a("100000000000000000000000000000000000000000000000000000000000000000000000000000");
     bigint b(21), c, d(1337), e(d);
+    bigint       f("99999999999999999999999999999999999999999999999999999999999999999999999999999");
 
+    
+    std::cout << "a < f " << (a < f) << std::endl;
+    std::cout << "a > f " << (a > f) << std::endl;
+    std::cout << "a >= f " << (a >= f) << std::endl;
+    std::cout << "a <= f " << (a <= f) << std::endl;
+    
     std::cout << "a = " << a << std::endl;
     std::cout << "b = " << b << std::endl;
     std::cout << "c = " << c << std::endl;
@@ -33,7 +40,7 @@ int main(){
     std::cout << "d <= a " << (d <= a) << std::endl;
     std::cout << "d >= a " << (d >= a) << std::endl;
     std::cout << "c = " << c << std::endl;
-    std::cout << "c - c = " << (c - c) << std::endl;
+
 
     return 0;
 }
