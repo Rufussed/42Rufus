@@ -10,7 +10,7 @@ class bigint {
     bigint(): value("0") {}
     bigint(size_t num): value(std::to_string(num)) {}
     bigint(const std::string &str) {
-        if (str.empty() || !std::all_of(str.begin(), str.end(), ::isdigit)) {
+        if (str.empty() || !all_of(str.begin(), str.end(), ::isdigit)) {
             value = "0";
             return;
         }
@@ -155,7 +155,4 @@ class bigint {
         else 
             return *this < other;
     }
-
-
-
 };

@@ -22,19 +22,16 @@ typedef struct
     int map [100][200];
 } t_data;
 
-int read_map(t_data *data, FILE *file)
+/*int read_map(t_data *data, FILE *file)
 {
     // Read parameters directly from the file stream
-    if (fscanf(file, "%d%c%c%c\n", &data->y, &data->empty, &data->obstacle, &data->full) != 4 || data->y < 1)
-    {
+    if (fscanf(file, "%d%c%c%c\n", &data->y, &data->empty, &data->obstacle, &data->full) != 4 
+    	|| data->y < 1)
         return 0;
-    }
     
     // Check for duplicate characters
     if (data->empty == data->obstacle || data->empty == data->full || data->obstacle == data->full)
-    {
         return 0;
-    }
     
     // Now read the map lines with getline
     char *line = NULL;
@@ -57,6 +54,11 @@ int read_map(t_data *data, FILE *file)
             x++;
         }
         if (y == 0) data->x = x; //set the x dimension on first pass
+        if (x != data->x) 
+           {
+                free(line);
+                return 0;
+            }
         y++;
         x = 0;
     }
@@ -68,7 +70,41 @@ int read_map(t_data *data, FILE *file)
         return 0;
     }
     return 1;
+}*/
+
+int read_map(t_data *data, FILE *file)
+{
+	if (fscanf(file, "%d%c%c%c\n", &data->y, &data->empty, &data->obstacle, &data->full) !=4 || data->y < 1)
+		return 0;
+	if (data->empty == data->obstacle || data->empty == data->full || data->obstacle == data->full)
+		return 0;
+	int read = 0;
+	size_t len = 0;
+	char *line = NULL;
+	int x = 0; 
+	int y = 0;  
+	while ((read = getline(&line, &len, file)) > 0 && y < data->y)
+	{
+		for (int i = 0; i < read -1; i++)
+		{
+			if (line[i] == data->empty) data->map[y][x] = EMPTY;
+			else if (line[i] == data->obstacle) data->map[y][x] = OBSTACLE;
+			else { free(line); return 0; }
+			x++;
+		}
+		if (y == 0) data->x = x;
+		if (data->x != x) { free(line); return 0; }
+		x = 0;
+		y++;
+	}
+	free(line);
+	if (y !=data->y)
+		return 0;
+	return 1;
 }
+
+	
+	
             
     
 void print_map(t_data *data)
@@ -110,7 +146,6 @@ void try_positions(t_data *data)
                             data->bsq.x = x; data->bsq.y = y;
                         }
                     }
-                    
                 }
             }
     }
@@ -132,7 +167,7 @@ int main(int argc, char **argv)
         fprintf(stderr, "Map error");
         return (1);
     }
-    if(!read_map(&data, file))// || !read_map(&data, file)) 
+    if(!read_map(&data, file))
     {
         fprintf(stderr, "Map error");
         if (file != stdin)
@@ -144,5 +179,4 @@ int main(int argc, char **argv)
     if (file != stdin)
         fclose(file);
     return (0);
-
 }
